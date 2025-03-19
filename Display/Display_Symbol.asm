@@ -16,7 +16,7 @@ L_Dis_Alm_Snz_Symbol_Prog:
     BNE     L_Clr_Alm_Snz_Symbol_Prog_1
     JMP     L_Dis_lcd_Snz_Prog
 
-
+JSR     F_DispSymbol
 ;========================================
 L_Dis_sig_Prog:
     BBS1    Sys_Flag_C,L_Dis_lcd_Sig_Prog
@@ -24,34 +24,31 @@ L_Dis_sig_Prog:
 
 L_Dis_col_Prog:
     LDX     #lcd_col
+    JSR     F_DispSymbol
+    LDX     #lcd_col2
 L_Dis_Symbol_Prog:
-    JMP     F_DispSymbol
-L_Dis_lcd_11I_Prog:			
-    LDX     #lcd_11I
+    JSR     F_DispSymbol
+    RTS
+L_Dis_lcd_9H_Prog:	
+	LDX     #lcd_9H	
     BRA		L_Dis_Symbol_Prog
-L_Dis_lcd_11H_Prog:	
-    LDX     #lcd_11H	
+L_Dis_lcd_10I_Prog:	
+    LDX     #lcd_10I	
     BRA		L_Dis_Symbol_Prog
-L_Dis_lcd_12H_Prog:	
-	LDX     #lcd_12H	
+L_Dis_lcd_10H_Prog:	
+	LDX     #lcd_10H		
     BRA		L_Dis_Symbol_Prog
-L_Dis_lcd_13I_Prog:	
-    LDX     #lcd_13I	
-    BRA		L_Dis_Symbol_Prog
-L_Dis_lcd_13H_Prog:	
-	LDX     #lcd_13H		
-    BRA		L_Dis_Symbol_Prog
-L_Dis_lcd_13J_Prog:		
-    LDX     #lcd_13J	
+L_Dis_lcd_10J_Prog:		
+    LDX     #lcd_10J	
     BRA		L_Dis_Symbol_Prog
 L_Dis_lcd_Alm_Prog:	
-    LDX     #lcd_Alm	
+    LDX     #lcd_ALM	
     BRA		L_Dis_Symbol_Prog
 L_Dis_lcd_Snz_Prog:	
-    LDX     #lcd_Snz
+    LDX     #lcd_SNZ
     BRA		L_Dis_Symbol_Prog
 L_Dis_lcd_Sig_Prog:		
-    LDX     #lcd_Sig 
+    LDX     #lcd_SIG 
     BRA		L_Dis_Symbol_Prog
 L_Dis_lcd_24_Prog:	
     LDX     #lcd_24 
@@ -59,52 +56,83 @@ L_Dis_lcd_24_Prog:
 L_Dis_lcd_PM_Prog:
     LDX     #lcd_PM
     BRA		L_Dis_Symbol_Prog
-L_Dis_lcd_Timer_Zheng_Prog:
-    LDX     #lcd_Timer_Zheng
+
+L_Dis_lcd_T1_Prog:
+    LDX     #lcd_T1
     BRA		L_Dis_Symbol_Prog
-L_Dis_lcd_D4_Prog:
-    LDX     #lcd_D4
+L_Dis_lcd_T2_Prog:
+    LDX     #lcd_T2
     BRA		L_Dis_Symbol_Prog
-    
+L_Dis_lcd_T3_Prog:
+    LDX     #lcd_T3
+    BRA		L_Dis_Symbol_Prog
+
+L_Dis_lcd_T4_Prog:
+    LDX     #lcd_T4
+    BRA		L_Dis_Symbol_Prog
+
+L_Dis_lcd_T5_Prog:
+    LDX     #lcd_T5
+    BRA		L_Dis_Symbol_Prog
+
+L_Dis_lcd_T6_Prog:
+    LDX     #lcd_T6
+    BRA		L_Dis_Symbol_Prog
+
+L_Dis_lcd_T7_Prog:
+    LDX     #lcd_T7
+    BRA		L_Dis_Symbol_Prog
+
+L_Dis_lcd_T8_Prog:
+    LDX     #lcd_T8
+    BRA		L_Dis_Symbol_Prog
+
+
+
 ;================================
+L_Clr_lcd_d9_Prog:
+    LDA     #10
+    JSR		L_Display_lcd_d9_Prog_Normal
+    LDX     #lcd_9H
+    BRA     L_Clr_Symbol_Prog
+L_Clr_lcd_d10_Prog:
+    LDA     #10
+    JSR		L_Display_lcd_d10_Prog_Normal
+    LDX     #lcd_10H
+    JSR     F_ClrpSymbol
+    LDX     #lcd_10J
+    JSR     F_ClrpSymbol
+    LDX     #lcd_10I
+    BRA     L_Clr_Symbol_Prog
+
+    			
 L_Clr_col_Prog:
     LDX     #lcd_col
+    JSR     F_ClrpSymbol
+    LDX     #lcd_col2
 L_Clr_Symbol_Prog:
-    JMP     F_ClrpSymbol
-L_Clr_lcd_D2_Prog:	
-    LDX     #lcd_D2	
+    JSR     F_ClrpSymbol
+    RTS
+L_Clr_lcd_9H_Prog:	
+	LDX     #lcd_9H	
     BRA		L_Clr_Symbol_Prog
-L_Clr_lcd_d11_Prog:
-    LDA     #10
-    JSR		L_Display_lcd_d11_Prog_Normal
-    LDX     #lcd_11H
-    JSR     F_ClrpSymbol
-    LDX     #lcd_11I
-    BRA     L_Clr_Symbol_Prog
-L_Clr_lcd_d12_Prog:
-    LDA     #10
-    JSR		L_Display_lcd_d12_Prog_Normal
-    LDX     #lcd_12H
-    BRA     L_Clr_Symbol_Prog
-L_Clr_lcd_d13_Prog:
-    LDA     #10
-    JSR		L_Display_lcd_d13_Prog_Normal
-    LDX     #lcd_13H
-    JSR     F_ClrpSymbol
-    LDX     #lcd_13J
-    JSR     F_ClrpSymbol
-    LDX     #lcd_13I
-    BRA     L_Clr_Symbol_Prog
-
-
+L_Clr_lcd_10I_Prog:	
+    LDX     #lcd_10I	
+    BRA		L_Clr_Symbol_Prog
+L_Clr_lcd_10H_Prog:	
+	LDX     #lcd_10H		
+    BRA		L_Clr_Symbol_Prog
+L_Clr_lcd_10J_Prog:		
+    LDX     #lcd_10J	
+    BRA		L_Clr_Symbol_Prog
 L_Clr_lcd_Alm_Prog:	
-    LDX     #lcd_Alm	
+    LDX     #lcd_ALM	
     BRA		L_Clr_Symbol_Prog
 L_Clr_lcd_Snz_Prog:	
-    LDX     #lcd_Snz
+    LDX     #lcd_SNZ
     BRA		L_Clr_Symbol_Prog
 L_Clr_lcd_Sig_Prog:		
-    LDX     #lcd_Sig 
+    LDX     #lcd_SIG 
     BRA		L_Clr_Symbol_Prog
 L_Clr_lcd_24_Prog:	
     LDX     #lcd_24 
@@ -112,14 +140,36 @@ L_Clr_lcd_24_Prog:
 L_Clr_lcd_PM_Prog:
     LDX     #lcd_PM
     BRA		L_Clr_Symbol_Prog
-L_Clr_lcd_Timer_Zheng_Prog:
-    LDX     #lcd_Timer_Zheng
-    BRA		L_Clr_Symbol_Prog
-L_Clr_lcd_D4_Prog:
-    LDX     #lcd_D4
-    BRA		L_Clr_Symbol_Prog
-    			
 
+L_Clr_lcd_T1_Prog:
+    LDX     #lcd_T1
+    BRA		L_Clr_Symbol_Prog
+L_Clr_lcd_T2_Prog:
+    LDX     #lcd_T2
+    BRA		L_Clr_Symbol_Prog
+L_Clr_lcd_T3_Prog:
+    LDX     #lcd_T3
+    BRA		L_Clr_Symbol_Prog
+
+L_Clr_lcd_T4_Prog:
+    LDX     #lcd_T4
+    BRA		L_Clr_Symbol_Prog
+
+L_Clr_lcd_T5_Prog:
+    LDX     #lcd_T5
+    BRA		L_Clr_Symbol_Prog
+
+L_Clr_lcd_T6_Prog:
+    LDX     #lcd_T6
+    BRA		L_Clr_Symbol_Prog
+
+L_Clr_lcd_T7_Prog:
+    LDX     #lcd_T7
+    BRA		L_Clr_Symbol_Prog
+
+L_Clr_lcd_T8_Prog:
+    LDX     #lcd_T8
+    BRA		L_Clr_Symbol_Prog
     		
     		
     		
