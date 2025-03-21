@@ -3,21 +3,28 @@
 ;======================================================================
 L_Scankey_Mode_Press_Prog:
 	JSR		L_Beep_1s
+	
+L_Scankey_Mode_Press_Prog_RTS:
+	RTS
+L_Scankey_Prog_Short_Press:
 	SMB5	Sys_Flag_A
+	LDA		P_Scankey_value
+	CMP		#D_Mode_Press
+	BNE		L_Scankey_Mode_Press_Prog_RTS
 	JSR		L_Clr_All_DisRam_Prog
 	RMB0	Sys_Flag_C
 	RMB5	Sys_Flag_D
-	LDA		R_Mode
+	LDA		R_Mode_Time
 	CMP		#4
 	BCS		L_Scankey_Mode_Press_Prog_Clr
-	INC		R_Mode
+	INC		R_Mode_Time
 	RMB0	Sys_Flag_B
 	RMB5	Sys_Flag_D
 L_Scankey_Mode_Press_Prog_1:	
 	JMP		L_Display_Prog
 L_Scankey_Mode_Press_Prog_Clr:
 	LDA		#0
-	STA		R_Mode
+	STA		R_Mode_Time
 	BRA		L_Scankey_Mode_Press_Prog_1
 
 ;======================================================================
@@ -105,22 +112,16 @@ L_Positive_Timer_First_ST_SP_Press_Prog:
 	BBS0	Sys_Flag_D,L_Positive_Timer_First_SP_Press_Prog
 	SMB0	Sys_Flag_D
 	CLR_TMR2_IRQ_FLAG
-	TMR2_ON
-	EN_TMR2_IRQ
-	; LDA		#0
-	; STA		R_Timer_Ms
 	JSR		L_Display_Prog;消除瞄点问题
 L_Positive_Timer_First_ST_SP_Press_Prog_OUT:
 	RTS
 L_Positive_Timer_First_SP_Press_Prog:
 	RMB0	Sys_Flag_D
-	DIS_TMR2_IRQ
-	TMR2_OFF
 	BBS5	Sys_Flag_D,L_Positive_Timer_First_SP_Press_Prog_OUT
 	JMP		L_Display_Prog
 L_Positive_Timer_First_SP_Press_Prog_OUT:
 	JSR		L_Dis_col_Prog
-	JMP		L_Dis_lcd_Timer_Zheng_Prog
+	RTS
 ;----------------------------------------------------
 L_Positive_Timer_First_RESET_Press_Prog:
 	SMB5	Sys_Flag_A
@@ -130,7 +131,6 @@ L_Positive_Timer_First_RESET_Press_Prog:
 	STA		R_Timer_Sec
 	STA		R_Timer_Min
 	STA		R_Timer_Hr
-	STA		R_Timer_Ms
 L_Positive_Timer_Midway_Measurement_1:
 	JMP		L_Display_Prog
 L_Positive_Timer_Midway_Measurement:

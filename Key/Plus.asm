@@ -4,7 +4,7 @@ L_Scankey_Plus_Time_Prog:
     JMP     L_Display_Set_Mode_Prog
 L_Scankey_Plus_Time_Prog_1:
     CLD
-    LDA     R_Mode_Set
+    LDA     R_Mode_Time_Set
     CLC
     ROL
     TAX
@@ -36,7 +36,7 @@ L_Scankey_Plus_Time_Sec_Prog_1:
 ;第二时间的加法
 ;============================================
 L_Scankey_Plus_Another_Time_Prog:
-    LDA     R_Mode_Set
+    LDA     R_Mode_Time_Set
     BNE     L_Scankey_Plus_Another_Time_Prog_Min
     JSR     L_Update_Another_Time_Hr_Prog
     JMP     L_Display_Set_Mode_Prog
@@ -51,7 +51,7 @@ L_Scankey_Plus_Desitive_Prog:
     LDA     #0
     STA     R_Timer_Sec_Countdown
     STA     R_Timer_Sec_Backup
-    LDA     R_Mode_Set
+    LDA     R_Mode_Time_Set
     BNE     L_Scankey_Plus_Desitive_Prog_Min
     JSR     L_Update_Timer_Hr_Prog_Desitive_INC
     JMP     L_Display_Set_Mode_Prog
