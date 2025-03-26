@@ -53,21 +53,7 @@ L_Control_Snz_Prog:
 	STA		R_Snz_Time
 	JSR		L_Alarm_Control_Prog_2
 	DEC		R_Snz_Frequency
-	; BNE		L_End_Update_Time_Prog
-	; RMB7	Sys_Flag_C
-	; JSR		L_Scankey_Close_Alarm_Beep
 	RTS
-; L_Update_Time_Ms_Prog:
-	
-; 	BBR0	Sys_Flag_D,L_End_Update_Time_Prog
-; 	LDA		#0
-; 	STA		R_Timer_Ms
-; 	BBS5	Sys_Flag_D,L_End_Update_Time_Prog
-; 	LDA		R_Mode
-; 	CMP		#2
-; 	BNE		L_End_Update_Time_Prog
-; 	JSR		L_Display_lcd_Prog_Normal_Day
-; 	RTS
 ;===================================
 ;-----时间的增加---------------------
 ;===================================

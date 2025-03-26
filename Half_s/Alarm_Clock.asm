@@ -74,7 +74,7 @@ L_Judge_Alarm_Clock_MaxDay_Prog:
 	
 
 L_Scankey_Plus_Alarm_Clock_Prog_1:
-    LDA     R_Mode_Set
+    LDA     R_Mode_Time_Set
 	BEQ		L_Update_Alarm_Clock_Hr_Prog
     CMP     #1
     BEQ     L_Update_Alarm_Clock_Min_Prog

@@ -7,7 +7,7 @@ L_Display_Normal_Prog:
 	JSR		L_Dis_Alm_Snz_Symbol_Prog
 	BBS3	Sys_Flag_A,L_Display_Set_Mode_Prog_TO
 	CLD
-	LDA		R_Mode
+	LDA		R_Mode_Time
 	CLC
 	ROL
 	TAX
@@ -73,7 +73,6 @@ L_Display_Another_Time_Normal_Prog:
 L_Display_Postive_Timer_Normal_Prog:
 	BBR0	Sys_Flag_D,L_Display_Alarm_Normal_Prog;没有开始正计时是不显示
 	BBS5	Sys_Flag_D,L_Display_Alarm_Normal_Prog;若有中途测量，不显示
-	JSR		L_Display_Timer_Ms_Prog
 	JSR		L_Display_Positive_Timer_Sec_Prog
 	LDA		R_Timer_Sec
 	BNE		L_Display_Alarm_Normal_Prog_OUT
@@ -84,7 +83,7 @@ L_Display_Postive_Timer_Normal_Prog:
 
 L_Display_Set_Mode_Prog:
 	CLD
-	LDA		R_Mode
+	LDA		R_Mode_Time
 	CLC
 	ROL
 	TAX
@@ -110,17 +109,15 @@ L_Display_Time_Year_Prog_TO:
 	JSR		L_Clr_lcd_24_Prog
 	JSR		L_Clr_lcd_PM_Prog
 	JSR		L_Clr_Sec_Prog
-	JSR		L_Clr_lcd_Timer_Zheng_Prog
 	JSR		L_Clr_col_Prog
 	JMP		L_Display_Time_Year_Prog
 L_Display_Time_Set_Mode_Prog:
 	JSR		L_Display_Time_Month_Prog
 	JSR		L_Display_Time_Day_Prog
-	LDA		R_Mode_Set
+	LDA		R_Mode_Time_Set
 	CMP		#3
 	BEQ		L_Display_Time_Year_Prog_TO
 	JSR		L_Dis_col_Prog
-	JSR		L_Dis_lcd_Timer_Zheng_Prog
 	JMP		L_Display_Time_Prog_Normal_Prog
 
 
@@ -130,9 +127,8 @@ L_Display_Prog:
 	JSR		L_Dis_Alm_Snz_Symbol_Prog
 	JSR		L_Dis_sig_Prog
 	JSR		L_Dis_col_Prog
-	JSR		L_Dis_lcd_Timer_Zheng_Prog
 	CLD
-	LDA		R_Mode
+	LDA		R_Mode_Time
 	CLC
 	ROL
 	TAX
@@ -149,9 +145,6 @@ Table_Dis_1:
 	DW		L_Display_Another_Time_Prog-1
 	DW		L_Display_Destive_Timer_Prog-1
 L_Display_Time_Prog:
-	JSR		L_Dis_lcd_D4_Prog
-	JSR		L_Display_Time_Day_Prog	
-	JSR		L_Display_Time_Month_Prog
 	JSR		L_Display_Time_Week_Prog
 L_Display_Time_Prog_Normal_Prog:	
 	JSR		L_Display_Time_Sec_Prog
@@ -160,29 +153,22 @@ L_Display_Time_Prog_Normal_Prog:
 	RTS
 
 L_Display_Alarm_Prog:
-	JSR		L_Dis_lcd_D4_Prog
 	JSR		L_Display_Alarm_Clock_AL_Symbol_Prog
 L_Display_Alarm_Set_Mode_Prog:
 	JSR		L_Display_Alarm_Clock_Hr_Prog
 	JSR		L_Display_Alarm_Clock_Min_Prog
-	JSR		L_Display_Alarm_Clock_Month_Prog
-	JSR		L_Display_Alarm_Clock_Day_Prog
 	RTS
 
 
 
 
 L_Display_Postive_Timer_Prog:
-	BBS5	Sys_Flag_D,L_Display_Postive_Timer_Prog_1
-	JSR		L_Clr_lcd_d11_Prog
 	JSR		L_Display_Positive_Timer_Sec_Prog
 	JSR		L_Display_Positive_Timer_Min_Prog
 	JSR		L_Display_Positive_Timer_Hr_Prog
-	JSR		L_Display_Timer_Ms_Prog
 	JMP		L_Display_Positive_Timer_ST_Prog
 
-L_Display_Postive_Timer_Prog_1:
-	JMP		L_Display_Positive_Timer_SPL_Prog
+
 
 
 L_Display_Destive_Timer_Prog:

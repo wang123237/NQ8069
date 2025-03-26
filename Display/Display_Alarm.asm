@@ -30,7 +30,8 @@ L_Display_Alarm_Clock_AL_Symbol_Prog:
     JSR     L_Dis_8Bit_DigitDot_Prog
     LDA     #20
     LDX     #lcd_d9
-    RTS     L_Dis_8Bit_DigitDot_Prog
+    JSR     L_Dis_8Bit_DigitDot_Prog
+    RTS
 
 
 ; L_Dis_Minus_Prog_Day:
