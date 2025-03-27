@@ -43,12 +43,12 @@ L_Clr_Alarm_Prog_set_2:
 L_SysFlash_Set_Mode_Prog:;设置模式时闪烁，快加不闪烁
 	BBR3	Sys_Flag_A,L_SysFlash_Prog_OUT
 	BBS4	Sys_Flag_A,L_SysFlash_Prog_OUT
-	LDA		R_Mode_Set
+	LDA		R_Mode_Time_Set
 	CLD
 	CLC
 	ROL
 	TAX
-	LDA		R_Mode
+	LDA		R_Mode_Time
 	BEQ		L_Clr_Time_Normal_Prog
 	CMP		#1
 	BEQ		L_Clr_Alarm_Normal_Prog
@@ -97,7 +97,6 @@ Table_Clr_4:
 Table_Clr_5:	
 	DW		L_Clr_Hr_Prog-1
 	DW		L_Clr_Min_Prog-1
-	DW		L_Clr_Year_Prog-1
 	DW		L_Clr_Month_Prog-1
 	DW		L_Clr_Day_Prog-1
 	

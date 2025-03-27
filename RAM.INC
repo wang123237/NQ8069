@@ -16,7 +16,8 @@ Cal_Addr			EQU		RamStarAddr+Calculator_Str_Addr-Page0RamStarAddr
 ;---------------------------------------------------------------------
 	ORG	0080H
 Page0RamStarAddr	EQU		$	
-LCDRAM					DS	6*6
+LCDRAM					DS	6*5
+D_LCD_RAM				EQU	6*5
 
 R_Int_Backup			DS	1
 
@@ -64,17 +65,17 @@ Sys_Flag_D				DS	1	;计时器模式的系统状态
 ; Sys_Flag_H					DS	1;
 
 
-P_PA_IO_Backup      		DS	1	;B
-P_PA_Backup         		DS	1	;C
-P_PA_WAKE_Backup			DS	1	;D
-P_PC_IO_Backup      		DS	1	;E
-P_PC_Backup         		DS	1	;F
+; P_PA_IO_Backup      		DS	1	;B
+; P_PA_Backup         		DS	1	;C
+; P_PA_WAKE_Backup			DS	1	;D
+; P_PC_IO_Backup      		DS	1	;E
+; P_PC_Backup         		DS	1	;F
 
 
 
 R_Reset_Time				DS	1;全显时间,一般为2s
 	
-R_Scankey_Time				DS	1;按键按下的时间
+R_Scankey_Time					DS	1;按键按下的时间
 D_Rscankey_Half_Sec				EQU	16;按键时间
 D_Rscankey_Sec					EQU	32
 D_Rscankey_TWO_Sec				EQU	64
@@ -84,22 +85,44 @@ P_Scankey_value_T_1			DS	1
 P_Scankey_value				DS	1;按键存储值
 P_Scankey_value_Temporary	DS	1;按键临时储存
 
-; D_PLUS_Press					EQU	00100000B	;
-D_Light_Press					EQU	00001000B	;PA3
+D_PA_Press						EQU		01111100B
+D_PA2_Press						EQU		01111000B
+D_PA3_Press						EQU		01110100B
+D_PA4_Press						EQU		01101100B
+D_PA5_Press						EQU		01011100B
+D_PA6_Press						EQU		00111100B
 
-D_ST_SP_Press					EQU	00000100B	;PA2
-D_Mode_Press					EQU	00100000B	;PA5
-
-D_Reset_Press					EQU	10000000B	;PA7
-
-
-D_Key_value						EQU	10101100B
-D_Dis_All						EQU	10100100B
-D_Dis_All_1						EQU	10101100B
+D_PC_Press						EQU		00001111B
+D_PC0_Press						EQU		00000001B
+D_PC1_Press						EQU		00000010B
+D_PC2_Press						EQU		00000100B
+D_PC3_Press						EQU		00001000B
 
 ; P_Beep_Frequency				DS	1	;声音大小
 ; D_Beep_Frequency_1_2_Duty		EQU	0
 ; D_Beep_Frequency_3/4_Duty		EQU 80H
+D_Mode_Press					EQU		1 ;
+D_ST_SP_Press					EQU		2 ;
+D_Reset_Press					EQU		3 ;
+D_Light_Press					EQU		4 ;
+D_NUM1_Press					EQU		6 ;1
+D_NUM2_Press					EQU		7 ;2
+D_NUM3_Press					EQU		8 ;3
+D_NUM4_Press					EQU		9 ;4
+D_NUM5_Press					EQU		11;5
+D_NUM6_Press					EQU		12;6
+D_NUM7_Press					EQU		13;7
+D_NUM8_Press					EQU		14;8
+D_NUM9_Press					EQU		16;9
+D_NUM0_Press					EQU		17;0
+D_NUM_Point_Press				EQU		18;.
+D_NUM_Equal_Press				EQU		19;=
+D_NUM_Add_Press					EQU		21;+
+D_NUM1_Minus_Press				EQU		22;-
+D_NUM1_Multiply_Press			EQU		23;*
+D_NUM1_Divid_Press				EQU		24;/
+
+
 
 ;---------------------------------------
 Time_Str_Addr	EQU		$	
@@ -110,6 +133,7 @@ R_Time_Day 						DS	1;日
 R_Time_Month 					DS	1;月
 R_Time_Year						DS	1;年
 R_Time_Week						DS	1;0是星期天，1是星期一---
+
 R_Time_Min_Another				DS	1;第二时间的分钟
 R_Time_Hr_Another				DS	1;第二时间的小时
 
@@ -133,10 +157,10 @@ D_Beep_Open_Last_Time_Alarm		EQU	11
 
 R_Alarm_Clock_Min				DS	1;闹钟的分钟;	10
 R_Alarm_Clock_Hr 				DS	1;闹钟的小时;	11
-R_Alarm_Clock_Day 				DS	1;闹钟的天;	11
-R_Alarm_Clock_Month				DS	1;闹铃的月份
+; R_Alarm_Clock_Day 				DS	1;闹钟的天;	11
+; R_Alarm_Clock_Month				DS	1;闹铃的月份
 R_Alarm_Mode					DS	1;闹钟的模式，0是闹钟关闭，1是闹钟开启，2是循环闹铃
-R_Alarm_Clock_Mode				DS	1;0每日闹钟，1定日闹铃，2定月闹铃，3月次闹铃
+; R_Alarm_Clock_Mode				DS	1;0每日闹钟，1定日闹铃，2定月闹铃，3月次闹铃
 R_Alarm_Ms						DS	1;1/4s的设置
 
 
@@ -147,12 +171,12 @@ R_Snz_Frequency					DS	1;贪睡闹钟的小时;
 D_Snz_Frequency					EQU	6
 
 
+; R_Mode							DS	1;0是手表部分，1是计算器部分
 
+R_Mode_Time						DS	1;0是时钟模式，1是闹钟，2是正计时，3是第二时钟，4是倒计时
+R_Mode_Time_Set					DS	1;设置模式
 
-R_Mode							DS	1;0是时钟模式，1是闹钟，2是正计时，3是第二时钟，4是倒计时
-R_Mode_Set						DS	1;设置模式
-
-R_Time_Hr_am_pm					DS	1;判断AM和PM内存临时储存
+; R_Time_Hr_am_pm					DS	1;判断AM和PM内存临时储存
 
 
 
@@ -174,13 +198,27 @@ R_Alarm_Clock_Open_Beep_Time	DS	1;32Hz转化为16hz
 R_Close_Beep_Time				DS	1;闹铃关闭时间，闹铃响多久
 R_Voice_Unit					DS	1;闹铃响的次数，一秒响几次
 
+;==================================================
+;==================================================
+;===================================================
 Calculator_Str_Addr	EQU		$
-Calculator_Integer_1			DS	4
-Calculator_Integer_2			DS	4;整数部分
-Calculator_Decimal_1			DS	4
-Calculator_Decimal_2			DS	4;小数部分
+Sys_Flag_Cala		DS		1
+MAX_DIG		.EQU	8
+Dig			.EQU	MAX_DIG
+MAX_BYTE	.EQU	MAX_DIG / 2
+
+FD			.EQU	MAX_DIG
+BUF1		.DS		MAX_DIG+1
+BUF2		.DS		MAX_DIG+1
+BUF3		.DS		MAX_DIG
+BUF4		.DS		MAX_DIG
+BUF5		.DS		MAX_DIG
+BUF6		.DS		4
+Calc_Temp1	.EQU		BUF1
+Calc_Temp2	.EQU		BUF2
+Calc_Temp3	.EQU		BUF3
 ;---------------------------------------       
-P_Temp			ds	8	
+P_Temp			ds	6
 ;显示从写P_Temp+4
 ;---------------------------------------
 ;---------------------------------------

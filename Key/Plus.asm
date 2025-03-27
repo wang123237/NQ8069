@@ -62,6 +62,5 @@ L_Scankey_Plus_Desitive_Prog_Min:
 ;========================================
 L_Scankey_Plus_Alarm_Clock_Prog:
     JSR     L_Scankey_Plus_Alarm_Clock_Prog_1
-    JSR     L_Judge_Alarm_Clock_MaxDay_Prog
     JMP     L_Display_Set_Mode_Prog
 

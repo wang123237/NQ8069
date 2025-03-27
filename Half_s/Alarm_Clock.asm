@@ -51,23 +51,23 @@ L_Alarm_Prog_OUT:
 ;============================================
 
 
-L_Check_Alarm_Clock_MaxDay_Prog:;检查闹铃月份的设定的最大天数
-	LDA		R_Alarm_Clock_Month
-	BEQ		L_Check_Alarm_Clock_MaxDay_Prog_RTS
-	DEC
-	TAX
-	JMP		L_Check_MaxDay_Prog_Alarm_clock_Prog
-L_Check_Alarm_Clock_MaxDay_Prog_RTS:
-	LDA		#31
-	RTS
+; L_Check_Alarm_Clock_MaxDay_Prog:;检查闹铃月份的设定的最大天数
+; 	LDA		R_Alarm_Clock_Month
+; 	BEQ		L_Check_Alarm_Clock_MaxDay_Prog_RTS
+; 	DEC
+; 	TAX
+; 	JMP		L_Check_MaxDay_Prog_Alarm_clock_Prog
+; L_Check_Alarm_Clock_MaxDay_Prog_RTS:
+; 	LDA		#31
+; 	RTS
 
-L_Judge_Alarm_Clock_MaxDay_Prog:
-	JSR		L_Check_Alarm_Clock_MaxDay_Prog
-	STA		P_Temp+5
-	CMP		R_Alarm_Clock_Day
-	BCS		L_Alarm_Prog_OUT
-	LDA		P_Temp+5
-	STA		R_Alarm_Clock_Day
+; L_Judge_Alarm_Clock_MaxDay_Prog:
+; 	JSR		L_Check_Alarm_Clock_MaxDay_Prog
+; 	STA		P_Temp+5
+; 	CMP		R_Alarm_Clock_Day
+; 	BCS		L_Alarm_Prog_OUT
+; 	LDA		P_Temp+5
+; 	STA		R_Alarm_Clock_Day
 	RTS
 
 
@@ -78,9 +78,10 @@ L_Scankey_Plus_Alarm_Clock_Prog_1:
 	BEQ		L_Update_Alarm_Clock_Hr_Prog
     CMP     #1
     BEQ     L_Update_Alarm_Clock_Min_Prog
-    CMP     #2
-    BEQ     L_Update_Alarm_Clock_Month_Prog
-    BRA     L_Update_Alarm_Clock_Day_Prog
+	RTS
+    ; CMP     #2
+    ; BEQ     L_Update_Alarm_Clock_Month_Prog
+    ; BRA     L_Update_Alarm_Clock_Day_Prog
 ;=========================================================================================================
 L_Update_Alarm_Clock_Min_Prog:;闹钟时间分钟更新加
 	LDX		#(R_Alarm_Clock_Min-Time_Str_Addr)
@@ -90,13 +91,13 @@ L_Update_Alarm_Clock_Hr_Prog:;闹钟时间小时更新加
 	LDX		#(R_Alarm_Clock_Hr-Time_Str_Addr)
 	LDA		#23
 	JMP		L_Inc_To_Any_Count_Prog
-;----------------------------------
-L_Update_Alarm_Clock_Day_Prog:;闹钟时间天数更新加
-	JSR		L_Check_Alarm_Clock_MaxDay_Prog
-	LDX		#(R_Alarm_Clock_Day-Time_Str_Addr)
-	JMP		L_Inc_To_Any_Count_Prog
-;-------------------------------------
-L_Update_Alarm_Clock_Month_Prog:;闹钟时间月更新加
-	LDX		#(R_Alarm_Clock_Month-Time_Str_Addr)
-	LDA		#12
-	JMP		L_Inc_To_Any_Count_Prog    
+; ;----------------------------------
+; L_Update_Alarm_Clock_Day_Prog:;闹钟时间天数更新加
+; 	JSR		L_Check_Alarm_Clock_MaxDay_Prog
+; 	LDX		#(R_Alarm_Clock_Day-Time_Str_Addr)
+; 	JMP		L_Inc_To_Any_Count_Prog
+; ;-------------------------------------
+; L_Update_Alarm_Clock_Month_Prog:;闹钟时间月更新加
+; 	LDX		#(R_Alarm_Clock_Month-Time_Str_Addr)
+; 	LDA		#12
+; 	JMP		L_Inc_To_Any_Count_Prog    

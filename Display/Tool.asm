@@ -33,9 +33,9 @@ L_DecToHex_End:
 ;===========================================
 
 L_12_24_Prog:;12小时和24小时切换
-	STA		R_Time_Hr_am_pm	
+	STA		P_Temp	
 	BBS2	Sys_Flag_B,L_12_24_Prog_5;判断是24小时制跳转退出
-	LDA		R_Time_Hr_am_pm
+	LDA		P_Temp
 	BEQ		L_12_24_Prog_1;为0是跳转
 	CMP		#11
 	BEQ		L_12_24_Prog_4
@@ -43,7 +43,7 @@ L_12_24_Prog:;12小时和24小时切换
 L_12_24_Prog_4:
 	JSR		L_Clr_lcd_24_Prog
 	JSR		L_Clr_lcd_PM_Prog
-	LDA		R_Time_Hr_am_pm
+	LDA		P_Temp
 L_12_24_Prog_OUT:
 	RTS
 L_12_24_Prog_1:;0点
@@ -54,7 +54,7 @@ L_12_24_Prog_1:;0点
 L_12_24_Prog_3:
 	JSR		L_Clr_lcd_24_Prog
 	JSR		L_Dis_lcd_PM_Prog
-	LDA		R_Time_Hr_am_pm
+	LDA		P_Temp
 	CMP		#12
 	BEQ		L_12_24_Prog_OUT
 	SEC
@@ -63,5 +63,5 @@ L_12_24_Prog_3:
 L_12_24_Prog_5:
 	JSR		L_Dis_lcd_24_Prog
 	JSR		L_Clr_lcd_PM_Prog
-	LDA		R_Time_Hr_am_pm
+	LDA		P_Temp
 	RTS

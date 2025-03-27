@@ -21,6 +21,12 @@ PROG	SECTION	OFFSET	CODE_BEG                ;定义代码段的偏移量从CODE_
 	.INCLUDE	RAM.INC	
 	.include	50P016.mac
 	.INCLUDE	MACRO.MAC
+
+
+	; .INCLUDE	Calc\DataRam.inc
+	; .Include	Calc\WorkRam.inc
+	.INCLUDE	Calculator\Calculator_Base_Mac.asm
+	.INCLUDE	Calculator\Calculator_MAC.asm
 ;***************************************
 STACK_BOT		EQU		FFH                     ;堆栈底部
 ;***************************************
@@ -63,9 +69,11 @@ V_RESET:
 	RMB5	P_LCD_COM;设置LCD中断频率为32Hz
 ;***************************************端口配置（等待图纸）
 	JSR		L_Scankey_INIT
+	SMB0	P_SYSCLK
 	PB2_PB2_NOMS
 	PB3_PB3_NOMS
-	PC03_SEG
+	LDA		#0
+	STA		PCSEG	
 	PC45_SEG
 	PC67_SEG
 	PD03_SEG
@@ -85,27 +93,19 @@ V_RESET:
 	EN_PA_IRQ;下降沿触发
 	LDA		#$07		;#$07    系统时钟和中断使能
 	STA		SYSCLK		;Strong
-
 	CLI
 ;***********************************************************************
 ;***********************************************************************
 MainLoop:	
+	; JSR		L_LCD_IRQ_WorkProg
+	; JSR		L_Half_Second_Prog
+	; LDA		R_Reset_Time
+	; ORA		R_Voice_Unit
+	; BNE		MainLoop
 
-
-
-
-	JSR		L_LCD_IRQ_WorkProg
-	JSR		L_Half_Second_Prog
-
-	JSR		L_Clr_Alarm_Prog_set
-
-	LDA		R_Reset_Time
-	ORA		R_Voice_Unit
-	BNE		MainLoop
-
-	SMB4	SYSCLK;280k
-	STA		P_HALT	
-	RMB4	SYSCLK;560k
+	; SMB4	SYSCLK;280k
+	; STA		P_HALT	
+	; RMB4	SYSCLK;560k
 	BRA		MainLoop		
 
 ;***********************************************************************
@@ -131,11 +131,6 @@ L_DivIrq:
 L_Timer2Irq:
 	CLR_TMR2_IRQ_FLAG
 	WDTC_CLR	
-	BBR0	Sys_Flag_D,L_Timer2Irq_1
-	INC		R_Timer_Ms
-L_Timer2Irq_1:
-	BBR4	Sys_Flag_C,L_EndIrq
-	INC		R_Alarm_Ms
 	BRA		L_EndIrq
 	
 L_Timer0Irq:
@@ -168,6 +163,7 @@ L_EndIrq:
 .INCLUDE	Key\Scankey_First_Press.asm
 .INCLUDE	Key\Scankey_First_Set_Mode.asm
 .INCLUDE	Key\Plus.asm
+.INCLUDE	Key\Scankey_First_Press_Judgment.asm
 .INCLUDE	Key\Scankey_Normal.asm
 
 .INCLUDE	Display\Disp.asm
@@ -181,7 +177,8 @@ L_EndIrq:
 .INCLUDE	Display\Tool.asm
 
 
-
+.Include	Calculator\Calculator_Base.asm
+; .Include	Calc\calm.asm
 
 .INCLUDE	Half_s\Half.asm
 .INCLUDE	Half_s\Clock.asm

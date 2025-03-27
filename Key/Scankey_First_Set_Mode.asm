@@ -39,11 +39,6 @@ L_Scankey_Set_Mode_Reset_First_Press_Prog:
     LDA     R_Mode_Time
     CMP     #1
     BNE     L_Scankey_Set_Mode_Mode_First_Press_Prog_Timer
-    LDA     R_Alarm_Clock_Day      
-    ORA     R_Alarm_Clock_Month
-    BNE     L_Scankey_Set_Mode_Reset_First_Press_Prog_1
-    LDA     #0
-    STA     R_Alarm_Clock_Mode
     RTS
 L_Scankey_Set_Mode_Mode_First_Press_Prog_Timer:
     CMP     #4
@@ -56,22 +51,7 @@ L_Scankey_Set_Mode_Mode_First_Press_Prog_Timer:
     LDA     R_Timer_Min_Countdown
     STA     R_Timer_Min_Backup
     RTS
-L_Scankey_Set_Mode_Reset_First_Press_Prog_1:
-    LDA     R_Alarm_Clock_Day
-    BNE     L_Scankey_Set_Mode_Reset_First_Press_Prog_2
-    LDA     #2
-    STA     R_Alarm_Clock_Mode
-    RTS
-L_Scankey_Set_Mode_Reset_First_Press_Prog_2:
-    LDA     R_Alarm_Clock_Month
-    BNE     L_Scankey_Set_Mode_Reset_First_Press_Prog_3
-    LDA     #3
-    STA     R_Alarm_Clock_Mode
-    RTS
-L_Scankey_Set_Mode_Reset_First_Press_Prog_3:
-    LDA     #1
-    STA     R_Alarm_Clock_Mode
-    RTS
+
 ;============================================
 ;设置模式下按下ST/SP键
 ;=============================================
