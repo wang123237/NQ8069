@@ -6,7 +6,7 @@ RamStarAddr			EQU		1800H   ;RAM的开始地址
 LCD_RamAddr			EQU		RamStarAddr     ;LCD RAM的地址
 Time_Addr			EQU		RamStarAddr+Time_Str_Addr-Page0RamStarAddr
 Cal_Addr			EQU		RamStarAddr+Calculator_Str_Addr-Page0RamStarAddr
-
+RAM					EQU		80H
 ;***************************************
 ;Time_Addr		EUQ		B0H
 ;***************************************
@@ -15,6 +15,7 @@ Cal_Addr			EQU		RamStarAddr+Calculator_Str_Addr-Page0RamStarAddr
 ;	ORG	0098H
 ;---------------------------------------------------------------------
 	ORG	0080H
+
 Page0RamStarAddr	EQU		$	
 LCDRAM					DS	6*5
 D_LCD_RAM				EQU	6*5
@@ -202,21 +203,21 @@ R_Voice_Unit					DS	1;闹铃响的次数，一秒响几次
 ;==================================================
 ;===================================================
 Calculator_Str_Addr	EQU		$
-Sys_Flag_Cala		DS		1
+; Sys_Flag_Cala		DS		1
 MAX_DIG		.EQU	8
 Dig			.EQU	MAX_DIG
 MAX_BYTE	.EQU	MAX_DIG / 2
 
 FD			.EQU	MAX_DIG
-BUF1		.DS		MAX_DIG+1
-BUF2		.DS		MAX_DIG+1
-BUF3		.DS		MAX_DIG
-BUF4		.DS		MAX_DIG
-BUF5		.DS		MAX_DIG
-BUF6		.DS		4
-Calc_Temp1	.EQU		BUF1
-Calc_Temp2	.EQU		BUF2
-Calc_Temp3	.EQU		BUF3
+BUF1		DS		MAX_DIG+1
+;这个加1是存储小数点位置的，bit7是存储数据的正负，其余是存储有效移位次数
+BUF2		DS		MAX_DIG+1;
+BUF3		DS		MAX_DIG
+BUF4		DS		MAX_DIG
+BUF5		DS		MAX_DIG
+BUF6		DS		4
+
+ERR			DS		1
 ;---------------------------------------       
 P_Temp			ds	6
 ;显示从写P_Temp+4

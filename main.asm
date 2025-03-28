@@ -25,8 +25,8 @@ PROG	SECTION	OFFSET	CODE_BEG                ;定义代码段的偏移量从CODE_
 
 	; .INCLUDE	Calc\DataRam.inc
 	; .Include	Calc\WorkRam.inc
-	.INCLUDE	Calculator\Calculator_Base_Mac.asm
-	.INCLUDE	Calculator\Calculator_MAC.asm
+	; .INCLUDE	Calculator\Calculator_Base_Mac.asm
+	; .INCLUDE	Calculator\Calculator_MAC.asm
 ;***************************************
 STACK_BOT		EQU		FFH                     ;堆栈底部
 ;***************************************
@@ -177,7 +177,8 @@ L_EndIrq:
 .INCLUDE	Display\Tool.asm
 
 
-.Include	Calculator\Calculator_Base.asm
+; .Include	Calculator\Calculator_Base.asm
+; .Include	Calculator\Calculator_Base_Math.asm
 ; .Include	Calc\calm.asm
 
 .INCLUDE	Half_s\Half.asm
