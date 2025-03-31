@@ -2,23 +2,23 @@
 ;设置模式下，按下mode键更换设置的情况
 L_Scankey_Set_Mode_Mode_First_Press_Prog:
     SMB5    Sys_Flag_A
-    LDA     R_Mode_Time
+    LDA     R_Mode
     CMP     #2
     BEQ     L_Scankey_Set_Mode_Mode_First_Press_Prog_OUT
     TAX
     LDA     Table_Set_Mode,X
     STA     P_Temp
-    LDA     R_Mode_Time_Set
+    LDA     R_Mode_Set
     CMP     P_Temp
     BCS     L_Scankey_Set_Mode_Mode_First_Press_Prog_1
-    INC     R_Mode_Time_Set
+    INC     R_Mode_Set
     JSR     L_Display_Set_Mode_Prog
 L_Scankey_Set_Mode_Mode_First_Press_Prog_OUT:
     RTS
 
 L_Scankey_Set_Mode_Mode_First_Press_Prog_1:
     LDA     #0
-    STA     R_Mode_Time_Set
+    STA     R_Mode_Set
     JMP     L_Display_Set_Mode_Prog
 Table_Set_Mode:
     DB      5
@@ -33,10 +33,10 @@ Table_Set_Mode:
 L_Scankey_Set_Mode_Reset_First_Press_Prog:
     SMB5    Sys_Flag_A
     LDA     #0
-    STA     R_Mode_Time_Set
+    STA     R_Mode_Set
     RMB3    Sys_Flag_A
     JSR     L_Display_Prog
-    LDA     R_Mode_Time
+    LDA     R_Mode
     CMP     #1
     BNE     L_Scankey_Set_Mode_Mode_First_Press_Prog_Timer
     RTS
@@ -57,7 +57,7 @@ L_Scankey_Set_Mode_Mode_First_Press_Prog_Timer:
 ;=============================================
 L_Scankey_Plus_Prog:
     CLD
-    LDA     R_Mode_Time
+    LDA     R_Mode
     CLC
     ROL
     TAX
@@ -80,8 +80,8 @@ L_Scankey_Prog_Long_Press:
     SMB3    Sys_Flag_A
     SMB5    Sys_Flag_A
     LDA     #0
-    STA     R_Mode_Time_Set
-    LDA     R_Mode_Time
+    STA     R_Mode_Set
+    LDA     R_Mode
     BNE     L_Scankey_Prog_Long_Alarm_Clock_Press
     RMB7	Sys_Flag_C
 	LDA		#0

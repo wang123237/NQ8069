@@ -12,6 +12,21 @@ L_Display_Another_Time_DT_Symbol_Prog:
 	JSR		L_Dis_lcd_10H_Prog
 	JSR		L_Dis_lcd_9H_Prog
 	RTS
+
+
+L_Display_Time_Date_Prog:
+	JSR		L_Clr_All_8Bit_Prog
+	JSR		L_Clr_col_Prog
+	JSR		L_Display_Time_Day_Prog
+	JSR		L_Display_Time_Month_Prog
+	JSR		L_Display_Time_Year_Prog
+	LDX		#lcd_d6
+	LDA		#11
+	JSR		L_Dis_8Bit_DigitDot_Prog
+	RTS
+
+	
+
 ;===============================================
 
 L_Display_Time_Sec_Prog:
@@ -35,10 +50,8 @@ L_Display_Time_Month_Prog:
 	JMP		L_Display_lcd_Prog_Normal_Month
 ;========================================
 L_Display_Time_Year_Prog:
-	LDA		#20
-	JSR		L_Display_lcd_Prog_Normal_Timer
 	LDA		R_Time_Year
-	JMP		L_Display_lcd_Prog_Normal_Min
+	JMP		L_Display_lcd_Prog_Normal_Timer
 
 ;============================================
 L_Display_Time_Week_Prog:;两位显示数字的

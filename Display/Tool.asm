@@ -41,18 +41,18 @@ L_12_24_Prog:;12小时和24小时切换
 	BEQ		L_12_24_Prog_4
 	BCS		L_12_24_Prog_3;比12大时跳转
 L_12_24_Prog_4:
-	JSR		L_Clr_lcd_24_Prog
+	JSR		L_Dis_lcd_AM_Prog
 	JSR		L_Clr_lcd_PM_Prog
 	LDA		P_Temp
 L_12_24_Prog_OUT:
 	RTS
 L_12_24_Prog_1:;0点
-	JSR		L_Clr_lcd_24_Prog
+	JSR		L_Dis_lcd_AM_Prog
 	JSR		L_Clr_lcd_PM_Prog
 	LDA		#12
 	RTS
 L_12_24_Prog_3:
-	JSR		L_Clr_lcd_24_Prog
+	JSR		L_Clr_lcd_AM_Prog
 	JSR		L_Dis_lcd_PM_Prog
 	LDA		P_Temp
 	CMP		#12
@@ -61,7 +61,7 @@ L_12_24_Prog_3:
 	SBC		#12
 	RTS
 L_12_24_Prog_5:
-	JSR		L_Dis_lcd_24_Prog
+	JSR		L_Clr_lcd_AM_Prog
 	JSR		L_Clr_lcd_PM_Prog
 	LDA		P_Temp
 	RTS

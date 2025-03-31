@@ -15,8 +15,7 @@ L_Dis_Alm_Snz_Symbol_Prog:
     CMP     #2   
     BNE     L_Clr_Alm_Snz_Symbol_Prog_1
     JMP     L_Dis_lcd_Snz_Prog
-
-JSR     F_DispSymbol
+    JSR     F_DispSymbol
 ;========================================
 L_Dis_sig_Prog:
     BBS1    Sys_Flag_C,L_Dis_lcd_Sig_Prog
@@ -50,8 +49,8 @@ L_Dis_lcd_Snz_Prog:
 L_Dis_lcd_Sig_Prog:		
     LDX     #lcd_SIG 
     BRA		L_Dis_Symbol_Prog
-L_Dis_lcd_24_Prog:	
-    LDX     #lcd_24 
+L_Dis_lcd_AM_Prog:	
+    LDX     #lcd_AM 
     BRA		L_Dis_Symbol_Prog
 L_Dis_lcd_PM_Prog:
     LDX     #lcd_PM
@@ -90,20 +89,7 @@ L_Dis_lcd_T8_Prog:
 
 
 ;================================
-L_Clr_lcd_d9_Prog:
-    LDA     #10
-    JSR		L_Display_lcd_d9_Prog_Normal
-    LDX     #lcd_9H
-    BRA     L_Clr_Symbol_Prog
-L_Clr_lcd_d10_Prog:
-    LDA     #10
-    JSR		L_Display_lcd_d10_Prog_Normal
-    LDX     #lcd_10H
-    JSR     F_ClrpSymbol
-    LDX     #lcd_10J
-    JSR     F_ClrpSymbol
-    LDX     #lcd_10I
-    BRA     L_Clr_Symbol_Prog
+
 
     			
 L_Clr_col_Prog:
@@ -113,18 +99,7 @@ L_Clr_col_Prog:
 L_Clr_Symbol_Prog:
     JSR     F_ClrpSymbol
     RTS
-L_Clr_lcd_9H_Prog:	
-	LDX     #lcd_9H	
-    BRA		L_Clr_Symbol_Prog
-L_Clr_lcd_10I_Prog:	
-    LDX     #lcd_10I	
-    BRA		L_Clr_Symbol_Prog
-L_Clr_lcd_10H_Prog:	
-	LDX     #lcd_10H		
-    BRA		L_Clr_Symbol_Prog
-L_Clr_lcd_10J_Prog:		
-    LDX     #lcd_10J	
-    BRA		L_Clr_Symbol_Prog
+
 L_Clr_lcd_Alm_Prog:	
     LDX     #lcd_ALM	
     BRA		L_Clr_Symbol_Prog
@@ -134,8 +109,8 @@ L_Clr_lcd_Snz_Prog:
 L_Clr_lcd_Sig_Prog:		
     LDX     #lcd_SIG 
     BRA		L_Clr_Symbol_Prog
-L_Clr_lcd_24_Prog:	
-    LDX     #lcd_24 
+L_Clr_lcd_AM_Prog:	
+    LDX     #lcd_AM 
     BRA		L_Clr_Symbol_Prog
 L_Clr_lcd_PM_Prog:
     LDX     #lcd_PM
@@ -170,7 +145,10 @@ L_Clr_lcd_T7_Prog:
 L_Clr_lcd_T8_Prog:
     LDX     #lcd_T8
     BRA		L_Clr_Symbol_Prog
-    		
+
+
+;==================================
+		
     		
     		
     			

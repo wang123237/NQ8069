@@ -30,26 +30,13 @@ L_Scankey_Prog_Ineffective:
 ;====================================================
 L_Scankey_Prog:
 	BBS1	Sys_Flag_A,L_Scankey_Prog_First_TO;首次扫描判断
+	
+	; BBS4	Sys_Flag_A,L_Scankey_Prog_Fast_Plus_TO;快加情况
 	BBS5	Sys_Flag_A,L_Scankey_Prog_Ineffective
-	BBS4	Sys_Flag_A,L_Scankey_Prog_Fast_Plus_TO;快加情况
-	
 	BBR2	Sys_Flag_A,L_ScanKey_Null_Prog;没有按键扫描标志
-	JSR		L_Scankey_usually_Prog
-	LDA		P_Scankey_value_Temporary
-	CMP		P_Scankey_value
-	BNE		L_Scankey_Prog_Short_Press_TO
 	
-	LDA		R_Scankey_Time
-	CMP		#D_Rscankey_TWO_Sec
-	BCS		L_Scankey_Prog_Long_Press_TO
-	INC		R_Scankey_Time
 	RTS
-L_Scankey_Prog_Long_Press_TO:
-	JMP		L_Scankey_Prog_Long_Press
-L_Scankey_Prog_Short_Press_TO:
-	JMP		L_Scankey_Prog_Short_Press
-L_Scankey_Prog_Fast_Plus_TO:
-	JMP		L_Scankey_Prog_Fast_Plus
+
 
 
 L_Scankey_Prog_First_TO:
