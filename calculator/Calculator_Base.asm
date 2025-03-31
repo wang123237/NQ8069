@@ -383,12 +383,12 @@ L_Dec_To_Hex_Prog_RTS:
 	RTS
 
 ;=====================================
-L_Control_BUF2_Adjust_Result:
-	LDA		#(BUF2+FD-RAM)
+L_Control_BUF1_Adjust_Result:
+	LDA		#(BUF1+FD-RAM)
 	STA		BUF6
 	LDA		#(BUF6-RAM)
 	STA		BUF6+1
-
+	BRA		L_Adjust_Result_Prog
 L_Control_BUF2_Adjust_Result:
 	LDA		#(BUF2+FD-RAM)
 	STA		BUF6
@@ -399,7 +399,7 @@ L_Adjust_Result_Prog:
 	JSR		L_Adjust_FD_INC_Prog
 L_Adjust_Result_Prog_Loop:
 	LDX		BUF6
-	LDX		RAM,X
+	LDA		RAM,X
 	AND		#07FH
 	CLD
 	SEC

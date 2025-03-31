@@ -18,11 +18,11 @@ L_Display_Alarm_Clock_Hr_Prog:
 ;     BEQ     L_Dis_Minus_Prog_Month
 ; 	JMP		L_Display_lcd_Prog_Normal_Month
 ;===================================
-L_Display_Alarm_Hourly_Prog:
-    LDA     #0
-    JSR     L_Display_lcd_Prog_Normal_Min
-    JSR     L_Clr_Hr_Prog 
-    RTS
+; L_Display_Alarm_Hourly_Prog:
+;     LDA     #0
+;     JSR     L_Display_lcd_Prog_Normal_Min
+;     JSR     L_Clr_Hr_Prog 
+;     RTS
 ;====================================
 L_Display_Alarm_Clock_AL_Symbol_Prog:
     LDA     #18

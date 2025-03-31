@@ -30,7 +30,7 @@ L_Mul_Prog_Loop_1:
 L_Mul_Prog_RTS:
     RTS
 
-L_Control_Mul_Prog:；
+L_Control_Mul_Prog:;
     LDX     #(BUF2-RAM)
     JSR     L_Copy_To_BUF5
     JSR     L_Dec_To_Hex_Prog

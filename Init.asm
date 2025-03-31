@@ -38,14 +38,12 @@ L_Scankey_INIT:
 	RTS
 
 L_Judgement_Scankey_Prog:
-	LDA		#11111101B;
-	STA		P_PA_IO;PA0输出,其余输入   
-	LDA		#10000001B
-	STA		P_PA	;其他全部下拉
-	LDA		#01111100B
+	; LDA		#11111101B;
+	; STA		P_PA_IO;PA0输出,其余输入   
+	LDA		#10000001B;PA2356输入上拉
+	STA		P_PA	
 	LDA		#0
-	STA		P_PC_IO
-	STA		P_PC
+	STA		P_PC;PC口输出0
 	RTS
 L_PA_Intput_Low_Prog:
 	LDA		#11111101B
@@ -77,9 +75,7 @@ L_PC3_Output_High_Prog:
 ; 	RTS
 L_Scankey_Effictive_Init:
 	LDA		#11111101B;
-	STA		P_PA_IO;PA0输出,其余输入   
 	STA		P_PA
 	LDA		#0
-	STA		P_PC_IO
 	STA		P_PC
 	RTS

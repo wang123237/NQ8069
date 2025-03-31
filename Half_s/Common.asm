@@ -13,7 +13,7 @@ L_Set_Mode_Auto_Exit_1:
 	RMB3	Sys_Flag_A
 	LDA		#0
 	STA		R_Set_Mode_Exit_Time
-	STA		R_Mode_Time_Set
+	STA		R_Mode_Set
 	JSR		L_Display_Prog
 L_Set_Mode_Auto_Exit_OUT:
 	RTS
@@ -46,7 +46,7 @@ L_Control_Light_Auto_Exit_Prog:
 ; 	JSR		L_Dis_All_DisRam_Prog
 ; 	SMB6	Sys_Flag_A
 ; 	LDA		#0
-; 	STA		R_Mode_Time
+; 	STA		R_Mode
 ; 	RTS
 
 

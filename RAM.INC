@@ -29,7 +29,7 @@ Sys_Flag_A				DS	1		;0	系统状态
 ; bit3	=0设置模式
 ; bit4 	=0快加设置
 ; bit5 	=0无效键设置
-; bit6	=01,全显
+; bit6	=01按键长按
 ; bit7	=0
 Sys_Flag_B				DS	1	;时钟模式的系统状态
 ; bit0 	=半秒标志
@@ -92,6 +92,7 @@ D_PA3_Press						EQU		01110100B
 D_PA4_Press						EQU		01101100B
 D_PA5_Press						EQU		01011100B
 D_PA6_Press						EQU		00111100B
+D_PA5_PA6_Press					EQU		00011100B
 
 D_PC_Press						EQU		00001111B
 D_PC0_Press						EQU		00000001B
@@ -102,29 +103,36 @@ D_PC3_Press						EQU		00001000B
 ; P_Beep_Frequency				DS	1	;声音大小
 ; D_Beep_Frequency_1_2_Duty		EQU	0
 ; D_Beep_Frequency_3/4_Duty		EQU 80H
-D_Mode_Press					EQU		1 ;
-D_ST_SP_Press					EQU		2 ;
-D_Reset_Press					EQU		3 ;
-D_Light_Press					EQU		4 ;
-D_NUM1_Press					EQU		6 ;1
-D_NUM2_Press					EQU		7 ;2
-D_NUM3_Press					EQU		8 ;3
-D_NUM4_Press					EQU		9 ;4
-D_NUM5_Press					EQU		11;5
-D_NUM6_Press					EQU		12;6
-D_NUM7_Press					EQU		13;7
-D_NUM8_Press					EQU		14;8
-D_NUM9_Press					EQU		16;9
-D_NUM0_Press					EQU		17;0
-D_NUM_Point_Press				EQU		18;.
-D_NUM_Equal_Press				EQU		19;=
-D_NUM_Add_Press					EQU		21;+
-D_NUM1_Minus_Press				EQU		22;-
-D_NUM1_Multiply_Press			EQU		23;*
-D_NUM1_Divid_Press				EQU		24;/
+; D_Mode_Press					EQU		1 ;
+; D_ST_SP_Press					EQU		2 ;
+; D_Reset_Press					EQU		3 ;
+; D_Light_Press					EQU		4 ;
+D_NUM1_Press					EQU		1;1
+D_NUM2_Press					EQU		2;2
+D_NUM3_Press					EQU		3;3
+D_NUM4_Press					EQU		4;4
+D_NUM5_Press					EQU		6;5
+D_NUM6_Press					EQU		7;6
+D_NUM7_Press					EQU		8;7
+D_NUM8_Press					EQU		9;8
+D_NUM9_Press					EQU		11;9
+D_NUM0_Press					EQU		12;0
+D_NUM_Point_Press				EQU		13;.
+D_NUM_Equal_Press				EQU		14;=
+D_NUM_Add_Press					EQU		16;+
+D_NUM_Minus_Press				EQU		17;-
+D_NUM_Multiply_Press			EQU		18;*
+D_NUM_Divid_Press				EQU		19;/
+D_B_Press						EQU		21;mode
+D_C_Press						EQU		22;set
+D_Beep_Test_Press				EQU		23;声音测试
 
-
-
+D_Date_Press					EQU		D_NUM_Divid_Press
+D_Alm_Press						EQU		D_NUM4_Press
+D_Sig_Press						EQU		D_NUM_Multiply_Press
+D_ST_SP_Press					EQU		D_NUM_Add_Press
+D_ST_Hour_Press					EQU		D_NUM_Divid_Press
+D_Reset_Press					EQU		D_NUM0_Press
 ;---------------------------------------
 Time_Str_Addr	EQU		$	
 R_Time_Sec						DS	1;时钟的秒数;	
@@ -145,13 +153,13 @@ R_Timer_Hr						DS	1;定时器显示时间/正计时时间小时
 
 
 
-R_Timer_Sec_Countdown			DS	1;/倒计时剩余时间秒数;
-R_Timer_Min_Countdown			DS	1;/倒计时剩余时间分钟;
-R_Timer_Hr_Countdown			DS	1;/倒计时剩余时间小时;
-R_Timer_Sec_Backup				DS	1;定时器倒计时储存时间时间;9
-R_Timer_Min_Backup				DS	1;定时器倒计时储存时间时间;10
-R_Timer_Hr_Backup				DS	1;定时器倒计时储存时间时间;11
-D_Beep_Open_Last_Time_Timer		EQU	16
+; R_Timer_Sec_Countdown			DS	1;/倒计时剩余时间秒数;
+; R_Timer_Min_Countdown			DS	1;/倒计时剩余时间分钟;
+; R_Timer_Hr_Countdown			DS	1;/倒计时剩余时间小时;
+; R_Timer_Sec_Backup				DS	1;定时器倒计时储存时间时间;9
+; R_Timer_Min_Backup				DS	1;定时器倒计时储存时间时间;10
+; R_Timer_Hr_Backup				DS	1;定时器倒计时储存时间时间;11
+; D_Beep_Open_Last_Time_Timer		EQU	16
 
 
 D_Beep_Open_Last_Time_Alarm		EQU	11
@@ -162,7 +170,7 @@ R_Alarm_Clock_Hr 				DS	1;闹钟的小时;	11
 ; R_Alarm_Clock_Month				DS	1;闹铃的月份
 R_Alarm_Mode					DS	1;闹钟的模式，0是闹钟关闭，1是闹钟开启，2是循环闹铃
 ; R_Alarm_Clock_Mode				DS	1;0每日闹钟，1定日闹铃，2定月闹铃，3月次闹铃
-R_Alarm_Ms						DS	1;1/4s的设置
+; R_Alarm_Ms						DS	1;1/4s的设置
 
 
 
@@ -174,25 +182,25 @@ D_Snz_Frequency					EQU	6
 
 ; R_Mode							DS	1;0是手表部分，1是计算器部分
 
-R_Mode_Time						DS	1;0是时钟模式，1是闹钟，2是正计时，3是第二时钟，4是倒计时
-R_Mode_Time_Set					DS	1;设置模式
+R_Mode						DS	1;0是时钟模式，1是闹钟，2是正计时，3是第二时钟，4是倒计时
+R_Mode_Set					DS	1;设置模式
 
 ; R_Time_Hr_am_pm					DS	1;判断AM和PM内存临时储存
 
 
 
-R_Set_Mode_Exit_Time			DS	1;自动设置退出时间
-D_Set_Mode_Exit_Time			EQU	81
+; R_Set_Mode_Exit_Time			DS	1;自动设置退出时间
+; D_Set_Mode_Exit_Time			EQU	81
 
-R_Fast_Plus_Time				DS	1;长按LCD快加
-
-
-R_Close_All_Dis					DS	1;控制关闭全显
-D_Close_All_Dis					EQU	2
+; R_Fast_Plus_Time				DS	1;长按LCD快加
 
 
-R_Close_Light_Time				DS	1;关闭light的时间
-D_Close_Light_Time				EQU	2
+; R_Close_All_Dis					DS	1;控制关闭全显
+; D_Close_All_Dis					EQU	2
+
+
+; R_Close_Light_Time				DS	1;关闭light的时间
+; D_Close_Light_Time				EQU	2
 
 
 R_Alarm_Clock_Open_Beep_Time	DS	1;32Hz转化为16hz
@@ -218,6 +226,7 @@ BUF5		DS		MAX_DIG
 BUF6		DS		4
 
 ERR			DS		1
+Error_FUll	EQU		0
 ;---------------------------------------       
 P_Temp			ds	6
 ;显示从写P_Temp+4
@@ -232,4 +241,6 @@ P_Temp			ds	6
 ;---------------------------------------
 ;---------------------------------------
 .ENDS
+
+
 

@@ -21,12 +21,6 @@ PROG	SECTION	OFFSET	CODE_BEG                ;定义代码段的偏移量从CODE_
 	.INCLUDE	RAM.INC	
 	.include	50P016.mac
 	.INCLUDE	MACRO.MAC
-
-
-	; .INCLUDE	Calc\DataRam.inc
-	; .Include	Calc\WorkRam.inc
-	; .INCLUDE	Calculator\Calculator_Base_Mac.asm
-	; .INCLUDE	Calculator\Calculator_MAC.asm
 ;***************************************
 STACK_BOT		EQU		FFH                     ;堆栈底部
 ;***************************************
@@ -64,8 +58,8 @@ V_RESET:
 	LCD_DRIVE_8
 	RMB2	LCDCTRL
 	SMB3	LCDCTRL
-	SMB0	P_LCD_COM
-	RMB1	P_LCD_COM;设置为5com
+	RMB0	P_LCD_COM
+	SMB1	P_LCD_COM;设置为5com
 	RMB5	P_LCD_COM;设置LCD中断频率为32Hz
 ;***************************************端口配置（等待图纸）
 	JSR		L_Scankey_INIT
@@ -74,8 +68,6 @@ V_RESET:
 	PB3_PB3_NOMS
 	LDA		#0
 	STA		PCSEG	
-	PC45_SEG
-	PC67_SEG
 	PD03_SEG
 	PD47_SEG;
 	JSR		L_Init_SystemRam_Prog   ;初始化系统RAM并禁用所有断电保留的RAM
@@ -97,6 +89,7 @@ V_RESET:
 ;***********************************************************************
 ;***********************************************************************
 MainLoop:	
+	JSR		L_Display_Time_Date_Prog
 	; JSR		L_LCD_IRQ_WorkProg
 	; JSR		L_Half_Second_Prog
 	; LDA		R_Reset_Time
@@ -159,11 +152,11 @@ L_EndIrq:
 ;***********************************************************************
 .INCLUDE	Init.asm
 
-.INCLUDE	Key\ScanKey.ASM
-.INCLUDE	Key\Scankey_First_Press.asm
-.INCLUDE	Key\Scankey_First_Set_Mode.asm
-.INCLUDE	Key\Plus.asm
-.INCLUDE	Key\Scankey_First_Press_Judgment.asm
+; .INCLUDE	Key\ScanKey.ASM
+; .INCLUDE	Key\Scankey_First_Press.asm
+; .INCLUDE	Key\Scankey_First_Set_Mode.asm
+; .INCLUDE	Key\Plus.asm
+; .INCLUDE	Key\Scankey_First_Press_Judgment.asm
 .INCLUDE	Key\Scankey_Normal.asm
 
 .INCLUDE	Display\Disp.asm
@@ -177,16 +170,16 @@ L_EndIrq:
 .INCLUDE	Display\Tool.asm
 
 
-; .Include	Calculator\Calculator_Base.asm
-; .Include	Calculator\Calculator_Base_Math.asm
-; .Include	Calc\calm.asm
+.Include	Calculator\Calculator_Base.asm
+.Include	Calculator\Calculator_Base_Math.asm
 
-.INCLUDE	Half_s\Half.asm
-.INCLUDE	Half_s\Clock.asm
-.INCLUDE	Half_s\Alarm_Clock.asm
-.INCLUDE	Half_s\Timer.asm
-.INCLUDE	Half_s\Common.asm
-.INCLUDE	Half_s\Flash.asm
+
+; .INCLUDE	Half_s\Half.asm
+; .INCLUDE	Half_s\Clock.asm
+; .INCLUDE	Half_s\Alarm_Clock.asm
+; .INCLUDE	Half_s\Timer.asm
+; .INCLUDE	Half_s\Common.asm
+; .INCLUDE	Half_s\Flash.asm
 
 .INCLUDE	Sound\Beep.asm
 
