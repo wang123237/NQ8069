@@ -30,6 +30,35 @@ L_DecToHex_End:
 	ADC		P_Temp+2							; 加上低位值
 
 	RTS
+
+;======================================================================
+L_A_HexDToHex:
+	STA		P_Temp								; 将十六进制输入保存到 P_Temp
+	LDA		#0									; 初始化高位寄存器
+	STA		P_Temp+1							; 高位清零
+	STA		P_Temp+2							; 低位清零
+
+	LDA		P_Temp
+	AND		#0FH
+	STA		P_Temp+2
+	LDA		P_Temp
+	AND		#F0H
+	CLC
+	ROR
+	ROR
+	ROR
+	ROR
+	STA		P_Temp
+L_A_HexDToHex_Loop:
+	CLC
+	LDA		#10
+	ADC		P_Temp+2
+	STA		P_Temp+2
+	DEC		P_Temp
+	LDA		P_Temp
+	BNE		L_A_HexDToHex_Loop
+	LDA		P_Temp+2
+	RTS
 ;===========================================
 
 L_12_24_Prog:;12小时和24小时切换

@@ -60,7 +60,6 @@ L_Display_lcd_Prog_Normal_Month:
 ;====================================
 L_Display_lcd_Prog_Normal_Sec:;显示秒数的lcd_1，lcd2
     JSR		L_A_HexToHexD
-L_Clr_lcd_Prog_Normal_Sec:
 	PHA
 	AND		#$0F
     LDX     #lcd_d8
@@ -75,7 +74,6 @@ L_Display_lcd_Prog_Normal:
 ;=======================================
 L_Display_lcd_Prog_Normal_Min:;显示秒数的lcd_3，lcd4
     JSR		L_A_HexToHexD
-L_Clr_lcd_Prog_Normal_Min:
 	PHA
 	AND		#$0F
     LDX     #lcd_d5

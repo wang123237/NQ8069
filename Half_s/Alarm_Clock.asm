@@ -22,8 +22,7 @@ L_Alarm_Control_Prog:
 	LDA		#D_Snz_Time
 	STA		R_Snz_Time
 L_Alarm_Control_Prog_2:
-	BBR4	Sys_Flag_D,L_Alarm_Prog_1
-	JSR		L_Scankey_Close_Timer_Beep
+
 	
 	
 L_Alarm_Prog_1:

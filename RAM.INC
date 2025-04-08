@@ -30,7 +30,7 @@ Sys_Flag_A				DS	1		;0	系统状态
 ; bit4 	=0快加设置
 ; bit5 	=0无效键设置
 ; bit6	=01按键长按
-; bit7	=0
+; bit7	=0设置模式下按键无效
 Sys_Flag_B				DS	1	;时钟模式的系统状态
 ; bit0 	=半秒标志
 ; bit1	=一秒标志
@@ -86,13 +86,14 @@ P_Scankey_value_T_1			DS	1
 P_Scankey_value				DS	1;按键存储值
 P_Scankey_value_Temporary	DS	1;按键临时储存
 
+D_PA_Value						EQU		01110000B
 D_PA_Press						EQU		01111100B
-D_PA2_Press						EQU		01111000B
-D_PA3_Press						EQU		01110100B
-D_PA4_Press						EQU		01101100B
-D_PA5_Press						EQU		01011100B
-D_PA6_Press						EQU		00111100B
-D_PA5_PA6_Press					EQU		00011100B
+D_PA2_Press						EQU		01110100B
+D_PA3_Press						EQU		01111000B
+D_PA4_Press						EQU		01100000B
+D_PA5_Press						EQU		01010000B
+D_PA6_Press						EQU		00110000B
+D_PA5_PA6_Press					EQU		00010000B
 
 D_PC_Press						EQU		00001111B
 D_PC0_Press						EQU		00000001B
@@ -111,14 +112,14 @@ D_NUM1_Press					EQU		1;1
 D_NUM2_Press					EQU		2;2
 D_NUM3_Press					EQU		3;3
 D_NUM4_Press					EQU		4;4
-D_NUM5_Press					EQU		6;5
-D_NUM6_Press					EQU		7;6
-D_NUM7_Press					EQU		8;7
-D_NUM8_Press					EQU		9;8
+D_NUM5_Press					EQU		5;5
+D_NUM6_Press					EQU		8;6
+D_NUM7_Press					EQU		9;7
+D_NUM8_Press					EQU		10;8
 D_NUM9_Press					EQU		11;9
 D_NUM0_Press					EQU		12;0
-D_NUM_Point_Press				EQU		13;.
-D_NUM_Equal_Press				EQU		14;=
+D_NUM_Point_Press				EQU		15;.
+D_NUM_Equal_Press				EQU		20;=
 D_NUM_Add_Press					EQU		16;+
 D_NUM_Minus_Press				EQU		17;-
 D_NUM_Multiply_Press			EQU		18;*
@@ -133,6 +134,9 @@ D_Sig_Press						EQU		D_NUM_Multiply_Press
 D_ST_SP_Press					EQU		D_NUM_Add_Press
 D_ST_Hour_Press					EQU		D_NUM_Divid_Press
 D_Reset_Press					EQU		D_NUM0_Press
+D_Mode_Press					EQU		D_C_Press
+D_Set_Press						EQU		D_B_Press
+
 ;---------------------------------------
 Time_Str_Addr	EQU		$	
 R_Time_Sec						DS	1;时钟的秒数;	
@@ -180,17 +184,15 @@ R_Snz_Frequency					DS	1;贪睡闹钟的小时;
 D_Snz_Frequency					EQU	6
 
 
-; R_Mode							DS	1;0是手表部分，1是计算器部分
 
 R_Mode						DS	1;0是时钟模式，1是闹钟，2是正计时，3是第二时钟，4是倒计时
 R_Mode_Set					DS	1;设置模式
 
-; R_Time_Hr_am_pm					DS	1;判断AM和PM内存临时储存
 
 
 
-; R_Set_Mode_Exit_Time			DS	1;自动设置退出时间
-; D_Set_Mode_Exit_Time			EQU	81
+R_Set_Mode_Exit_Time			DS	1;自动设置退出时间
+D_Set_Mode_Exit_Time			EQU	81
 
 ; R_Fast_Plus_Time				DS	1;长按LCD快加
 
@@ -228,7 +230,7 @@ BUF6		DS		4
 ERR			DS		1
 Error_FUll	EQU		0
 ;---------------------------------------       
-P_Temp			ds	6
+P_Temp			ds	10
 ;显示从写P_Temp+4
 ;---------------------------------------
 ;---------------------------------------

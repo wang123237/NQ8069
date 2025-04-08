@@ -28,7 +28,7 @@ L_Clr_All_DisRam_Prog:
 L_Scankey_INIT:
 	LDA		#11111101B;
 	STA		P_PA_IO;PA0输出,其余输入   
-	LDA		#10000001B
+	LDA		#10001101B
 	STA		P_PA	;其他全部下拉
 	LDA		#01111100B
 	STA		P_PA_WAKE;	将PA做唤醒	
@@ -40,8 +40,8 @@ L_Scankey_INIT:
 L_Judgement_Scankey_Prog:
 	; LDA		#11111101B;
 	; STA		P_PA_IO;PA0输出,其余输入   
-	LDA		#10000001B;PA2356输入上拉
-	STA		P_PA	
+	LDA		#10001101B
+	STA		P_PA	;其他全部下拉
 	LDA		#0
 	STA		P_PC;PC口输出0
 	RTS
@@ -65,6 +65,17 @@ L_PC3_Output_High_Prog:
 	LDA		#08H
 	STA		P_PC
 	RTS
+
+L_PC4_Output_High_Prog:
+	LDA		#10H
+	STA		P_PC
+	RTS
+
+L_PC5_Output_High_Prog:
+	LDA		#20H
+	STA		P_PC
+	RTS
+
 ; L_PA257_Input_Low:
 ; 	LDA		#10101101B	
 ; 	STA		P_PA	;其他全部下拉
@@ -74,7 +85,7 @@ L_PC3_Output_High_Prog:
 ; 	STA		P_PA
 ; 	RTS
 L_Scankey_Effictive_Init:
-	LDA		#11111101B;
+	LDA		#11110001B;
 	STA		P_PA
 	LDA		#0
 	STA		P_PC

@@ -89,16 +89,15 @@ V_RESET:
 ;***********************************************************************
 ;***********************************************************************
 MainLoop:	
-	JSR		L_Display_Time_Date_Prog
-	; JSR		L_LCD_IRQ_WorkProg
-	; JSR		L_Half_Second_Prog
-	; LDA		R_Reset_Time
-	; ORA		R_Voice_Unit
-	; BNE		MainLoop
+	JSR		L_LCD_IRQ_WorkProg
+	JSR		L_Half_Second_Prog
+	LDA		R_Reset_Time
+	ORA		R_Voice_Unit
+	BNE		MainLoop
 
-	; SMB4	SYSCLK;280k
-	; STA		P_HALT	
-	; RMB4	SYSCLK;560k
+	SMB4	SYSCLK;280k
+	STA		P_HALT	
+	RMB4	SYSCLK;560k
 	BRA		MainLoop		
 
 ;***********************************************************************
@@ -152,12 +151,17 @@ L_EndIrq:
 ;***********************************************************************
 .INCLUDE	Init.asm
 
-; .INCLUDE	Key\ScanKey.ASM
-; .INCLUDE	Key\Scankey_First_Press.asm
-; .INCLUDE	Key\Scankey_First_Set_Mode.asm
-; .INCLUDE	Key\Plus.asm
-; .INCLUDE	Key\Scankey_First_Press_Judgment.asm
+.INCLUDE	Key\ScanKey.ASM
+.INCLUDE	Key\Scankey_First_Press.asm
+.INCLUDE	Key\Scankey_First_Set_Mode.asm
+.INCLUDE	Key\Scankey_First_Press_Judgment.asm
 .INCLUDE	Key\Scankey_Normal.asm
+.INCLUDE	Key\Plus_Time.asm
+.INCLUDE	Key\Plus_Another_Time.asm
+
+
+
+
 
 .INCLUDE	Display\Disp.asm
 .INCLUDE	Display\Lcdtab.asm
@@ -172,14 +176,14 @@ L_EndIrq:
 
 .Include	Calculator\Calculator_Base.asm
 .Include	Calculator\Calculator_Base_Math.asm
+.Include	Calculator\Calculator_Display.asm
 
-
-; .INCLUDE	Half_s\Half.asm
-; .INCLUDE	Half_s\Clock.asm
-; .INCLUDE	Half_s\Alarm_Clock.asm
-; .INCLUDE	Half_s\Timer.asm
-; .INCLUDE	Half_s\Common.asm
-; .INCLUDE	Half_s\Flash.asm
+.INCLUDE	Half_s\Half.asm
+.INCLUDE	Half_s\Clock.asm
+.INCLUDE	Half_s\Alarm_Clock.asm
+.INCLUDE	Half_s\Timer.asm
+.INCLUDE	Half_s\Common.asm
+.INCLUDE	Half_s\Flash.asm
 
 .INCLUDE	Sound\Beep.asm
 

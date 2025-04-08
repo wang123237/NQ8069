@@ -22,6 +22,9 @@ L_Dis_sig_Prog:
     JMP     L_Clr_lcd_Sig_Prog
 
 L_Dis_col_Prog:
+    LDA     R_Mode
+    CMP     #1
+    BEQ     RTS_1
     LDX     #lcd_col
     JSR     F_DispSymbol
     LDX     #lcd_col2

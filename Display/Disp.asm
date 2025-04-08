@@ -77,6 +77,13 @@ F_MSBToLSB:
 	ROR		
 	AND		#$0F
 	RTS
+L_ROL_4Bit_Prog:
+	ROL
+	ROL
+	ROL
+	ROL
+	AND		#F0H
+	RTS
 ;================================================
 ;********************************************	
 Table_Digit_DataDot:	;显示内容对应显示的段码
