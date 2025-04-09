@@ -15,7 +15,8 @@ L_Display_Another_Time_DT_Symbol_Prog:
 
 
 L_Display_Time_Date_Prog:
-	JSR		L_Clr_All_8Bit_Prog
+	JSR		L_Clr_lcd_AM_Prog
+	JSR		L_Clr_lcd_PM_Prog
 	JSR		L_Clr_col_Prog
 	JSR		L_Display_Time_Day_Prog
 	JSR		L_Display_Time_Month_Prog

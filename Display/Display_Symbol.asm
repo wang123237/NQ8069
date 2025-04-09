@@ -151,12 +151,30 @@ L_Clr_lcd_T8_Prog:
 
 
 ;==================================
-		
-    		
-    		
-    			
-    			
-    			
-    			
-    	
-    	
+L_Clr_lcd_d1_Prog:
+    LDX     #lcd_d1
+L_Clr_lcd_usually_Prog:
+    LDA     #22
+    JSR     L_Dis_8Bit_DigitDot_Prog
+    RTS
+L_Clr_lcd_d2_Prog:
+    LDX     #lcd_d2
+    BRA     L_Clr_lcd_usually_Prog
+L_Clr_lcd_d3_Prog:
+    LDX     #lcd_d3
+    BRA     L_Clr_lcd_usually_Prog
+L_Clr_lcd_d4_Prog:
+    LDX     #lcd_d4
+    BRA     L_Clr_lcd_usually_Prog
+L_Clr_lcd_d5_Prog:
+    LDX     #lcd_d5
+    BRA     L_Clr_lcd_usually_Prog
+L_Clr_lcd_d6_Prog:
+    LDX     #lcd_d6
+    BRA     L_Clr_lcd_usually_Prog
+L_Clr_lcd_d7_Prog:
+    LDX     #lcd_d7
+    BRA     L_Clr_lcd_usually_Prog
+L_Clr_lcd_d8_Prog:
+    LDX     #lcd_d8
+    BRA     L_Clr_lcd_usually_Prog

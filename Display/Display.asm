@@ -1,12 +1,10 @@
 
-L_Display_Set_Mode_Prog:
-    RTS
 
-
-; L_Display_Set_Mode_Prog_TO:
-; 	JMP		L_Display_Set_Mode_Prog
+L_Display_Set_Mode_Prog_TO:
+	JMP		L_Display_Set_Mode_Prog
 L_Display_Normal_Prog:
-; 	BBS6	Sys_Flag_A,L_Display_Alarm_Normal_Prog
+	BBS3	Sys_Flag_A,L_Display_Set_Mode_Prog_TO
+	BBS6	Sys_Flag_A,L_Display_Normal_Prog_RTS
 ; 	LDA		R_Close_All_Dis
 ; 	BNE		L_Display_Alarm_Normal_Prog;当全显时不做要求
 ; 	JSR		L_Dis_Alm_Snz_Symbol_Prog
@@ -20,14 +18,16 @@ L_Display_Normal_Prog:
 	PHA
 	LDA		Table_Dis_2,X
 	PHA
+L_Display_Normal_Prog_RTS:
 	RTS
 Table_Dis_2:
 	DW		L_Display_Time_Normal_Prog-1
     DW      L_Display_Calculator_Normal_Prog-1
-	
-	DW		L_Display_Postive_Timer_Set_Mode_Prog-1;正计时的正常计时自动退出
+	DW		L_Display_Alarm_Normal_Prog-1
 	DW		L_Display_Another_Time_Normal_Prog-1
-    DW		L_Display_Alarm_Normal_Prog-1
+	DW		L_Display_Postive_Timer_Set_Mode_Prog-1;正计时的正常计时自动退出
+	
+    
 
 
 L_Display_Time_Normal_Prog:
@@ -46,6 +46,7 @@ L_Display_Time_Normal_Prog:
 	
 		
 L_Display_Postive_Timer_Set_Mode_Prog:
+	JSR		L_Dis_col_Prog
 L_Display_Alarm_Normal_Prog:
 L_Display_Alarm_Normal_Prog_OUT:
 L_Display_Calculator_Normal_Prog:
@@ -69,6 +70,10 @@ L_Display_Another_Time_Normal_Prog:
 L_Display_Postive_Timer_Normal_Prog:
 	BBR0	Sys_Flag_D,L_Display_Alarm_Normal_Prog;没有开始正计时是不显示
 	BBS5	Sys_Flag_D,L_Display_Alarm_Normal_Prog;若有中途测量，不显示
+	BBS6	Sys_Flag_A,L_Display_Alarm_Normal_Prog
+	JSR		L_Display_Timer_Ms_Prog
+	LDA		R_Timer_Ms
+	BNE		L_Display_Alarm_Normal_Prog_OUT
 	JSR		L_Display_Positive_Timer_Sec_Prog
 	LDA		R_Timer_Sec
 	BNE		L_Display_Alarm_Normal_Prog_OUT
@@ -77,46 +82,35 @@ L_Display_Postive_Timer_Normal_Prog:
 	BNE		L_Display_Alarm_Normal_Prog_OUT
 	JSR		L_Display_Positive_Timer_Hr_Prog
     RTS
-; L_Display_Set_Mode_Prog:
-; 	CLD
-; 	LDA		R_Mode
-; 	CLC
-; 	ROL
-; 	TAX
-; 	LDA		Table_Dis_3+1,X
-; 	PHA
-; 	LDA		Table_Dis_3,X
-; 	PHA
-; 	RTS
-
-; Table_Dis_3:
-; 	DW		L_Display_Time_Set_Mode_Prog-1
-; 	DW		L_Display_Alarm_Set_Mode_Prog-1
-; 	DW		L_Display_Postive_Timer_Set_Mode_Prog-1
-; 	DW		L_Display_Another_Time_Set_Mode_Prog-1
-; 	DW		L_Display_Destive_Timer_Set_Mode_Prog-1
-
-	
-	
-	
-	
-; L_Display_Time_Year_Prog_TO:
-; 	JSR		L_Clr_col_Prog
-; 	JSR		L_Clr_lcd_AM_Prog
-; 	JSR		L_Clr_lcd_PM_Prog
-; 	JSR		L_Clr_Sec_Prog
-; 	JSR		L_Clr_col_Prog
-; 	JMP		L_Display_Time_Year_Prog
-; L_Display_Time_Set_Mode_Prog:
-; 	JSR		L_Display_Time_Month_Prog
-; 	JSR		L_Display_Time_Day_Prog
-; 	LDA		R_Mode_Set
-; 	CMP		#3
-; 	BEQ		L_Display_Time_Year_Prog_TO
-; 	JSR		L_Dis_col_Prog
-; 	JMP		L_Display_Time_Prog_Normal_Prog
 
 
+
+L_Display_Set_Mode_Prog:
+	LDA		R_Mode
+	CLC
+	CLD
+	ROL
+	TAX
+	LDA		Table_Display_Set_Mode+1,X
+	PHA		
+	LDA		Table_Display_Set_Mode,X
+	PHA	
+L_Display_Set_Mode_Prog_RTS:
+	RTS
+Table_Display_Set_Mode:
+	DW		L_Dispaly_Time_Prog_Set_Mode-1
+	DW		L_Display_Set_Mode_Prog_RTS-1
+	DW		L_Display_Alarm_Clock_Set_Prog-1
+	DW		L_Display_Another_Time_Set_Mode_Prog-1
+	DW		L_Display_Set_Mode_Prog_RTS-1
+
+
+L_Dispaly_Time_Prog_Set_Mode:
+	LDA		R_Mode_Set
+	CMP		#5
+	BCC		L_Display_Time_Prog_1
+	JSR		L_Display_Time_Date_Prog
+	RTS
 
 
 L_Display_Prog:
@@ -142,7 +136,8 @@ Table_Dis_1:
 	DW		L_Display_Postive_Timer_Prog-1
 
 L_Display_Time_Prog:
-	JSR		L_Display_Time_Week_Prog	
+	JSR		L_Display_Time_Week_Prog
+L_Display_Time_Prog_1:
 	JSR		L_Display_Time_Sec_Prog
 	JSR		L_Display_Time_Min_Prog
 	JSR		L_Display_Time_Hr_Prog
@@ -150,6 +145,7 @@ L_Display_Time_Prog:
 
 L_Display_Alarm_Prog:
 	JSR		L_Display_Alarm_Clock_AL_Symbol_Prog
+L_Display_Alarm_Clock_Set_Prog:
 	JSR		L_Display_Alarm_Clock_Hr_Prog
 	JSR		L_Display_Alarm_Clock_Min_Prog
 	RTS
@@ -158,13 +154,20 @@ L_Display_Alarm_Prog:
 
 
 L_Display_Postive_Timer_Prog:
+	BBS6	Sys_Flag_A,L_Display_Prog_1
+	BBS5	Sys_Flag_D,L_Display_Postive_Timer_Prog_1
     JSR     L_Display_Positive_Timer_Ms_Prog
 	JSR		L_Display_Positive_Timer_Sec_Prog
 	JSR		L_Display_Positive_Timer_Min_Prog
 	JSR		L_Display_Positive_Timer_ST_Prog
     RTS
-
-
+L_Display_Postive_Timer_Prog_1:
+	JSR		L_Clr_Time_Week_Prog
+	JSR		L_Display_Positive_Timer_LR_Prog
+    JSR     L_Display_Positive_Timer_Ms_Prog_Measurement
+	JSR		L_Display_Positive_Timer_Sec_Prog_Measurement
+	JSR		L_Display_Positive_Timer_Min_Prog_Measurement
+    RTS
 
 L_Display_Another_Time_Prog:
 	JSR		L_Display_Another_Time_DT_Symbol_Prog

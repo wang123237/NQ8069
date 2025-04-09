@@ -17,7 +17,7 @@ L_1Second_Prog:
 	JSR     L_Update_Time_Prog
 	JSR		L_Update_Another_Time_Prog
 	JSR		L_Alarm_Prog
-    JSR		L_Positive_Timer
+    JSR		L_Control_Positive_Timer_Prog
 	JSR		L_Display_Normal_Prog
 	RTS
 ;==============================================================

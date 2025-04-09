@@ -27,10 +27,10 @@ Sys_Flag_A				DS	1		;0	系统状态
 ; bit1	=1按键首次扫描标志
 ; bit2 	=0按键循环扫描标志
 ; bit3	=0设置模式
-; bit4 	=0快加设置
+; bit4 	=0快加设置(此工程无用)
 ; bit5 	=0无效键设置
 ; bit6	=01按键长按
-; bit7	=0设置模式下按键无效
+; bit7	=0按键按下返回时间模式的标志
 Sys_Flag_B				DS	1	;时钟模式的系统状态
 ; bit0 	=半秒标志
 ; bit1	=一秒标志
@@ -43,10 +43,10 @@ Sys_Flag_B				DS	1	;时钟模式的系统状态
 Sys_Flag_C				DS	1	;闹钟模式的系统状态
 ; bit0 	=0闹铃界面/1 整点报时
 ; bit1	=0关闭整点报时，开启整点报时
-; bit2 	=
+; bit2 	=1设置输入的按键无效
 ; bit3	=
 ; bit4 	=闹钟闹铃
-; bit5 	=
+; bit5 	=1按键音开启
 ; bit6	=
 ; bit7	=1贪睡标志
 Sys_Flag_D				DS	1	;计时器模式的系统状态
@@ -154,9 +154,13 @@ R_Timer_Ms						DS	1;定时器10ms次数
 R_Timer_Sec						DS	1;定时器显示时间/正计时时间秒数
 R_Timer_Min						DS	1;定时器显示时间/正计时时间分钟
 R_Timer_Hr						DS	1;定时器显示时间/正计时时间小时
+R_Timer_X						DS	1
+R_Timer_X_1						DS	1
 
-
-
+R_Timer_Hr_Measurement			EQU	BUF4
+R_Timer_Min_Measurement			EQU	BUF4+1
+R_Timer_Sec_Measurement			EQU	BUF4+2
+R_Timer_Ms_Measurement			EQU	BUF4+3
 ; R_Timer_Sec_Countdown			DS	1;/倒计时剩余时间秒数;
 ; R_Timer_Min_Countdown			DS	1;/倒计时剩余时间分钟;
 ; R_Timer_Hr_Countdown			DS	1;/倒计时剩余时间小时;

@@ -156,10 +156,11 @@ L_EndIrq:
 .INCLUDE	Key\Scankey_First_Set_Mode.asm
 .INCLUDE	Key\Scankey_First_Press_Judgment.asm
 .INCLUDE	Key\Scankey_Normal.asm
-.INCLUDE	Key\Plus_Time.asm
-.INCLUDE	Key\Plus_Another_Time.asm
-
-
+.INCLUDE	Key\ScanKey_Function_Time.ASM
+.INCLUDE	Key\Scankey_Function_Another_Time.asm
+.INCLUDE	Key\Scankey_Function_Alarm.asm
+.INCLUDE	Key\ScanKey_Function_usually.asm
+.INCLUDE	Key\Scankey_Function_Positive_Timer.asm
 
 
 

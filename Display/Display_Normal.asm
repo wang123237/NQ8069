@@ -31,6 +31,7 @@ L_Display_lcd_Prog_Normal_Timer:;显示定时器小时的显示函数
     LDX     #lcd_d2
     JSR		L_Dis_8Bit_DigitDot_Prog
 	LDX		#lcd_d1
+	BBS3	Sys_Flag_A,L_Display_lcd_Prog_Normal
 L_Display_lcd_Prog_Normal_1:
 	PLA
 	JSR		L_ROR_4Bit_Prog
@@ -49,6 +50,7 @@ L_Display_lcd_Prog_Normal_Day:
     LDX     #lcd_d8
     JSR		L_Dis_8Bit_DigitDot_Prog
 	LDX		#lcd_d7
+	BBS3	Sys_Flag_A,L_Display_lcd_Prog_Normal
 	BRA		L_Display_lcd_Prog_Normal_1
 L_Display_lcd_Prog_Normal_Month:
 	PHA
@@ -56,6 +58,7 @@ L_Display_lcd_Prog_Normal_Month:
     LDX     #lcd_d5
     JSR		L_Dis_8Bit_DigitDot_Prog
 	LDX		#lcd_d4
+	BBS3	Sys_Flag_A,L_Display_lcd_Prog_Normal
 	BRA		L_Display_lcd_Prog_Normal_1
 ;====================================
 L_Display_lcd_Prog_Normal_Sec:;显示秒数的lcd_1，lcd2

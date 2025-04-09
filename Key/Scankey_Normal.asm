@@ -9,17 +9,21 @@ L_Scankey_usually_Prog:
 	BNE		L_Scankey_usually_Prog_Countine;不相等跳转
 L_Scankey_usually_Prog_RTS:
 	RTS
-	
+L_Scankey_Effictive_Prog:
+	SMB5	Sys_Flag_A
+	LDA		#90
+	STA		P_Scankey_value_Temporary
+	RTS	
 L_Scankey_usually_Prog_Countine:
-	STA		P_Temp+1
+	STA		P_Temp+1;将读取的按键值存储起来
 	CMP		#D_PA2_Press
 	BEQ		L_Scankey_usually_Prog_Countine_PA2
 	CMP		#D_PA3_Press
 	BEQ		L_Scankey_usually_Prog_Countine_PA3
 	CMP		#D_PA5_PA6_Press
-	BEQ		L_Scankey_usually_Prog_Countine_PA5_PA6
+	BEQ		L_Scankey_usually_Prog_Countine_PA5_PA6;先扫描单键单独口的键和多键
 	JSR		L_PC_Output_High_Prog
-	BBS5	Sys_Flag_A,L_Scankey_usually_Prog_RTS
+	BBS5	Sys_Flag_A,L_Scankey_Effictive_Prog
 	LDA		P_Temp+1
 	CMP		#D_PA4_Press
 	BEQ		L_Scankey_usually_Prog_Countine_PA4
@@ -39,7 +43,7 @@ L_Scankey_usually_Prog_Countine_PA3:
 	LDA		#D_C_Press
 	STA		P_Scankey_value_Temporary
 	RTS
-L_Scankey_usually_Prog_Countine_PA5_PA6:
+L_Scankey_usually_Prog_Countine_PA5_PA6:;
 	JSR		L_PC_Output_High_Prog
 	LDA		P_Temp+3
 	ORA		P_Temp+5
@@ -74,13 +78,9 @@ L_Scankey_usually_Prog_Countine_PA6:
 	ADC		P_Temp+2
 	STA		P_Scankey_value_Temporary
 	RTS
-L_Scankey_Effictive_Prog:
-	SMB5	Sys_Flag_A
-	LDA		#0
-	STA		P_Scankey_value_Temporary
-	RTS
 
-L_PC_Output_High_Prog:
+
+L_PC_Output_High_Prog:;按键扫描程序
 	JSR		L_PA_Intput_Low_Prog
 	JSR		L_PC0_Output_High_Prog
 	JSR		L_ScanKey_Delay_Prog
