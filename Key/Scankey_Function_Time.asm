@@ -105,7 +105,7 @@ L_Control_Set_Mode_Clock_Prog_Hr:
     JMP     L_Scankey_Input_Set_Mode_Usally_Time
 L_Control_Set_Mode_Clock_Prog_Hr_1:
     LDA     #12H
-    JMP     L_Input_Prog_Time_Mode
+    JMP     L_Scankey_Input_Set_Mode_Hr_Time
 
 ;=============================================
 ;---------------------------------------------
@@ -123,7 +123,7 @@ L_Control_Set_Mode_Clock_Prog_Month
     LDX     #(R_Time_Month-Time_Str_Addr)
     LDA     #12H
     JSR     L_Scankey_Input_Set_Mode_Usally_Time_Date
-    JSR		L_Auto_Counter_Week
+    ; JSR		L_Auto_Counter_Week
     RTS
 ;=============================================
 ;---------------------------------------------
@@ -169,12 +169,11 @@ L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT:
     LDA     P_Temp+4
     AND     #F0H
     CMP     P_Temp+6;判断当前内存的高四位和最大值的高四位，当小于时，直接将输入的值给到低四位
-    BEQ     L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT_Special
-    BCC     L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT_Conutine
-    LDA     P_Temp+3
+    BCS     L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT_Conutine   
+    LDA     P_Temp+4
     AND     #0FH
     CMP     P_Temp+5;判断当前内存的低四位和最大值的低四位，当小于时，直接将输入的值给到低四位
-    BCS     L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT_RTS
+    BCC     L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT_RTS
     LDA     P_Temp+6
     ORA     P_Temp+5
     JSR     L_A_HexDToHex
@@ -182,9 +181,93 @@ L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT:
     JSR     L_Scankey_Set_Mode_Mode_First_Press_Prog
 L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT_RTS:
     RTS
-
-L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT_Special:
+L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT_Conutine:
+    LDA     P_Temp+3
+    AND     #F0H
+    BNE     L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT_Conutine_1
     LDA     P_Temp+5
     BEQ     L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT_RTS
-L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT_Conutine:
+L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT_Conutine_1:
     JMP     L_Scankey_Input_Set_Mode_Usally_Low_Bit_Conutine
+;================================================================
+;================================================================
+;================================================================
+;================================================================
+
+
+;P_Temp+3存储读取到的时间，P_Temp+4
+;
+L_Scankey_Input_Set_Mode_Hr_Time:
+    STX     P_Temp+7
+    JSR     L_Scankey_Input_Press
+    STA     P_Temp+4
+    BBS2    Sys_Flag_C,L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT_RTS
+    LDA     Time_Addr,X
+    STA     P_Temp+3
+    BBS0    R_Mode_Set,L_Scankey_Input_Set_Mode_High_Bit
+    JMP     L_Scankey_Input_Set_Mode_Low_Bit
+L_Scankey_Input_Set_Mode_High_Bit:    
+    LDA     P_Temp+3
+    JSR     L_12_24_Prog
+    JSR     L_A_HexToHexD
+    STA     P_Temp+5
+
+    LDA     P_Temp+4
+    CMP     #2
+    BCS     L_Scankey_Input_Set_Mode_High_Bit_RTS
+    JSR     L_ROL_4Bit_Prog
+    STA     P_Temp+6
+    CMP     #0
+    BEQ     L_Scankey_Input_Set_Mode_High_Bit_0_Press
+    CMP     #10H
+    BEQ     L_Scankey_Input_Set_Mode_High_Bit_1_Press
+
+L_Scankey_Input_Set_Mode_High_Bit_RTS:
+    RTS
+L_Scankey_Input_Set_Mode_High_Bit_1_Press:
+    LDA     P_Temp+5
+    AND     #0FH
+    CMP     #3
+    BCC     L_Scankey_Input_Set_Mode_High_Bit_1_Press_1
+    LDA     P_Temp+6
+    BRA     L_Scankey_Input_Set_Mode_High_Bit_usually
+
+L_Scankey_Input_Set_Mode_High_Bit_1_Press_1:
+    ORA     P_Temp+6
+    BRA     L_Scankey_Input_Set_Mode_High_Bit_usually
+L_Scankey_Input_Set_Mode_High_Bit_0_Press:
+    LDA     P_Temp+5
+    AND     #0FH
+L_Scankey_Input_Set_Mode_High_Bit_usually:
+    JSR     L_A_HexDToHex
+    STA     P_Temp+5
+    JSR     L_12_To_24_Prog
+    LDX     P_Temp+7
+    STA     Time_Addr,X
+    JSR     L_Scankey_Set_Mode_Mode_First_Press_Prog
+
+    RTS
+
+L_Scankey_Input_Set_Mode_Low_Bit:
+    LDA     P_Temp+3
+    JSR     L_12_24_Prog
+    JSR     L_A_HexToHexD
+    STA     P_Temp+6
+    AND     #F0H
+    BEQ     L_Scankey_Input_Set_Mode_Low_Bit_0_Prog
+    LDA     P_Temp+4
+    CMP     #3
+    BCC     L_Scankey_Input_Set_Mode_Low_Bit_0_Prog
+    RTS
+
+L_Scankey_Input_Set_Mode_Low_Bit_0_Prog:
+    LDA     P_Temp+4
+    BEQ     L_Scankey_Input_Set_Mode_Low_Bit_0_Prog_RTS
+    JSR     L_A_HexDToHex
+    STA     P_Temp+5
+    JSR     L_12_To_24_Prog
+    LDX     P_Temp+7
+    STA     Time_Addr,X
+    JSR     L_Scankey_Set_Mode_Mode_First_Press_Prog
+L_Scankey_Input_Set_Mode_Low_Bit_0_Prog_RTS:
+    RTS

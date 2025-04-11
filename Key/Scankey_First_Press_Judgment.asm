@@ -72,6 +72,7 @@ L_Scankey_Set_Press_Prog:
 	LDA		#0
 	STA		R_Mode_Set
 	SMB3	Sys_Flag_A
+	JSR		L_Display_Set_Mode_Prog
 	RTS
 
 L_Scankey_Prog_First_1_OUT:

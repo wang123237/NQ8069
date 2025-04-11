@@ -109,10 +109,10 @@ L_Control_Set_Mode_Alarm_Clock_Prog_Min:
 
 L_Control_Set_Mode_Alarm_Clock_Prog_Hr:
     LDX     #(R_Alarm_Clock_Hr-Time_Str_Addr)
-    BBR2    Sys_Flag_B,L_Control_Set_Mode_Alarm_Clock_Prog_Hr-1
+    BBR2    Sys_Flag_B,L_Control_Set_Mode_Alarm_Clock_Prog_Hr_1
     LDA     #23H
     JMP     L_Scankey_Input_Set_Mode_Usally
 L_Control_Set_Mode_Alarm_Clock_Prog_Hr_1:
     LDA     #12H
-    JMP     L_Input_Prog_usually_Mode
+    JMP     L_Scankey_Input_Set_Mode_Hr_usually
  

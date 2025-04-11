@@ -57,4 +57,4 @@ L_Control_Set_Mode_Another_Clock_Prog_Hr:
     JMP     L_Scankey_Input_Set_Mode_Usally
 L_Control_Set_Mode_Another_Clock_Prog_Hr_1:
     LDA     #12H
-    JMP     L_Input_Prog_usually_Mode
+    JMP     L_Scankey_Input_Set_Mode_Hr_usually

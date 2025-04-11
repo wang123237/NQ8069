@@ -94,3 +94,27 @@ L_12_24_Prog_5:
 	JSR		L_Clr_lcd_PM_Prog
 	LDA		P_Temp
 	RTS
+
+
+;==================================
+L_12_To_24_Prog:
+	LDA		P_Temp+3
+	CMP		#12
+	BCC		L_AM_TO_24_Prog
+L_PM_TO_24_Prog:;入口P_Temp+5(按键给的值)，P_Temp+3原值
+	LDA		P_Temp+5
+	CMP		#12
+	BEQ		 L_PM_TO_24_Prog_RTS 
+	CLC
+	ADC		#12
+	RTS
+
+L_PM_TO_24_Prog_RTS:
+	RTS
+
+L_AM_TO_24_Prog:
+	LDA		P_Temp+5
+	CMP		#12
+	BNE		L_PM_TO_24_Prog_RTS
+	LDA		#0
+	RTS

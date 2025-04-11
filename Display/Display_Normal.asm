@@ -45,6 +45,7 @@ L_Display_lcd_Prog_Normal_Hr_1:
 
 
 L_Display_lcd_Prog_Normal_Day:
+	JSR		L_A_HexToHexD
 	PHA
 	AND		#$0F
     LDX     #lcd_d8
@@ -53,6 +54,7 @@ L_Display_lcd_Prog_Normal_Day:
 	BBS3	Sys_Flag_A,L_Display_lcd_Prog_Normal
 	BRA		L_Display_lcd_Prog_Normal_1
 L_Display_lcd_Prog_Normal_Month:
+	JSR		L_A_HexToHexD
 	PHA
 	AND		#$0F
     LDX     #lcd_d5

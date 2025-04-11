@@ -50,7 +50,8 @@ L_Scankey_Set_Mode_Mode_First_Press_Prog_OUT:
 L_Scankey_Set_Mode_Mode_First_Press_Prog_1:
     LDA     #0
     STA     R_Mode_Set
-    JMP     L_Display_Set_Mode_Prog
+    JSR     L_Clr_All_DisRam_Prog
+    JMP     L_Display_Prog
 
 L_Control_Key_Voice_Prog:
     BBS5    Sys_Flag_C,L_Control_Key_Voice_Prog_Close
@@ -74,7 +75,7 @@ L_Scankey_Set_Mode_Set_Press_First_Press_Prog:
     RMB3    Sys_Flag_A
     LDA     #0
     STA     R_Mode_Set
-    JSR     L_Dis_All_DisRam_Prog
+    JSR     L_Clr_All_DisRam_Prog
     JSR     L_Display_Prog
     RTS
 
@@ -105,10 +106,10 @@ L_Scankey_Input_Set_Mode_Usally_Low_Bit:
     AND     #F0H
     CMP     P_Temp+6;判断当前内存的高四位和最大值的高四位，当小于时，直接将输入的值给到低四位
     BCC     L_Scankey_Input_Set_Mode_Usally_Low_Bit_Conutine
-    LDA     P_Temp+3
+    LDA     P_Temp+4
     AND     #0FH
     CMP     P_Temp+5;判断当前内存的低四位和最大值的低四位，当小于时，直接将输入的值给到低四位
-    BCS     L_Scankey_Input_Set_Mode_Usally_Low_Bit_RTS
+    BCC     L_Scankey_Input_Set_Mode_Usally_Low_Bit_RTS
     LDA     P_Temp+6
     ORA     P_Temp+5
     JSR     L_A_HexDToHex
@@ -131,8 +132,9 @@ L_Scankey_Input_Set_Mode_Usally_High_Bit:
     LDA     P_Temp+4
     AND     #F0H
     CMP     P_Temp+5;将最大值和读取到的数比较，当大于时退出
-    BCS     L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine;当按键输入值的前四位大于最大值时推出
     BEQ     L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine_Special
+    BCS     L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine;当按键输入值的前四位大于最大值时推出
+    
 L_Scankey_Input_Set_Mode_Usally_High_Bit_RTS:
     RTS
 L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine_Special:
@@ -142,8 +144,8 @@ L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine_Special:
     LDA     P_Temp+4
     AND     #0FH
     CMP     P_Temp+6;将最大值的低四位和对应内存的低四位相比较，小于或等于跳转，否则清零低四位
-    BCC     L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine
-    BEQ     L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine
+    BCS     L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine
+    ; BEQ     L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine
     LDA     P_Temp+5
     JSR     L_A_HexDToHex
     STA		Time_Addr,X
@@ -158,9 +160,19 @@ L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine:
     JSR     L_Scankey_Set_Mode_Mode_First_Press_Prog
     RTS
 
-L_Input_Prog_Time_Mode
-L_Input_Prog_usually_Mode:
-    RTS
+L_Scankey_Input_Set_Mode_Hr_usually:
+    STX     P_Temp+7
+    JSR     L_Scankey_Input_Press
+    STA     P_Temp+4
+    BBS2    Sys_Flag_C,L_Scankey_Input_Set_Mode_Usally_High_Bit_RTS
+    LDA     Time_Addr,X
+    STA     P_Temp+3
+    BBR0    R_Mode_Set,L_Scankey_Input_Set_Mode_High_Bit_To
+    JMP     L_Scankey_Input_Set_Mode_Low_Bit
+
+L_Scankey_Input_Set_Mode_High_Bit_To:
+    JMP     L_Scankey_Input_Set_Mode_High_Bit
+
 
 
 L_Scankey_Input_Press:
