@@ -217,6 +217,8 @@ R_Voice_Unit					DS	1;闹铃响的次数，一秒响几次
 ;==================================================
 ;===================================================
 Calculator_Str_Addr	EQU		$
+Calculator_State		DS	1
+Calculator_State_Init	.EQU	0
 ; Sys_Flag_Cala		DS		1
 MAX_DIG		.EQU	8
 Dig			.EQU	MAX_DIG
@@ -232,7 +234,16 @@ BUF5		DS		MAX_DIG
 BUF6		DS		4
 
 ERR			DS		1
-Error_FUll	EQU		0
+ERR_NULL	.EQU	0
+ERR_DIV0	.EQU	1
+Error_FUll	.EQU	2
+ERR_SQRT	.EQU	3
+ERR_M		.EQU	4
+ERR_GT		.EQU	5
+ERR_MU		.EQU	6
+ERR_PCT		.EQU	7
+ERR_IN		.EQU	8
+
 ;---------------------------------------       
 P_Temp			ds	10
 ;显示从写P_Temp+4

@@ -178,6 +178,7 @@ L_EndIrq:
 .Include	Calculator\Calculator_Base.asm
 .Include	Calculator\Calculator_Base_Math.asm
 .Include	Calculator\Calculator_Display.asm
+.Include	Calculator\Calculator_Scankey.asm
 
 .INCLUDE	Half_s\Half.asm
 .INCLUDE	Half_s\Clock.asm
