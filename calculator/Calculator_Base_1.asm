@@ -1,0 +1,25 @@
+L_Judge_IBUF_Prog:
+	LDA		IBUF
+	ORA		IBUF+1
+	ORA		IBUF+2
+	ORA		IBUF+3
+	ORA		IBUF+4
+	RTS
+L_Move_Left_One_Bit_Prog_IBUF:
+	CLC
+	ROL		IBUF
+	ROL		IBUF+1
+	ROL		IBUF+2
+	ROL		IBUF+3
+	ROL		IBUF+4
+	ROL		IBUF+5
+	RTS
+L_Move_Right_One_Bit_Prog_IBUF:
+	CLC
+	ROR		IBUF+5
+	ROR		IBUF+4
+	ROR		IBUF+3
+	ROR		IBUF+2
+	ROR		IBUF+1
+	ROR		IBUF
+	RTS

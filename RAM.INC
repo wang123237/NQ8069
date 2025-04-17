@@ -74,7 +74,7 @@ Sys_Flag_D				DS	1	;计时器模式的系统状态
 
 
 
-R_Reset_Time				DS	1;全显时间,一般为2s
+R_Reset_Time					DS	1;全显时间,一般为2s
 	
 R_Scankey_Time					DS	1;按键按下的时间
 D_Rscankey_Half_Sec				EQU	16;按键时间
@@ -217,8 +217,19 @@ R_Voice_Unit					DS	1;闹铃响的次数，一秒响几次
 ;==================================================
 ;===================================================
 Calculator_Str_Addr	EQU		$
+
+
 Calculator_State		DS	1
 Calculator_State_Init	.EQU	0
+Calculator_Symbol_State	DS	1
+
+State_Add			.EQU	0
+State_SUB			.EQU	1
+State_Mul			.EQU	2
+State_DIV			.EQU	3
+State_Equal			.EQU	4
+
+
 ; Sys_Flag_Cala		DS		1
 MAX_DIG		.EQU	8
 Dig			.EQU	MAX_DIG
@@ -236,7 +247,7 @@ BUF6		DS		4
 ERR			DS		1
 ERR_NULL	.EQU	0
 ERR_DIV0	.EQU	1
-Error_FUll	.EQU	2
+Err_FUll	.EQU	2
 ERR_SQRT	.EQU	3
 ERR_M		.EQU	4
 ERR_GT		.EQU	5
@@ -244,6 +255,10 @@ ERR_MU		.EQU	6
 ERR_PCT		.EQU	7
 ERR_IN		.EQU	8
 
+
+
+
+ACC			.EQU		P_Temp
 ;---------------------------------------       
 P_Temp			ds	10
 ;显示从写P_Temp+4
