@@ -232,6 +232,12 @@ ERR_MU		.EQU	6
 ERR_PCT		.EQU	7
 ERR_IN		.EQU	8
 R_Mode_Set					DS	1;设置模式
+
+DINX		.EQU	P_Temp+6
+
+
+D1FD		.EQU	MAX_BYTE
+DFD			.EQU	MAX_BYTE
 ;---------------------------------------       
 P_Temp			ds	10
 ;显示从写P_Temp+4
@@ -245,9 +251,18 @@ P_Temp			ds	10
 	ORG    1880H
 ;---------------------------------------
 ;---------------------------------------
-.ENDS
+
 ; IBUF		DS		MAX_DIG+1
-DBUF		DS		MAX_DIG+1
+
+DBUF		DS		MAX_BYTE+1
+D1BUF		DS		MAX_BYTE+1
+
+
+
+
+
+
+
 ERR			DS		1
 R_Mode						DS	1;0是时钟模式，1是闹钟，2是正计时，3是第二时钟，4是倒计时
 
@@ -262,4 +277,4 @@ R_Snz_Frequency					DS	1;贪睡闹钟的小时;
 
 Calculator_State		DS	1
 Calculator_Symbol_State	DS	1
-
+.ENDS

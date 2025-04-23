@@ -306,7 +306,7 @@ L_Adjust_Result_Prog_Error:
 	AND		#080H
 	ORA		#MAX_DIG
 	STA		RAM,X
-	LDA		#Error_FUll
+	LDA		#Err_FUll
 	STA		ERR
 	BRA		L_Adjust_Result_Prog
 L_Adjust_Result_Prog_Zero:
