@@ -42,7 +42,9 @@ L_Scankey_Set_Mode_Mode_First_Press_Prog:
     LDA     R_Mode_Set
     CMP     P_Temp
     BCS     L_Scankey_Set_Mode_Mode_First_Press_Prog_1
-    INC     R_Mode_Set
+    LDA     R_Mode_Set
+    ADC     #1
+    STA     R_Mode_Set
     JSR     L_Display_Set_Mode_Prog
 L_Scankey_Set_Mode_Mode_First_Press_Prog_OUT:
     RTS

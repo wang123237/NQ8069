@@ -2,8 +2,10 @@
 L_control_Beep_prog:
 	LDA		R_Voice_Unit;闹铃持续的次数时间
 	BEQ		L_control_Beep_prog_out
-	INC		R_Alarm_Clock_Open_Beep_Time
+	CLC
 	LDA		R_Alarm_Clock_Open_Beep_Time
+	ADC		#1
+	STA		R_Alarm_Clock_Open_Beep_Time
 	CMP		#2
 	BCS		L_Open_Beep_Prog
 L_control_Beep_prog_out:
@@ -15,7 +17,11 @@ L_Open_Beep_Prog:
 	LDA		#0
 	STA		R_Alarm_Clock_Open_Beep_Time
 	BBR7	P_TMRCTRL,L_Open_Beep_Prog_1
-	DEC		R_Voice_Unit
+	SEC
+	LDA		R_Voice_Unit
+	SBC		#1
+	STA		R_Voice_Unit
+
 L_Close_Beep_Prog:	
 	LDA		#$00  	
 	STA		P_AUD
@@ -70,8 +76,10 @@ L_Control_Beep_prog_Auto_Exit:;多久自动退出响闹,如果没有则按每秒
 	LDA		Sys_Flag_C
 	AND		#10H
 	BEQ		L_Scankey_Close_Alarm_Beep_OUT
-	DEC		R_Close_Beep_Time
-	LDA		R_Close_Beep_Time;定时器
+	SEC
+	LDA		R_Close_Beep_Time
+	SBC		#1
+	STA		R_Close_Beep_Time;定时器
 	BEQ		L_Scankey_Short_ST_SP_Press_Prog_Alarm
 	EN_LCD_IRQ
 	LDA		#2

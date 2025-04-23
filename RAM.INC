@@ -182,36 +182,13 @@ R_Alarm_Mode					DS	1;闹钟的模式，0是闹钟关闭，1是闹钟开启，2�
 
 
 
-R_Snz_Time						DS	1;贪睡闹钟的分钟;
 D_Snz_Time						EQU	5
-R_Snz_Frequency					DS	1;贪睡闹钟的小时;
 D_Snz_Frequency					EQU	6
 
 
 
-R_Mode						DS	1;0是时钟模式，1是闹钟，2是正计时，3是第二时钟，4是倒计时
-R_Mode_Set					DS	1;设置模式
 
 
-
-
-R_Set_Mode_Exit_Time			DS	1;自动设置退出时间
-D_Set_Mode_Exit_Time			EQU	81
-
-; R_Fast_Plus_Time				DS	1;长按LCD快加
-
-
-; R_Close_All_Dis					DS	1;控制关闭全显
-; D_Close_All_Dis					EQU	2
-
-
-; R_Close_Light_Time				DS	1;关闭light的时间
-; D_Close_Light_Time				EQU	2
-
-
-R_Alarm_Clock_Open_Beep_Time	DS	1;32Hz转化为16hz
-R_Close_Beep_Time				DS	1;闹铃关闭时间，闹铃响多久
-R_Voice_Unit					DS	1;闹铃响的次数，一秒响几次
 
 ;==================================================
 ;==================================================
@@ -219,10 +196,9 @@ R_Voice_Unit					DS	1;闹铃响的次数，一秒响几次
 Calculator_Str_Addr	EQU		$
 
 
-Calculator_State		DS	1
+; Calculator_State		DS	1
 Calculator_State_Init	.EQU	0
-Calculator_Symbol_State	DS	1
-
+; Calculator_Symbol_State	DS	1
 State_Add			.EQU	0
 State_SUB			.EQU	1
 State_Mul			.EQU	2
@@ -243,8 +219,9 @@ BUF3		DS		MAX_DIG
 BUF4		DS		MAX_DIG
 BUF5		DS		MAX_DIG
 BUF6		DS		4
-
-ERR			DS		1
+IBUF		DS		MAX_DIG+1
+ACC			.EQU		P_Temp
+IFD			.EQU	MAX_BYTE
 ERR_NULL	.EQU	0
 ERR_DIV0	.EQU	1
 Err_FUll	.EQU	2
@@ -254,11 +231,7 @@ ERR_GT		.EQU	5
 ERR_MU		.EQU	6
 ERR_PCT		.EQU	7
 ERR_IN		.EQU	8
-
-
-
-
-ACC			.EQU		P_Temp
+R_Mode_Set					DS	1;设置模式
 ;---------------------------------------       
 P_Temp			ds	10
 ;显示从写P_Temp+4
@@ -273,6 +246,20 @@ P_Temp			ds	10
 ;---------------------------------------
 ;---------------------------------------
 .ENDS
+; IBUF		DS		MAX_DIG+1
+DBUF		DS		MAX_DIG+1
+ERR			DS		1
+R_Mode						DS	1;0是时钟模式，1是闹钟，2是正计时，3是第二时钟，4是倒计时
 
+R_Set_Mode_Exit_Time			DS	1;自动设置退出时间
+D_Set_Mode_Exit_Time			EQU	81
+R_Alarm_Clock_Open_Beep_Time	DS	1;32Hz转化为16hz
+R_Close_Beep_Time				DS	1;闹铃关闭时间，闹铃响多久
+R_Voice_Unit					DS	1;闹铃响的次数，一秒响几次
 
+R_Snz_Time						DS	1;贪睡闹钟的分钟;
+R_Snz_Frequency					DS	1;贪睡闹钟的小时;
+
+Calculator_State		DS	1
+Calculator_Symbol_State	DS	1
 

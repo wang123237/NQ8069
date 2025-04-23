@@ -28,7 +28,10 @@ L_Alarm_First_Press_Prog_Alm_Press:;控制闹钟贪睡的开启关闭
 	LDA		R_Alarm_Mode
 	CMP		#2
 	BCS		L_Alarm_First_Reset_Press_Prog_Alarm_Prog_Clr
-	INC		R_Alarm_Mode
+	CLC
+	LDA		R_Alarm_Mode
+	ADC		#1
+	STA		R_Alarm_Mode
 	JMP		L_Dis_Alm_Snz_Symbol_Prog
 L_Alarm_First_Reset_Press_Prog_Alarm_Prog_Clr:
 	LDA		#0

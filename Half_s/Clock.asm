@@ -47,12 +47,18 @@ L_Control_Beep_Time_On_Alarm_Prog:;控制整点报时
 ;控制贪睡闹钟
 L_Control_Snz_Prog:
 	BBR7	Sys_Flag_C,L_End_Update_Time_Prog
-	DEC		R_Snz_Time
+	SEC
+	LDA		R_Snz_Time
+	SBC		#1
+	STA		R_Snz_Time
 	BNE		L_End_Update_Time_Prog
 	LDA		#D_Snz_Time
 	STA		R_Snz_Time
 	JSR		L_Alarm_Control_Prog_2
-	DEC		R_Snz_Frequency
+	LDA		R_Snz_Frequency
+	SEC
+	SBC		#1
+	STA		R_Snz_Frequency
 	RTS
 ;===================================
 ;-----时间的增加---------------------

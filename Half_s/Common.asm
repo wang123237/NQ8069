@@ -3,8 +3,10 @@ L_Set_Mode_Auto_Exit:
 	LDA		Sys_Flag_A
 	AND		#14H
 	BNE		L_Set_Mode_Auto_Exit_OUT;长按和快加时不进行设置
-	INC		R_Set_Mode_Exit_Time
+	CLC
 	LDA		R_Set_Mode_Exit_Time
+	ADC		#1
+	STA		R_Set_Mode_Exit_Time
 	CMP		#D_Set_Mode_Exit_Time
 	BCS		L_Set_Mode_Auto_Exit_1
 	BEQ		L_Set_Mode_Auto_Exit_1

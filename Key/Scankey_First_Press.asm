@@ -9,7 +9,9 @@ L_Scankey_Mode_Press_Prog:
 	LDA		R_Mode
 	CMP		#4
 	BCS		L_Scankey_Mode_Press_Prog_Clr
-	INC		R_Mode
+	LDA		R_Mode
+	ADC		#1
+	STA		R_Mode
 L_Scankey_Mode_Press_Prog_1:	
 	JMP		L_Display_Prog
 L_Scankey_Mode_Press_Prog_Clr:
