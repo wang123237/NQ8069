@@ -86,30 +86,19 @@ V_RESET:
 	EN_PA_IRQ;下降沿触发
 	LDA		#$07		;#$07    系统时钟和中断使能
 	STA		SYSCLK		;Strong
-	; LDA		#14
-	; STA		BUF1
-	; LDA		#5
-	; STA		BUF2
-	; JSR		L_Control_Mul_Prog
-	; LDA		BUF2
-	; LDA		BUF1
-	JSR		L_Clr_All_DisRam_Prog
 	CLI
 	
 ;***********************************************************************
 ;***********************************************************************
 MainLoop:	
-	LDA		#D_NUM3_Press
-	STA		P_Scankey_value
-	JSR		Calculator_Input_Number_Prog
-	; JSR		L_LCD_IRQ_WorkProg
-	; JSR		L_Half_Second_Prog
-	; LDA		R_Voice_Unit
-	; BNE		MainLoop
+	JSR		L_LCD_IRQ_WorkProg
+	JSR		L_Half_Second_Prog
+	LDA		R_Voice_Unit
+	BNE		MainLoop
 
-	; SMB4	SYSCLK;280k
-	; STA		P_HALT	
-	; RMB4	SYSCLK;560k
+	SMB4	SYSCLK;280k
+	STA		P_HALT	
+	RMB4	SYSCLK;560k
 	BRA		MainLoop		
 
 ;***********************************************************************

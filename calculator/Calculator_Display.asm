@@ -39,6 +39,7 @@ DISP_GET_INX_LOOP:
 	BRA		DISP_GET_INX_LOOP
 ;======================================================================
 L_Display_FD_Prog:
+	JSR		L_Clr_FD_Prog
     LDA     DBUF+DFD
     AND     #07H
     CLC
@@ -51,6 +52,7 @@ L_Display_FD_Prog:
     PHA
     RTS
 Table_FD:
+	DW      L_Dis_lcd_T8_Prog-1
     DW      L_Dis_lcd_T8_Prog-1
     DW      L_Dis_lcd_T7_Prog-1
     DW      L_Dis_lcd_T6_Prog-1
@@ -59,6 +61,17 @@ Table_FD:
     DW      L_Dis_lcd_T3_Prog-1
     DW      L_Dis_lcd_T2_Prog-1
     DW      L_Dis_lcd_T1_Prog-1
+
+L_Clr_FD_Prog:
+	JSR		L_Clr_lcd_T1_Prog
+	JSR		L_Clr_lcd_T2_Prog
+	JSR		L_Clr_lcd_T3_Prog
+	JSR		L_Clr_lcd_T4_Prog
+	JSR		L_Clr_lcd_T5_Prog
+	JSR		L_Clr_lcd_T6_Prog
+	JSR		L_Clr_lcd_T7_Prog
+	JSR		L_Clr_lcd_T8_Prog
+	RTS
 ;======================================================================
 L_Display_NEG_Prog:
 	LDA		DBUF+DFD

@@ -8,29 +8,39 @@ RET:
     RTS
 ;===========================================
 L_Calculator_Frist_Press_Prog
-    LDA     P_Scankey_value
-    CMP     #D_B_Press
-    BEQ     L_Calculator_B_Press_Prog
-    CLD
-    CLC
     LDA     Calculator_State
+    CLC
+    CLD
     ROL
     TAX
-    LDA     Table_Calculator_State+1,X 
-    PHA 
+    LDA     Table_Calculator_State+1,X
+    PHA
     LDA     Table_Calculator_State,X
     PHA
     RTS
-; L_Calculator_B_Press_Prog:
-;     RTS
 Table_Calculator_State:
-    DW      Calculator_Init-1
+    DW      L_Calculator_Init_Prog-1
+
+L_Calculator_Init_Prog:
+    JSR     Calculator_Input
+    LDA     P_Scankey_value
+    CMP     #20
+    BCC     L_Calculator_Init_Prog_RTS
+    LDA     #Calculator_State_Symbol_Press
+    STA     Calculator_State
 
 
 
 
 
-Calculator_Init:
+
+
+
+
+
+
+
+
 
 
 
@@ -38,15 +48,15 @@ Calculator_Input:
     LDA     P_Scankey_value
     CMP     #16
     BCC     Calculator_Input_Number_Prog_TO
-    CMP     20
+    CMP     #20
     BCC     Calculator_Input_Symbol_Prog_TO
     RTS
 
-; Calculator_Input_Number_Prog_TO:
-;     JMP     Calculator_Input_Number_Prog
+Calculator_Input_Number_Prog_TO:
+    JMP     Calculator_Input_Number_Prog
 
-; Calculator_Input_Symbol_Prog_TO:
-;     JMP     Calculator_Input_Symbol_Prog
+Calculator_Input_Symbol_Prog_TO:
+    JMP     Calculator_Input_Symbol_Prog
 
 
 
@@ -62,6 +72,7 @@ L_Input_Full_Prog:
     LJNZ    L_Input_Full_Error
     LDA     IBUF+IFD
     AND     #07FH
+    CMP     #MAX_DIG
     LJZ     RET1
     JMP     RET0
 
@@ -78,6 +89,7 @@ Input_FD_Inc:
 	LDA		IBUF+IFD
 	AND		#07FH
 	LJZ		RET
+    CLC
 	LDA     IBUF+IFD
     ADC     #1
     STA     IBUF+IFD
@@ -101,8 +113,9 @@ Input_FD:
 Calculator_Input_Number:
     STA     ACC
     JSR     L_Input_Full_Prog
-    JSR     Input_FD_Inc
     LJNZ    RET
+    JSR     Input_FD_Inc
+    
     JSR     L_Move_Left_One_Bit_Prog_IBUF
     JSR     L_Move_Left_One_Bit_Prog_IBUF
     JSR     L_Move_Left_One_Bit_Prog_IBUF
@@ -136,6 +149,9 @@ Calculator_Input_Number_Prog:
     BEQ     Calculator_Input_Number8
     CMP     #D_NUM9_Press
     BEQ     Calculator_Input_Number9
+    CMP     #D_NUM_Point_Press
+    BEQ     Input_Dot
+    RTS
 Calculator_Input_Number0:
     LDA     #0
     BRA     Calculator_Input_NumberX
@@ -176,17 +192,11 @@ Input_Dot:
     RTS
 
 
-; Calculator_Input_Symbol_Prog:
-;     LDA     Calculator_State
-;     CLD
-;     CLC
-;     LDA     Calculator_State
-;     ROL
-;     TAX
-;     LDA     Table_Calculator_State+1,X 
-;     PHA 
-;     LDA     Table_Calculator_State,X
-;     PHA
-;     RTS
-
-    
+Calculator_Input_Symbol_Prog:
+    LDA      P_Scankey_value
+    CMP      #D_NUM_Equal_Press
+    BEQ     
+    CMP      #D_NUM_Add_Press		
+    CMP      #D_NUM_Minus_Press	
+    CMP      #D_NUM_Multiply_Press
+    CMP      #D_NUM_Divid_Press	

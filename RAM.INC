@@ -198,13 +198,14 @@ Calculator_Str_Addr	EQU		$
 
 ; Calculator_State		DS	1
 Calculator_State_Init	.EQU	0
+Calculator_State_Symbol_First_Press	.EQU	1
 ; Calculator_Symbol_State	DS	1
 State_Add			.EQU	0
 State_SUB			.EQU	1
 State_Mul			.EQU	2
 State_DIV			.EQU	3
 State_Equal			.EQU	4
-
+State_Involution	.EQU	5
 
 ; Sys_Flag_Cala		DS		1
 MAX_DIG		.EQU	8
