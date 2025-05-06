@@ -251,13 +251,13 @@ L_Control_DIV_Prog_DIV:
 L_Control_BUF1_Adjust_Result:
 	LDA		#(BUF1+FD-RAM)
 	STA		BUF6
-	LDA		#(BUF6-RAM)
+	LDA		#(BUF2-RAM)
 	STA		BUF6+1
 	BRA		L_Adjust_Result_Prog
 L_Control_BUF2_Adjust_Result:
 	LDA		#(BUF2+FD-RAM)
 	STA		BUF6
-	LDA		#(BUF6-RAM)
+	LDA		#(BUF1-RAM)
 	STA		BUF6+1
 L_Adjust_Result_Prog:
 	LDX		BUF6
@@ -293,7 +293,7 @@ L_Adjust_Result_Move_Right_Prog:
 	AND		#07FH
 	CMP		#1
 	BEQ		L_Adjust_Result_Prog_Error
-	LDX		#BUF6
+	LDX		BUF6
 	LDA		RAM,X
 	STA		BUF6+2
 	DEC		BUF6+2
@@ -308,7 +308,7 @@ L_Adjust_Result_Prog_Error:
 	STA		RAM,X
 	LDA		#Err_FUll
 	STA		ERR
-	BRA		L_Adjust_Result_Prog
+	BRA		L_Adjust_Result_Prog_Loop
 L_Adjust_Result_Prog_Zero:
 	LDX		BUF6+1
 	LDA		RAM,X

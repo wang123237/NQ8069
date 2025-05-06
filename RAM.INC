@@ -58,22 +58,6 @@ Sys_Flag_D				DS	1	;计时器模式的系统状态
 ; bit5 	=0无中途测量，1中途测量
 ; bit6	=
 ; bit7	=
-
-
-; Sys_Flag_E					DS	1;
-; Sys_Flag_F					DS	1;
-; Sys_Flag_G					DS	1;
-; Sys_Flag_H					DS	1;
-
-
-; P_PA_IO_Backup      		DS	1	;B
-; P_PA_Backup         		DS	1	;C
-; P_PA_WAKE_Backup			DS	1	;D
-; P_PC_IO_Backup      		DS	1	;E
-; P_PC_Backup         		DS	1	;F
-
-
-
 R_Reset_Time					DS	1;全显时间,一般为2s
 	
 R_Scankey_Time					DS	1;按键按下的时间
@@ -161,25 +145,13 @@ R_Timer_Hr_Measurement			EQU	BUF4
 R_Timer_Min_Measurement			EQU	BUF4+1
 R_Timer_Sec_Measurement			EQU	BUF4+2
 R_Timer_Ms_Measurement			EQU	BUF4+3
-; R_Timer_Sec_Countdown			DS	1;/倒计时剩余时间秒数;
-; R_Timer_Min_Countdown			DS	1;/倒计时剩余时间分钟;
-; R_Timer_Hr_Countdown			DS	1;/倒计时剩余时间小时;
-; R_Timer_Sec_Backup				DS	1;定时器倒计时储存时间时间;9
-; R_Timer_Min_Backup				DS	1;定时器倒计时储存时间时间;10
-; R_Timer_Hr_Backup				DS	1;定时器倒计时储存时间时间;11
-; D_Beep_Open_Last_Time_Timer		EQU	16
 
 
 D_Beep_Open_Last_Time_Alarm		EQU	11
 
 R_Alarm_Clock_Min				DS	1;闹钟的分钟;	10
 R_Alarm_Clock_Hr 				DS	1;闹钟的小时;	11
-; R_Alarm_Clock_Day 				DS	1;闹钟的天;	11
-; R_Alarm_Clock_Month				DS	1;闹铃的月份
 R_Alarm_Mode					DS	1;闹钟的模式，0是闹钟关闭，1是闹钟开启，2是循环闹铃
-; R_Alarm_Clock_Mode				DS	1;0每日闹钟，1定日闹铃，2定月闹铃，3月次闹铃
-; R_Alarm_Ms						DS	1;1/4s的设置
-
 
 
 D_Snz_Time						EQU	5
@@ -196,16 +168,7 @@ D_Snz_Frequency					EQU	6
 Calculator_Str_Addr	EQU		$
 
 
-; Calculator_State		DS	1
-Calculator_State_Init	.EQU	0
-Calculator_State_Symbol_First_Press	.EQU	1
-; Calculator_Symbol_State	DS	1
-State_Add			.EQU	0
-State_SUB			.EQU	1
-State_Mul			.EQU	2
-State_DIV			.EQU	3
-State_Equal			.EQU	4
-State_Involution	.EQU	5
+
 
 ; Sys_Flag_Cala		DS		1
 MAX_DIG		.EQU	8
@@ -239,6 +202,29 @@ DINX		.EQU	P_Temp+6
 
 D1FD		.EQU	MAX_BYTE
 DFD			.EQU	MAX_BYTE
+
+
+
+; Calculator_State		DS	1
+Calculator_State_Init				.EQU	0
+Calculator_State_Symbol_First_Press	.EQU	1
+Calculator_State_Input				.EQU	2
+Calculator_State_Equal_Press		.EQU	3
+; Calculator_Symbol_State	DS	1
+State_Null			.EQU	0
+State_Add			.EQU	1
+State_SUB			.EQU	2
+State_Mul			.EQU	3
+State_DIV			.EQU	4
+State_Involution	.EQU	5
+
+
+State_Equal			.EQU	1
+
+
+Calc_Init				.EQU	0	;初始化，无意义
+Calc_First_Output		.EQU	1	;按键第一次按下加减乘除符号键
+Calc_First_Output_		.EQU	2	;第一次运算没有数字输入
 ;---------------------------------------       
 P_Temp			ds	10
 ;显示从写P_Temp+4
@@ -257,7 +243,7 @@ P_Temp			ds	10
 
 DBUF		DS		MAX_BYTE+1
 D1BUF		DS		MAX_BYTE+1
-
+BBUF		DS		MAX_BYTE+1
 
 
 
@@ -276,6 +262,9 @@ R_Voice_Unit					DS	1;闹铃响的次数，一秒响几次
 R_Snz_Time						DS	1;贪睡闹钟的分钟;
 R_Snz_Frequency					DS	1;贪睡闹钟的小时;
 
-Calculator_State		DS	1
-Calculator_Symbol_State	DS	1
+Calculator_State				DS	1
+Calculator_Symbol_State			DS	1
+Calculator_State_Mechine		DS	1
+Calculator_Symbol_State_Equal	DS	1
+
 .ENDS

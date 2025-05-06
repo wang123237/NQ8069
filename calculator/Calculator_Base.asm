@@ -350,7 +350,7 @@ L_Copy_To_BUF5:
 L_Hex_To_Dec_Prog:
 	LDX		#(BUF2-RAM)
 	JSR		L_Clear_BUF_Prog
-	LDX		#(BUF1-RAM)
+	LDX		#(BUF3-RAM)
 	JSR		L_Clear_BUF_Prog
 	LDA		#1
 	STA		BUF3;给权重计数器初始值

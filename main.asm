@@ -181,6 +181,7 @@ L_EndIrq:
 .Include	Calculator\Calculator_Display.asm
 .Include	Calculator\Calculator_Scankey.asm
 .Include	Calculator\Calculator_Base_1.asm
+.Include	Calculator\Calculator_Mechine.asm
 
 
 

@@ -178,3 +178,68 @@ L_Clr_lcd_d7_Prog:
 L_Clr_lcd_d8_Prog:
     LDX     #lcd_d8
     BRA     L_Clr_lcd_usually_Prog
+
+
+L_Display_lcd_Involution_Prog:
+    LDX     #lcd_Involution
+    JSR     F_DispSymbol
+    RTS
+L_Display_lcd_Plus_Prog:
+    LDX     #lcd_Plus
+    JSR     F_DispSymbol
+    RTS
+L_Display_lcd_SUB_Prog:
+    LDX     #lcd_SUB
+    JSR     F_DispSymbol
+    RTS
+L_Display_lcd_Mul_Prog:
+    LDX     #lcd_Mul
+    JSR     F_DispSymbol
+    RTS
+L_Display_lcd_DIV_Prog:
+    LDX     #lcd_DIV
+    JSR     F_DispSymbol
+    RTS
+L_Clr_Calculator_Symbol_Prog:
+    LDX     #lcd_Involution
+    JSR     F_ClrpSymbol
+L_Clr_Calculator_Symbol_Prog_1: 
+    LDX     #lcd_Plus
+    JSR     F_ClrpSymbol
+    LDX     #lcd_SUB
+    JSR     F_ClrpSymbol
+    LDX     #lcd_Mul
+    JSR     F_ClrpSymbol
+    LDX     #lcd_DIV
+    JSR     F_ClrpSymbol
+    
+    RTS
+
+
+L_Dis_Calculator_Symbol_Prog:
+    JSR     L_Clr_Calculator_Symbol_Prog
+    CLC
+    CLD
+    LDA     Calculator_Symbol_State
+    ROL
+    TAX
+    LDA     Table_Calc_Symbol+1,X
+    PHA
+    LDA     Table_Calc_Symbol,X
+    PHA
+    RTS
+Table_Calc_Symbol:
+    DW      RET-1
+    DW      L_Display_lcd_Plus_Prog-1
+    DW      L_Display_lcd_SUB_Prog-1
+    DW      L_Display_lcd_Mul_Prog-1
+    DW      L_Display_lcd_DIV_Prog-1
+
+L_Dis_Calculator_Symbol_Prog_Equal:
+    LDA     Calculator_Symbol_State
+    CMP     #State_Involution
+    BNE     L_Dis_Calculator_Symbol_Prog_Equal_RTS
+    RTS
+L_Dis_Calculator_Symbol_Prog_Equal_RTS
+    JSR     L_Clr_Calculator_Symbol_Prog_1
+    RTS
