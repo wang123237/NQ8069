@@ -239,6 +239,7 @@ L_Dis_Calculator_Symbol_Prog_Equal:
     LDA     Calculator_Symbol_State
     CMP     #State_Involution
     BNE     L_Dis_Calculator_Symbol_Prog_Equal_RTS
+    JSR     L_Clr_Calculator_Symbol_Prog
     RTS
 L_Dis_Calculator_Symbol_Prog_Equal_RTS
     JSR     L_Clr_Calculator_Symbol_Prog_1

@@ -98,7 +98,7 @@ L_Mul_Prog_RTS:
 L_Control_Mul_Prog:;
     LDX     #(BUF2-RAM)
     JSR     L_Copy_To_BUF5
-    JSR     L_Dec_To_Hex_Prog
+    JSR     L_Dec_To_Hex_Prog;这个函数将BUF1中的10进制数，转换为BUF2中的2进制数
 
     LDX     #(BUF5-RAM)
     JSR     L_Copy_To_BUF1
@@ -108,7 +108,7 @@ L_Control_Mul_Prog:;
     JSR     L_Dec_To_Hex_Prog
 
     LDX     #(BUF5-RAM)
-    JSR     L_Copy_To_BUF1
+    JSR     L_Copy_To_BUF1;以上函数将十进制的两个输入数，转换为16进制的两个输入数，但小数点的值不变
 
     JSR     L_Mul_Prog
 
@@ -271,7 +271,11 @@ L_Adjust_Result_Prog_Loop:
 	SBC		#MAX_DIG+1
 	BCS		L_Adjust_Result_Move_Right_Prog
 	LDA		ERR
-	BNE		L_Adjust_Result_Prog_Loop
+	BNE		L_Adjust_Result_Prog_Loop1
+    LDX		BUF6+1						;LDA BUF
+	LDA		RAM, X
+	AND		#0FH
+	BNE		L_Adjust_Result_Prog_Loop1
 	LDX		BUF6
 	LDA		RAM,X
 	AND		#07FH

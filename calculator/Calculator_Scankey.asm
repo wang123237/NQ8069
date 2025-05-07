@@ -1,29 +1,13 @@
+;按键状态机，存在计算器流程图中
+
+
+
 
 ;===========================================
 L_Calculator_Frist_Press_Prog:
     JSR     L_Calculator_Scankey_Prog
     JSR     L_Calculator_Calc_Prog_State_Mechine
     RTS
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 L_Calculator_Scankey_Prog:
     LDA     Calculator_State
@@ -40,20 +24,23 @@ Table_Calculator_State:
     DW      L_Calculator_Init_Prog-1
     DW      L_Calculator_State_Symbol_First_Press_Prog-1
     DW      L_Calculator_State_Input_Prog-1
+    DW      L_Calculator_State_Equal_Press_Prog-1
+    DW      L_Calculatoe_State_Involution-1
+    DW      L_Calculatoe_State_Involution_Number_Input_Prog-1
 ;======================================================================
 L_Calculator_Init_Prog:
     JSR     Calculator_Input
     LDA     P_Scankey_value
-    CMP     #16
+    CMP     #MAX_Number_Input
     
     BCC     L_Calculator_Init_Prog_RTS
-    CMP     #20
+    CMP     #D_NUM_Equal_Press
     BEQ     L_Calculator_Init_Prog_RTS
 
     LDA     #Calculator_State_Symbol_First_Press;一旦符号键按下，将IBUF的内容传送到，BUF1中
     STA     Calculator_State                    ;并改变计算器当前状态
     LDA     #Calc_First_Output
-    STA     Calculator_State_Mechine  
+    STA     Calculator_State_Mechine            ;输出状态机
 L_Calculator_Init_Prog_RTS:
     RTS  
 
@@ -64,54 +51,134 @@ L_Calculator_Init_Prog_RTS:
 L_Calculator_State_Symbol_First_Press_Prog:
 ;在计算器按下符号键后，判断再次按下的是什么键，;如果是数字键改变状态，如果是符号键，改变符号状态，
 ;并判断是否是乘方模式;当小于16时判断数字键按下跳转，改变扫键状态;当大于16时判断是符号键按下，当按下等于号是进行运算
+    LDA     ERR
+    BNE     Calculator_State_Involution_Judgement_RTS;存在错误退出
     LDA     P_Scankey_value         
-    CMP     #16                     
+    CMP     #MAX_Number_Input                     
     BCC     Calculator_State_Number_Input  ;小于16说明按下的是数字键 
 
     LDA     P_Scankey_value
     CMP     #D_NUM_Equal_Press
-    BEQ     L_Calculator_State_Symbol_No_Number
+    BEQ     L_Calculator_State_Symbol_No_Number;按下等于号自己与自己乘法或除法
     LDA     Calculator_Symbol_State
     CMP     #State_Mul
-    BEQ     Calculator_State_Involution_Judgement
+    BEQ     Calculator_State_Involution_Judgement;判断原先的符号状态是否是乘法
     JSR     Calculator_Input_Symbol_Prog
     RTS
 
-Calculator_State_Involution_Judgement:
+Calculator_State_Involution_Judgement:;判断是不是再次按下了乘法键如果是则判断为乘方模式
     JSR     Calculator_Input_Symbol_Prog
     LDA     Calculator_Symbol_State
     CMP     #State_Mul
-    BNE     Calculator_State_Involution_Judgement_RTS
+    BNE     Calculator_State_Involution_Judgement_RTS;判断是否再次按下乘号
     LDA     #State_Involution
     STA     Calculator_Symbol_State
     JSR     L_Display_lcd_Involution_Prog
     JSR     L_Copy_BUF1_TO_BBUF_Prog
+    LDA     #Calculator_State_Involution
+    STA     Calculator_State
+    ; LDA     #Calc_First_Output_Involution
+    ; STA     Calculator_State_Mechine
 Calculator_State_Involution_Judgement_RTS:
     RTS
-
+;======================================================================
 Calculator_State_Number_Input:;存在按键输入数字跳转计算器输入状态
-    LDX     #(IBUF-RAM)
-    JSR     L_Clear_BUF_Prog
+    JSR     L_Clear_IBUF_FD_Prog;清除IBUF的值
     JSR     Calculator_Input
-    LDA     #Calculator_State_Input
+    LDA     #Calculator_State_Input;设置
     STA     Calculator_State
     RTS
 
-L_Calculator_State_Symbol_No_Number:;当没有数字键按下并按下等号时，进行自加
+L_Calculator_State_Symbol_No_Number:;当没有数字键按下并按下等号时，进行自加，
     LDA     #Calc_First_Output_
     STA     Calculator_State_Mechine
-    LDA     #Calculator_State_Equal_Press
+    LDA     #Calculator_State_Equal_Press;没有
     STA     Calculator_State
     
     RTS
-
+;======================================================
 L_Calculator_State_Input_Prog:
+    JSR     Calculator_Input
+    LDA     P_Scankey_value
+    CMP     #MAX_Number_Input
+    BCC     L_Calculator_State_Input_Prog_RTS;判断当前输入的是否为数字键，如果是退出，不是继续判断
+    LDA     #Calc_First_Output_In
+    STA     Calculator_State_Mechine;给输出状态机值
+    LDA     #Calculator_State_Equal_Press
+    STA     Calculator_State
+    LDA     P_Scankey_value
+    CMP     #D_NUM_Equal_Press
+    BEQ     L_Calculator_State_Input_Prog_RTS;判断是否按下等于号键，如果是退出不是则
+    LDA     #Calculator_State_Symbol_First_Press
+    STA     Calculator_State
+L_Calculator_State_Input_Prog_RTS:
+    RTS    
+;==================================================
+L_Calculator_State_Equal_Press_Prog:
+    LDA     ERR
+    BNE     L_Calculator_State_Equal_Press_Prog_RTS;判断是否存在错误，如果不存在错误的话继续
+    LDA     P_Scankey_value
+    CMP     #MAX_Number_Input
+    BCC     L_Calculator_State_Equal_Press_Prog_Number_Press
+    CMP     #D_NUM_Equal_Press
+    BEQ     L_Calculator_State_Equal_Press_Prog_RTS;按下等号无意义
+    LDA     #Calculator_State_Symbol_First_Press
+    STA     Calculator_State
+    JMP     L_Calculator_State_Symbol_First_Press_Prog;按下加减乘除相当于进入按键一次按下问题
 
 
+L_Calculator_State_Equal_Press_Prog_RTS:
+    RTS
 
+L_Calculator_State_Equal_Press_Prog_Number_Press:;当按下等号在按下数字键时相当于一切清零
+    JSR     L_Clear_Calculator_Prog
+    JMP     L_Calculator_Init_Prog
 
+;=======================================================
+L_Calculatoe_State_Involution:
+    LDA     ERR
+    BNE     L_Calculatoe_State_Involution_RTS;当出现错误时
+    LDA     P_Scankey_value
+    CMP     #D_NUM_Equal_Press
+    BEQ     L_Calculatoe_State_Involution_Equal_Press;当按下等号后
+    CMP     #MAX_Number_Input
+    BCC     L_Calculatoe_State_Involution_Input_Number
+    LDA     #Calculator_State_Symbol_First_Press;此时按下加减乘除键
+    STA     Calculator_State;此时BUF1,BUF2已将运算值存储
+    JSR     Calculator_Input
+L_Calculatoe_State_Involution_RTS:
+    RTS
+L_Calculatoe_State_Involution_Equal_Press:
+    ; LDA     #Calculator_State_Equal_Press
+    ; STA     Calculator_State
+    LDA     #Calc_First_Output_Involution
+    STA     Calculator_State_Mechine
+    RTS
 
-
-
-
-
+L_Calculatoe_State_Involution_Input_Number:
+    JSR     L_Clear_IBUF_FD_Prog
+L_Calculatoe_State_Involution_Number_Input_Prog_Input_Number:
+    JSR     Calculator_Input
+    LDA     #Calculator_State_Involution_Input
+    STA     Calculator_State
+    RTS
+;===============================================
+L_Calculatoe_State_Involution_Number_Input_Prog:
+    LDA     ERR
+    BNE     L_Calculatoe_State_Involution_Number_Input_Prog_RTS
+    LDA     P_Scankey_value
+    CMP     #MAX_Number_Input
+    BCC     L_Calculatoe_State_Involution_Number_Input_Prog_Input_Number
+    CMP     #D_NUM_Equal_Press
+    BEQ     L_Calculatoe_State_Involution_Number_Input_Prog_Equal_Press
+    LDA     #Calculator_State_Symbol_First_Press;此时按下加减乘除键
+    STA     Calculator_State;此时BUF1,BUF2已将运算值存储
+    JSR     Calculator_Input
+L_Calculatoe_State_Involution_Number_Input_Prog_RTS:
+    RTS
+L_Calculatoe_State_Involution_Number_Input_Prog_Equal_Press:
+    LDA     #Calculator_State_Involution
+    STA     Calculator_State
+    LDA     #Calc_First_Output_Involution_IN
+    STA     Calculator_State_Mechine
+    RTS

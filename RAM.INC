@@ -184,7 +184,7 @@ BUF4		DS		MAX_DIG
 BUF5		DS		MAX_DIG
 BUF6		DS		4
 IBUF		DS		MAX_DIG+1
-ACC			.EQU		P_Temp
+ACC			.EQU	P_Temp
 IFD			.EQU	MAX_BYTE
 ERR_NULL	.EQU	0
 ERR_DIV0	.EQU	1
@@ -202,14 +202,17 @@ DINX		.EQU	P_Temp+6
 
 D1FD		.EQU	MAX_BYTE
 DFD			.EQU	MAX_BYTE
-
+BFD			.EQU	MAX_BYTE
 
 
 ; Calculator_State		DS	1
-Calculator_State_Init				.EQU	0
-Calculator_State_Symbol_First_Press	.EQU	1
-Calculator_State_Input				.EQU	2
-Calculator_State_Equal_Press		.EQU	3
+Calculator_State_Init				.EQU	0;计算器第一次输入状态
+Calculator_State_Symbol_First_Press	.EQU	1;计算器第一次按下加减乘除后的状态
+Calculator_State_Input				.EQU	2;计算器按下加减乘除后按下数字的状态
+Calculator_State_Equal_Press		.EQU	3;计算器按下等于号的状态
+Calculator_State_Involution			.EQU	4;计算器乘方模式
+Calculator_State_Involution_Input	.EQU	5;计算器乘方模式按键输入
+; Calculator_State_Symbol_Press_Again	.EQU	5;计算器非第一次按下加减乘除符号键
 ; Calculator_Symbol_State	DS	1
 State_Null			.EQU	0
 State_Add			.EQU	1
@@ -225,6 +228,10 @@ State_Equal			.EQU	1
 Calc_Init				.EQU	0	;初始化，无意义
 Calc_First_Output		.EQU	1	;按键第一次按下加减乘除符号键
 Calc_First_Output_		.EQU	2	;第一次运算没有数字输入
+Calc_First_Output_In	.EQU	3	;第一次按键按下有数字输入
+Calc_First_Output_Involution	.EQU	4
+Calc_First_Output_Involution_IN	.EQU	5
+MAX_Number_Input		.EQU	16
 ;---------------------------------------       
 P_Temp			ds	10
 ;显示从写P_Temp+4
@@ -265,6 +272,6 @@ R_Snz_Frequency					DS	1;贪睡闹钟的小时;
 Calculator_State				DS	1
 Calculator_Symbol_State			DS	1
 Calculator_State_Mechine		DS	1
-Calculator_Symbol_State_Equal	DS	1
+; Calculator_Symbol_State_Equal	DS	1
 
 .ENDS

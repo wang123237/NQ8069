@@ -21,7 +21,7 @@ L_Move_Right_One_Bit_Prog_IBUF:
 	ROR		IBUF
 	RTS
 ;--------------------------------
-L_COPY_IBUF_TO_BUF1_FD:
+L_COPY_IBUF_TO_BUF1_FD_Prog:
 	LDX		#(BUF1-RAM)
 	LDA		IBUF
 	STA		RAM, X
@@ -38,8 +38,8 @@ L_COPY_IBUF_TO_BUF1_FD:
 L_COPY_BUF1_TO_BUF2_FD:
 	LDX		#(BUF1-RAM)
 	JSR		L_Copy_To_BUF2
-	LDA		BUF1+IFD
-	STA		RAM+FD, X
+	LDA		BUF1+FD
+	STA		BUF2+FD
 	RTS
 L_Copy_BUF1_TO_BBUF_Prog:
 	LDA		BUF1
@@ -51,7 +51,7 @@ L_Copy_BUF1_TO_BBUF_Prog:
 	LDA		BUF1+3
 	STA		BBUF+3
 	LDA		BUF1+IFD
-	STA		BBUF+IFD
+	STA		BBUF+BFD
 	RTS
 	
 L_COPY_BBUF_TO_BUF1_Prog:
@@ -63,23 +63,40 @@ L_COPY_BBUF_TO_BUF1_Prog:
 	STA		BUF1+2
 	LDA		BBUF+3
 	STA		BUF1+3
-	LDA		BBUF+IFD
+	LDA		BBUF+BFD
 	STA		BUF1+IFD
 	RTS
-
+;===========================================
 L_COPY_BUF2_TO_BUF1_FD:
 	LDX		#(BUF2-RAM)
 	JSR		L_Copy_To_BUF1
-	LDA		BUF1+IFD
-	STA		RAM+FD, X
+	LDA		BUF2+FD
+	STA		BUF1+FD
 	RTS
-
+L_Clear_IBUF_FD_Prog:
+	LDX		#(IBUF-RAM)
+	JSR		L_Clear_BUF_Prog
+	LDA		#0
+	STA		RAM+IFD,X
+	RTS
+L_Clear_BUF1_FD_Prog:
+	LDX		#(BUF1-RAM)
+	JSR		L_Clear_BUF_Prog
+	LDA		#0
+	STA		RAM+FD,X
+	RTS
+L_Clear_BUF2_FD_Prog
+	LDX		#(BUF2-RAM)
+	JSR		L_Clear_BUF_Prog
+	LDA		#0
+	STA		RAM+FD,X
+	RTS
 ;=====================================
 Calculator_Input:
     LDA     P_Scankey_value
-    CMP     #16
+    CMP     #MAX_Number_Input
     BCC     Calculator_Input_Number_Prog_TO
-    CMP     #20
+    CMP     #D_NUM_Equal_Press
     BCC     Calculator_Input_Symbol_Prog_TO
     RTS
 
@@ -237,9 +254,11 @@ Calculator_Input_Symbol_Prog:
 	BEQ		Input_DIV
 	RTS
 Input_Equal:
-	LDA		#State_Equal
-	STA		Calculator_Symbol_State_Equal
-	BRA		Input_Symbol_Equal
+	; LDA		#State_Equal
+	; STA		Calculator_Symbol_State_Equal
+	; BRA		Input_Symbol_Equal
+	JSR		L_Dis_Calculator_Symbol_Prog_Equal
+	RTS
 Input_Add:
 	LDA		#State_Add
 	STA		Calculator_Symbol_State
@@ -259,9 +278,9 @@ Input_DIV:
 Input_Symbol:
 	JSR		L_Dis_Calculator_Symbol_Prog
 	RTS
-Input_Symbol_Equal:
-	JSR		L_Dis_Calculator_Symbol_Prog_Equal
-	RTS
+; Input_Symbol_Equal:
+; 	JSR		L_Dis_Calculator_Symbol_Prog_Equal
+; 	RTS
 ;===================================
 RET1:
     LDA     #1
@@ -300,4 +319,18 @@ L_OutPut_Result_IN_:;存在按键输入数字的函数
 	RTS
 L_OutPut_Result_:;不存在按键输入数字的函数
 
+	RTS
+
+
+
+L_Clear_Calculator_Prog:
+	JSR		L_Clr_All_8Bit_Prog
+	JSR		L_Clr_Calculator_Symbol_Prog
+	LDA		#0
+	STA		Calculator_State		
+	STA		Calculator_Symbol_State	
+	STA		Calculator_State_Mechine
+	JSR		L_Clear_BUF1_FD_Prog
+	JSR		L_Clear_BUF2_FD_Prog
+	JSR		L_Clear_IBUF_FD_Prog
 	RTS

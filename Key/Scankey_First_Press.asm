@@ -31,19 +31,8 @@ L_Scankey_Mode_Press_Prog_TO_Clock_Mode:
 	JSR		L_Display_Prog
 	RTS
 L_Scankey_Mode_Press_Prog_Calculator:
-	LDA		BUF1
-	ORA		BUF1+1
-	ORA		BUF1+2
-	ORA		BUF1+3
-	ORA		BUF1+4
-	ORA		BUF1+5
-	BNE		L_Scankey_Mode_Press_Prog_Calculator_RTS
-	BRA		L_Scankey_Mode_Press_Prog_Clr
-
-L_Scankey_Mode_Press_Prog_Calculator_RTS:
-	LDX		#(BUF1+1-RAM)
-	JSR		L_Clear_BUF_Prog
-	JSR		L_Display_Calculator_Prog
+	JSR		L_Clear_Calculator_Prog
+	JSR		L_Display_Number_IBUF_Prog
 	RTS
 
 ;======================================================================
