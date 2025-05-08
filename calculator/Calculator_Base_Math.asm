@@ -133,14 +133,15 @@ L_Control_Mul_Prog:;
 ;========================================================
 ;除法
 ;========================================================
-L_DIV_Prog:
+L_DIV_Prog:;此时BUF5储存着十六进制的被除数，BUF2储存着十六进制的除数
     CLD
     LDX     #(BUF1-RAM)
+    JSR     L_Clear_BUF_Prog
     LDA     #0
-    STA     BUF6+4
+    STA     BUF6+1
     LDA     #2
     STA     BUF6
-L_DIV_Prog_Loop:
+L_DIV_Prog_Loop:;将16进制的被除数调整
     LDA     BUF5+MAX_DIG-1
     AND     #080H
     BNE     L_DIV_Prog_LOOP_1    
@@ -173,12 +174,11 @@ L_DIV_Prog_RTS:
     RTS
 
 
-
 ;=========================================================
 L_Control_DIV_Prog:
-    JSR     L_Judge_Buf1_Prog
+    JSR     L_Judge_BUF1_Prog
     BEQ     L_Control_DIV_Prog_ERR
-    JSR     L_Judge_Buf2_Prog
+    JSR     L_Judge_BUF2_Prog
     BEQ     L_Control_DIV_Prog_0
     BRA		L_Control_DIV_Prog_DIV_INIT
 L_Control_DIV_Prog_ERR:
@@ -208,15 +208,19 @@ L_Control_DIV_Prog_DIV_Loop:
 
 L_Control_DIV_Prog_DIV:
     LDX     #(BUF2-RAM)
-    JSR     L_Move_Max_DIG_Prog
+    JSR     L_Move_Max_DIG_Prog;将前几位移动到后几位
+
     LDX     #(BUF2-RAM)
     JSR     L_Copy_To_BUF5
-    JSR     L_Dec_To_Hex_Prog
+    JSR     L_Dec_To_Hex_Prog;储存BUF2
+
     LDX     #(BUF5-RAM)
     JSR     L_Copy_To_BUF1
+
     LDX     #(BUF2-RAM)
     JSR     L_Copy_To_BUF5
     JSR     L_Dec_To_Hex_Prog
+    
     JSR     L_DIV_Prog
     JSR     L_Hex_To_Dec_Prog
 ;-------------------------------------------
@@ -235,7 +239,7 @@ L_Control_DIV_Prog_DIV:
 ;------------------------------------------
     CLD
     CLC
-    LDA     #MAX_DIG
+    LDA     #MAX_DIG+1
     ADC     BUF6
     SEC
     SBC     BUF6+2
@@ -251,13 +255,13 @@ L_Control_DIV_Prog_DIV:
 L_Control_BUF1_Adjust_Result:
 	LDA		#(BUF1+FD-RAM)
 	STA		BUF6
-	LDA		#(BUF2-RAM)
+	LDA		#(BUF1-RAM)
 	STA		BUF6+1
 	BRA		L_Adjust_Result_Prog
 L_Control_BUF2_Adjust_Result:
 	LDA		#(BUF2+FD-RAM)
 	STA		BUF6
-	LDA		#(BUF1-RAM)
+	LDA		#(BUF2-RAM)
 	STA		BUF6+1
 L_Adjust_Result_Prog:
 	LDX		BUF6

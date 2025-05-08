@@ -3,9 +3,9 @@
 ;=====================================
 ;8位计算器只用+3，具体加几根据MAX_DIG决定，可用去判断除数是否为0
 ;，平方根运算中被开方数是否为0,以及加减法中需不需要操作数
-L_Judge_Buf1_Prog:
-    LDA     #MAX_BYTE
-    STA     P_Temp
+L_Judge_BUF1_Prog:
+    ; LDA     #MAX_BYTE
+    ; STA     P_Temp
     LDA		BUF1
 	ORA		BUF1+1
 	ORA		BUF1+2
@@ -14,7 +14,7 @@ L_Judge_Buf1_Prog:
 	; ORA		BUF1+5
 	RTS
 ;=====================================    
-L_Judge_Buf2_Prog:
+L_Judge_BUF2_Prog:
 	LDA		BUF2
 	ORA		BUF2+1
 	ORA		BUF2+2
@@ -192,7 +192,7 @@ L_BUFX_Add_BUF3_TO_BUF3_Prog:
 	STA		BUF3+7
 	RTS
 ;=====================================
-L_BUFX_SUB_BUF5_Prog:
+L_BUFX_SUB_BUF5_Prog:;比较BUFX和BUF5
 	SEC
 	LDA		RAM, X
 	SBC		BUF5
@@ -210,6 +210,25 @@ L_BUFX_SUB_BUF5_Prog:
 	SBC		BUF5+6
 	LDA		RAM+7, X
 	SBC		BUF5+7
+	RTS
+L_BUFX_SUB_BUF2_Prog:
+	SEC
+	LDA		RAM, X
+	SBC		BUF2
+	LDA		RAM+1, X
+	SBC		BUF2+1
+	LDA		RAM+2, X
+	SBC		BUF2+2
+	LDA		RAM+3, X
+	SBC		BUF2+3
+	LDA		RAM+4, X
+	SBC		BUF2+4
+	LDA		RAM+5, X
+	SBC		BUF2+5
+	LDA		RAM+6, X
+	SBC		BUF2+6
+	LDA		RAM+7, X
+	SBC		BUF2+7
 	RTS
 ;=====================================
 ;bufx = bufx - buf5
@@ -238,6 +257,33 @@ L_BUFX_SUB_BUF5_TO_BUFX_Prog:
 	STA		RAM+6, X
 	LDA		RAM+7, X
 	SBC		BUF5+7
+	STA		RAM+7, X
+	RTS
+L_BUFX_SUB_BUF2_TO_BUFX_Prog:
+	SEC
+	LDA		RAM, X
+	SBC		BUF2
+	STA		RAM, X
+	LDA		RAM+1, X
+	SBC		BUF2+1
+	STA		RAM+1, X
+	LDA		RAM+2, X
+	SBC		BUF2+2
+	STA		RAM+2, X
+	LDA		RAM+3, X
+	SBC		BUF2+3
+	STA		RAM+3, X
+	LDA		RAM+4, X
+	SBC		BUF2+4
+	STA		RAM+4, X
+	LDA		RAM+5, X
+	SBC		BUF2+5
+	STA		RAM+5, X
+	LDA		RAM+6, X
+	SBC		BUF2+6
+	STA		RAM+6, X
+	LDA		RAM+7, X
+	SBC		BUF2+7
 	STA		RAM+7, X
 	RTS
 ;=====================================
@@ -376,7 +422,7 @@ L_Hex_To_Dec_Prog_RTS:
 
 
 ;=====================================
-;10进制转16进制
+;10进制转16进制，将BUF1的10进制数转换为16进制并存储到
 L_Dec_To_Hex_Prog:
 	LDX		#(BUF2-RAM)
 	JSR		L_Clear_BUF_Prog	

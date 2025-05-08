@@ -71,5 +71,11 @@ L_Display_Calculator_Output:
     STA     Calculator_State_Mechine
     JSR     L_COPY_BUF2_TO_BUF1_FD
     JSR     L_Display_Number_BUF1_Prog
-    JSR     L_Dis_Calculator_Symbol_Prog_Equal
+
+
+
+    JSR     L_Dis_Calculator_Symbol_Prog
+
+
+L_Display_Calculator_Output_RTS:
     RTS
