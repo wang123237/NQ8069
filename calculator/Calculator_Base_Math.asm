@@ -133,7 +133,7 @@ L_Control_Mul_Prog:;
 ;========================================================
 ;除法
 ;========================================================
-L_DIV_Prog:;此时BUF5储存着十六进制的被除数，BUF2储存着十六进制的除数
+L_DIV_Prog:;此时BUF2储存着十六进制的被除数，BUF5储存着十六进制的除数
     CLD
     LDX     #(BUF1-RAM)
     JSR     L_Clear_BUF_Prog
@@ -141,7 +141,7 @@ L_DIV_Prog:;此时BUF5储存着十六进制的被除数，BUF2储存着十六进
     STA     BUF6+1
     LDA     #2
     STA     BUF6
-L_DIV_Prog_Loop:;将16进制的被除数调整
+L_DIV_Prog_Loop:;调整除数到与被除数对齐
     LDA     BUF5+MAX_DIG-1
     AND     #080H
     BNE     L_DIV_Prog_LOOP_1    
@@ -200,7 +200,7 @@ L_Control_DIV_Prog_DIV_INIT:
 L_Control_DIV_Prog_DIV_Loop:
     LDA     BUF2+MAX_BYTE-1;(原先是BUF2+5)
     AND     #0F0H
-    BNE     L_Control_DIV_Prog_DIV
+    BNE     L_Control_DIV_Prog_DIV;将
     LDX     #(BUF2-RAM)
     JSR     L_Move_Left_One_DIG_Prog
     INC     BUF2+FD

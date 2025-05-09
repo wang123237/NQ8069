@@ -237,24 +237,31 @@ L_BUFX_SUB_BUF5_TO_BUFX_Prog:
 	LDA		RAM, X
 	SBC		BUF5
 	STA		RAM, X
+
 	LDA		RAM+1, X
 	SBC		BUF5+1
 	STA		RAM+1, X
+
 	LDA		RAM+2, X
 	SBC		BUF5+2
 	STA		RAM+2, X
+
 	LDA		RAM+3, X
 	SBC		BUF5+3
 	STA		RAM+3, X
+
 	LDA		RAM+4, X
 	SBC		BUF5+4
 	STA		RAM+4, X
+
 	LDA		RAM+5, X
 	SBC		BUF5+5
 	STA		RAM+5, X
+
 	LDA		RAM+6, X
 	SBC		BUF5+6
 	STA		RAM+6, X
+
 	LDA		RAM+7, X
 	SBC		BUF5+7
 	STA		RAM+7, X
@@ -401,7 +408,7 @@ L_Hex_To_Dec_Prog:
 	LDA		#1
 	STA		BUF3;给权重计数器初始值
 	SED		
-	LDA		#(MAX_BYTE*8+1)
+	LDA		#(MAX_DIG*8+1)
 	STA		BUF6;计算循环次数
 
 L_Hex_To_Dec_Prog_Loop:

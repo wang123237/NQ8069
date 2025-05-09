@@ -273,5 +273,5 @@ Calculator_State				DS	1
 Calculator_Symbol_State			DS	1
 Calculator_State_Mechine		DS	1
 ; Calculator_Symbol_State_Equal	DS	1
-
+; Loop_Count						DS	1
 .ENDS
