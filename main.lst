@@ -1,4 +1,4 @@
-Fri May 09 18:45:57 2025
+Fri May 09 18:58:07 2025
 -------------------------
 CAS V2.15.1-rc1 - (C) Copyright 2000-2012 CHIPMAST TECHNOLOGY CO. LTD.
 Main file   : main.asm
@@ -1557,7 +1557,7 @@ Current file: main.asm
     92                        ;***********************************************************************
     93                        MainLoop:
     94 00:C07D: 15 3C C1      	JSR		L_LCD_IRQ_WorkProg
-    95 00:C080: 15 AC D9      	JSR		L_Half_Second_Prog
+    95 00:C080: 15 9D D9      	JSR		L_Half_Second_Prog
     96 00:C083: 43 94 18      	LDA		R_Voice_Unit
     97 00:C086: 12 F5         	BNE		MainLoop
     98                        
@@ -1635,7 +1635,7 @@ Current file: main.asm
      7 00:C0D9: 53 01         	LDA		#1
      8 00:C0DB: 7F AB         	STA		R_Time_Day
      9 00:C0DD: 7F AC         	STA		R_Time_Month
-    10 00:C0DF: 15 1B DB      	JSR		L_Auto_Counter_Week
+    10 00:C0DF: 15 0C DB      	JSR		L_Auto_Counter_Week
     11 00:C0E2: 09            	RTS
     12                        ;======================================================
     13                        L_Dis_All_DisRam_Prog:
@@ -1725,8 +1725,8 @@ Current file: main.asm
      2                        L_LCD_IRQ_WorkProg:;
      3 00:C13C: 30 9F 0F      	BBR0	Sys_Flag_A,L_END_LCD_IRQ_WorkProg;32hz扫键
      4 00:C13F: 20 9F         	RMB0	Sys_Flag_A
-     5 00:C141: 15 21 DD      	JSR		L_control_Beep_prog
-     6 00:C144: 15 2C DC      	JSR		L_Update_Timer_Ms_Prog
+     5 00:C141: 15 12 DD      	JSR		L_control_Beep_prog
+     6 00:C144: 15 1D DC      	JSR		L_Update_Timer_Ms_Prog
      7 00:C147: 73 A3         	LDA		R_Reset_Time
      8 00:C149: 12 03         	BNE		L_END_LCD_IRQ_WorkProg
      9 00:C14B: 15 75 C1      	JSR		L_Scankey_Prog
@@ -1751,7 +1751,7 @@ Current file: main.asm
     27 00:C169: 53 8B         	LDA		#10001011B
     28 00:C16B: 71 9F         	AND		Sys_Flag_A
     29 00:C16D: 7F 9F         	STA		Sys_Flag_A
-    30 00:C16F: 15 A2 DD      	JSR		L_ScanKey_Delay_Prog
+    30 00:C16F: 15 93 DD      	JSR		L_ScanKey_Delay_Prog
     31                        	EN_PA_IRQ
 +   31 00:C172: 2C 0E          SMB4 IER
     32 00:C174: 09            	RTS
@@ -1790,7 +1790,7 @@ Current file: main.asm
      3                        ;如果按键则跳转回时间模式
      4                        ;======================================================================
      5                        L_Scankey_Mode_Press_Prog:
-     6 00:C199: 15 AD DD      	JSR		L_Beep_1s
+     6 00:C199: 15 9E DD      	JSR		L_Beep_1s
      7 00:C19C: 3F 9F 1C      	BBS7	Sys_Flag_A,L_Scankey_Mode_Press_Prog_TO_Clock_Mode
      8 00:C19F: 15 F0 C0      	JSR		L_Clr_All_DisRam_Prog
      9 00:C1A2: 43 90 18      	LDA		R_Mode
@@ -1820,15 +1820,15 @@ Current file: main.asm
     33                        L_Scankey_Mode_Press_Prog_Calculator:
     34 00:C1D2: 43 8F 18      	LDA		ERR
     35 00:C1D5: 12 07         	BNE		L_Scankey_Mode_Press_Prog_Calculator_Err
-    36 00:C1D7: 15 17 D9      	JSR		L_Clear_Calculator_Prog
-    37 00:C1DA: 15 D8 D4      	JSR		L_Display_Number_IBUF_Prog
+    36 00:C1D7: 15 08 D9      	JSR		L_Clear_Calculator_Prog
+    37 00:C1DA: 15 C9 D4      	JSR		L_Display_Number_IBUF_Prog
     38 00:C1DD: 09            	RTS
     39                        L_Scankey_Mode_Press_Prog_Calculator_Err:
     40 00:C1DE: 2F 9F         	SMB7	Sys_Flag_A
-    41 00:C1E0: 15 1A D9      	JSR		L_Clear_Calculator_Prog_ERR
+    41 00:C1E0: 15 0B D9      	JSR		L_Clear_Calculator_Prog_ERR
     42 00:C1E3: 53 00         	LDA		#0
     43 00:C1E5: 4F 8F 18      	STA		ERR
-    44 00:C1E8: 15 DE D4      	JSR		L_Display_Number_BUF1_Prog
+    44 00:C1E8: 15 CF D4      	JSR		L_Display_Number_BUF1_Prog
     45                        
     46 00:C1EB: 09            	RTS
     47                        ;======================================================================
@@ -2140,7 +2140,7 @@ Current file: main.asm
     61                        L_Scankey_Set_Mode_First_Press_Prog_TO:
     62 00:C3AB: 16 EC C1      	JMP		L_Scankey_Set_Mode_First_Press_Prog
     63                        L_Scankey_Short_ST_SP_Press_Prog_Alarm_TO:
-    64 00:C3AE: 16 63 DD      	JMP		L_Scankey_Short_ST_SP_Press_Prog_Alarm
+    64 00:C3AE: 16 54 DD      	JMP		L_Scankey_Short_ST_SP_Press_Prog_Alarm
     65                        L_Scankey_Set_Press_Prog:
     66 00:C3B1: 2D 9F         	SMB5	Sys_Flag_A
     67 00:C3B3: 43 90 18      	LDA		R_Mode
@@ -2167,7 +2167,7 @@ Current file: main.asm
     88                        
     89                        Table_Mode:
     90 00:C3D6: 08 C5         	DW		L_Clock_First_Press_Prog-1
-    91 00:C3D8: 12 D6         	DW		L_Calculator_Frist_Press_Prog-1
+    91 00:C3D8: 03 D6         	DW		L_Calculator_Frist_Press_Prog-1
     92 00:C3DA: DF C6         	DW		L_Alarm_First_Press_Prog-1
     93 00:C3DC: 97 C6         	DW		L_Clock_Twice_First_Press_Prog-1
     94 00:C3DE: 7B C7         	DW		L_Positive_Timer_First_Press_Prog-1
@@ -2176,7 +2176,7 @@ Current file: main.asm
    159                        .INCLUDE	Key\Scankey_Normal.asm
      1                        L_Scankey_usually_Prog:
      2 00:C3E0: 15 07 C1      	JSR		L_Judgement_Scankey_Prog;调整按键输入输出模式
-     3 00:C3E3: 15 A2 DD      	JSR		L_ScanKey_Delay_Prog
+     3 00:C3E3: 15 93 DD      	JSR		L_ScanKey_Delay_Prog
      4 00:C3E6: 53 00         	LDA		#0
      5 00:C3E8: 7F A7         	STA		P_Scankey_value_Temporary
      6 00:C3EA: 73 01         	LDA		P_PA
@@ -2259,42 +2259,42 @@ Current file: main.asm
     83                        L_PC_Output_High_Prog:;按键扫描程序
     84 00:C459: 15 10 C1      	JSR		L_PA_Intput_Low_Prog
     85 00:C45C: 15 15 C1      	JSR		L_PC0_Output_High_Prog
-    86 00:C45F: 15 A2 DD      	JSR		L_ScanKey_Delay_Prog
+    86 00:C45F: 15 93 DD      	JSR		L_ScanKey_Delay_Prog
     87                        
     88 00:C462: 73 01         	LDA		P_PA
     89 00:C464: 51 7C         	AND		#D_PA_Press
     90 00:C466: 7F F5         	STA		P_Temp+3
     91                        
     92 00:C468: 15 1A C1      	JSR		L_PC1_Output_High_Prog
-    93 00:C46B: 15 A2 DD      	JSR		L_ScanKey_Delay_Prog
+    93 00:C46B: 15 93 DD      	JSR		L_ScanKey_Delay_Prog
     94                        
     95 00:C46E: 73 01         	LDA		P_PA
     96 00:C470: 51 7C         	AND		#D_PA_Press
     97 00:C472: 7F F6         	STA		P_Temp+4
     98                        
     99 00:C474: 15 1F C1      	JSR		L_PC2_Output_High_Prog
-   100 00:C477: 15 A2 DD      	JSR		L_ScanKey_Delay_Prog
+   100 00:C477: 15 93 DD      	JSR		L_ScanKey_Delay_Prog
    101                        
    102 00:C47A: 73 01         	LDA		P_PA
    103 00:C47C: 51 7C         	AND		#D_PA_Press
    104 00:C47E: 7F F7         	STA		P_Temp+5
    105                        
    106 00:C480: 15 24 C1      	JSR		L_PC3_Output_High_Prog
-   107 00:C483: 15 A2 DD      	JSR		L_ScanKey_Delay_Prog
+   107 00:C483: 15 93 DD      	JSR		L_ScanKey_Delay_Prog
    108                        
    109 00:C486: 73 01         	LDA		P_PA
    110 00:C488: 51 7C         	AND		#D_PA_Press
    111 00:C48A: 7F F8         	STA		P_Temp+6
    112                        
    113 00:C48C: 15 29 C1      	JSR		L_PC4_Output_High_Prog
-   114 00:C48F: 15 A2 DD      	JSR		L_ScanKey_Delay_Prog
+   114 00:C48F: 15 93 DD      	JSR		L_ScanKey_Delay_Prog
    115                        
    116 00:C492: 73 01         	LDA		P_PA
    117 00:C494: 51 7C         	AND		#D_PA_Press
    118 00:C496: 7F F9         	STA		P_Temp+7
    119                        
    120 00:C498: 15 2E C1      	JSR		L_PC5_Output_High_Prog
-   121 00:C49B: 15 A2 DD      	JSR		L_ScanKey_Delay_Prog
+   121 00:C49B: 15 93 DD      	JSR		L_ScanKey_Delay_Prog
    122                        
    123 00:C49E: 73 01         	LDA		P_PA
    124 00:C4A0: 51 7C         	AND		#D_PA_Press
@@ -2454,7 +2454,7 @@ Current file: main.asm
     85 00:C579: 11 01             BCS     L_Control_Set_Mode_Clock_Prog_Sec_1
     86 00:C57B: 09                RTS
     87                        L_Control_Set_Mode_Clock_Prog_Sec_1:
-    88 00:C57C: 15 3D DA          JSR     L_Update_Time_Min_Prog
+    88 00:C57C: 15 2E DA          JSR     L_Update_Time_Min_Prog
     89                        L_Control_Set_Mode_Clock_Prog_Sec_RTS:
     90 00:C57F: 09                RTS
     91                        ;=============================================
@@ -2480,7 +2480,7 @@ Current file: main.asm
    111                        ;---------------------------------------------
    112                        ;=============================================
    113                        L_Control_Set_Mode_Clock_Prog_Day:
-   114 00:C596: 15 D6 DA          JSR     L_Check_MaxDay_Prog
+   114 00:C596: 15 C7 DA          JSR     L_Check_MaxDay_Prog
    115 00:C599: 15 6A CD          JSR     L_A_HexToHexD
    116 00:C59C: 5E 03             LDX     #(R_Time_Day-Time_Str_Addr)
    117 00:C59E: 15 D0 C5          JSR     L_Scankey_Input_Set_Mode_Usally_Time_Date
@@ -2501,7 +2501,7 @@ Current file: main.asm
    132 00:C5AA: 5E 05             LDX     #(R_Time_Year-Time_Str_Addr)
    133 00:C5AC: 53 99             LDA     #99H
    134 00:C5AE: 15 B5 C5          JSR     L_Scankey_Input_Set_Mode_Usally_Time
-   135 00:C5B1: 15 1B DB          JSR		L_Auto_Counter_Week
+   135 00:C5B1: 15 0C DB          JSR		L_Auto_Counter_Week
    136 00:C5B4: 09                RTS
    137                        
    138                        ;==========================================
@@ -3735,7 +3735,7 @@ Current file: main.asm
    130 00:C9DA: 09            	RTS
    131                        Table_Dis_1:
    132 00:C9DB: E4 C9         	DW		L_Display_Time_Prog-1
-   133 00:C9DD: CE D3             DW      L_Display_Calculator_Prog-1
+   133 00:C9DD: BF D3             DW      L_Display_Calculator_Prog-1
    134 00:C9DF: F1 C9         	DW		L_Display_Alarm_Prog-1
    135 00:C9E1: 1E CA         	DW		L_Display_Another_Time_Prog-1
    136 00:C9E3: FB C9         	DW		L_Display_Postive_Timer_Prog-1
@@ -4396,7 +4396,7 @@ Current file: main.asm
    231 00:CC66: 0A                PHA
    232 00:CC67: 09                RTS
    233                        Table_Calc_Symbol:
-   234 00:CC68: F7 D8             DW      RET-1
+   234 00:CC68: E8 D8             DW      RET-1
    235 00:CC6A: 22 CC             DW      L_Display_lcd_Plus_Prog-1
    236 00:CC6C: 28 CC             DW      L_Display_lcd_SUB_Prog-1
    237 00:CC6E: 2E CC             DW      L_Display_lcd_Mul_Prog-1
@@ -5263,7 +5263,7 @@ Current file: main.asm
     58 00:D1E3: 5E 3A         	LDX		#(BUF1-RAM)
     59 00:D1E5: 15 E9 CE      	JSR		L_BUFX_Add_BUF2_TO_BUF2_Prog
     60                        L_Control_Add_Prog_CALC_END:
-    61 00:D1E8: 16 26 D3      	JMP		L_Control_BUF2_Adjust_Result
+    61 00:D1E8: 16 30 D3      	JMP		L_Control_BUF2_Adjust_Result
     62                        
     63                        ;========================================================
     64                        L_Control_SUB_Prog:
@@ -5333,7 +5333,7 @@ Current file: main.asm
    128 00:D249: 74 CB             ADC     BUF2+FD
    129 00:D24B: 7F CB             STA     BUF2+FD
    130 00:D24D: 78 CB             INC     BUF2+FD
-   131 00:D24F: 16 26 D3          JMP     L_Control_BUF2_Adjust_Result
+   131 00:D24F: 16 30 D3          JMP     L_Control_BUF2_Adjust_Result
    132                        
    133                        ;========================================================
    134                        ;除法
@@ -5453,418 +5453,413 @@ Current file: main.asm
    248 00:D313: 72 E7         	EOR		BUF6+3
    249 00:D315: 70 CB         	ORA		BUF2+FD
    250 00:D317: 7F CB         	STA		BUF2+FD
-   251 00:D319: 16 26 D3      	JMP		L_Control_BUF2_Adjust_Result
-   252                        
-   253                        
-   254                        ;=========================================================
-   255                        L_Control_BUF1_Adjust_Result:
-   256 00:D31C: 53 42         	LDA		#(BUF1+FD-RAM)
-   257 00:D31E: 7F E4         	STA		BUF6
-   258 00:D320: 53 3A         	LDA		#(BUF1-RAM)
-   259 00:D322: 7F E5         	STA		BUF6+1
-   260 00:D324: 17 08         	BRA		L_Adjust_Result_Prog
-   261                        L_Control_BUF2_Adjust_Result:
-   262 00:D326: 53 4B         	LDA		#(BUF2+FD-RAM)
+   251 00:D319: 15 16 CE          JSR     L_Judge_BUF2_Prog
+   252 00:D31C: 13 12             BEQ     L_Control_BUF2_Adjust_Result
+   253 00:D31E: 53 02             LDA     #Err_FUll
+   254 00:D320: 4F 8F 18          STA     ERR
+   255                        L_Control_BUF2_Adjust_Result_To
+   256                        
+   257 00:D323: 16 30 D3      	JMP		L_Control_BUF2_Adjust_Result
+   258                        
+   259                        
+   260                        ;=========================================================
+   261                        L_Control_BUF1_Adjust_Result:
+   262 00:D326: 53 42         	LDA		#(BUF1+FD-RAM)
    263 00:D328: 7F E4         	STA		BUF6
-   264 00:D32A: 53 43         	LDA		#(BUF2-RAM)
+   264 00:D32A: 53 3A         	LDA		#(BUF1-RAM)
    265 00:D32C: 7F E5         	STA		BUF6+1
-   266                        L_Adjust_Result_Prog:
-   267 00:D32E: 7E E4         	LDX		BUF6
-   268 00:D330: 15 31 CE      	JSR		L_Adjust_FD_INC_Prog
-   269                        
-   270                        L_Adjust_Result_Prog_Loop:
-   271 00:D333: 7E E4         	LDX		BUF6
-   272 00:D335: 63 80 00      	LDA		RAM,X
-   273 00:D338: 51 7F         	AND		#07FH
-   274 00:D33A: 06            	CLD
-   275 00:D33B: 00            	SEC
-   276 00:D33C: 55 09         	SBC		#MAX_DIG+1
-   277 00:D33E: 11 30         	BCS		L_Adjust_Result_Move_Right_Prog
-   278 00:D340: 43 8F 18      	LDA		ERR
-   279 00:D343: 12 19         	BNE		L_Adjust_Result_Prog_Loop1
-   280 00:D345: 53 02             LDA     #Err_FUll
-   281 00:D347: 4F 8F 18          STA     ERR
-   282 00:D34A: 7E E5             LDX		BUF6+1						;LDA BUF
-   283 00:D34C: 63 80 00      	LDA		RAM, X
-   284 00:D34F: 51 0F         	AND		#0FH
-   285 00:D351: 12 0B         	BNE		L_Adjust_Result_Prog_Loop1
-   286 00:D353: 7E E4         	LDX		BUF6
-   287 00:D355: 63 80 00      	LDA		RAM,X
-   288 00:D358: 51 7F         	AND		#07FH
-   289 00:D35A: 56 01         	CMP		#1
-   290 00:D35C: 12 12         	BNE		L_Adjust_Result_Move_Right_Prog
-   291                        L_Adjust_Result_Prog_Loop1:
-   292 00:D35E: 7E E5         	LDX		BUF6+1
-   293 00:D360: 63 84 00      	LDA		RAM+4,X
-   294 00:D363: 60 85 00      	ORA		RAM+5,X
-   295 00:D366: 60 86 00      	ORA		RAM+6,X
-   296 00:D369: 60 87 00      	ORA		RAM+7,X
-   297 00:D36C: 12 02         	BNE		L_Adjust_Result_Move_Right_Prog
-   298 00:D36E: 17 33         	BRA		L_Adjust_Result_Prog_Zero
-   299                        
-   300                        L_Adjust_Result_Move_Right_Prog:
-   301 00:D370: 7E E5         	LDX		BUF6+1
-   302 00:D372: 15 C1 CE      	JSR		L_Move_Right_One_DIG_Prog
-   303 00:D375: 7E E4         	LDX		BUF6
-   304 00:D377: 63 80 00      	LDA		RAM,X
-   305 00:D37A: 51 7F         	AND		#07FH
-   306 00:D37C: 56 01         	CMP		#1
-   307 00:D37E: 13 10         	BEQ		L_Adjust_Result_Prog_Error
-   308 00:D380: 7E E4         	LDX		BUF6
-   309 00:D382: 63 80 00      	LDA		RAM,X
-   310 00:D385: 7F E6         	STA		BUF6+2
-   311 00:D387: 79 E6         	DEC		BUF6+2
-   312 00:D389: 73 E6         	LDA		BUF6+2
-   313 00:D38B: 6F 80 00      	STA		RAM,X
-   314 00:D38E: 17 A3         	BRA		L_Adjust_Result_Prog_Loop
-   315                        L_Adjust_Result_Prog_Error:
-   316 00:D390: 7E E4         	LDX		BUF6
-   317 00:D392: 63 80 00      	LDA		RAM,X
-   318 00:D395: 51 80         	AND		#080H
-   319 00:D397: 50 08         	ORA		#MAX_DIG
-   320 00:D399: 6F 80 00      	STA		RAM,X
-   321 00:D39C: 53 02         	LDA		#Err_FUll
-   322 00:D39E: 4F 8F 18      	STA		ERR
-   323 00:D3A1: 17 90         	BRA		L_Adjust_Result_Prog_Loop
-   324                        L_Adjust_Result_Prog_Zero:
-   325 00:D3A3: 7E E5         	LDX		BUF6+1
-   326 00:D3A5: 63 80 00      	LDA		RAM,X
-   327 00:D3A8: 60 81 00      	ORA		RAM+1,X
-   328 00:D3AB: 60 82 00      	ORA		RAM+2,X
-   329 00:D3AE: 60 83 00      	ORA		RAM+3,X
-   330 00:D3B1: 12 07         	BNE		L_Adjust_Result_Prog_Zero_RTS
-   331 00:D3B3: 53 00         	LDA		#0
-   332 00:D3B5: 7E E4         	LDX		BUF6
-   333 00:D3B7: 6F 80 00      	STA		RAM,X
-   334                        L_Adjust_Result_Prog_Zero_RTS:
-   335 00:D3BA: 09            	RTS
-   336                        L_Adjust_Result_Prog_Zero_RTS_1:
-   337 00:D3BB: 63 84 00          LDA		RAM+4,X
-   338 00:D3BE: 60 85 00      	ORA		RAM+5,X
-   339 00:D3C1: 60 86 00      	ORA		RAM+6,X
-   340 00:D3C4: 60 87 00      	ORA		RAM+7,X
-   341 00:D3C7: 13 F1             BEQ     L_Adjust_Result_Prog_Zero_RTS
-   342 00:D3C9: 53 02             LDA     #Err_FUll
-   343 00:D3CB: 4F 8F 18          STA     ERR
-   344                            RTS
-   344 00:D3CE: 09            
+   266 00:D32E: 17 08         	BRA		L_Adjust_Result_Prog
+   267                        L_Control_BUF2_Adjust_Result:
+   268 00:D330: 53 4B         	LDA		#(BUF2+FD-RAM)
+   269 00:D332: 7F E4         	STA		BUF6
+   270 00:D334: 53 43         	LDA		#(BUF2-RAM)
+   271 00:D336: 7F E5         	STA		BUF6+1
+   272                        L_Adjust_Result_Prog:
+   273 00:D338: 7E E4         	LDX		BUF6
+   274 00:D33A: 15 31 CE      	JSR		L_Adjust_FD_INC_Prog
+   275                        
+   276                        L_Adjust_Result_Prog_Loop:
+   277 00:D33D: 7E E4         	LDX		BUF6
+   278 00:D33F: 63 80 00      	LDA		RAM,X
+   279 00:D342: 51 7F         	AND		#07FH
+   280 00:D344: 06            	CLD
+   281 00:D345: 00            	SEC
+   282 00:D346: 55 09         	SBC		#MAX_DIG+1
+   283 00:D348: 11 2B         	BCS		L_Adjust_Result_Move_Right_Prog
+   284 00:D34A: 43 8F 18      	LDA		ERR
+   285 00:D34D: 12 14         	BNE		L_Adjust_Result_Prog_Loop1
+   286 00:D34F: 7E E5             LDX		BUF6+1						;LDA BUF
+   287 00:D351: 63 80 00      	LDA		RAM, X
+   288 00:D354: 51 0F         	AND		#0FH
+   289 00:D356: 12 0B         	BNE		L_Adjust_Result_Prog_Loop1
+   290 00:D358: 7E E4         	LDX		BUF6
+   291 00:D35A: 63 80 00      	LDA		RAM,X
+   292 00:D35D: 51 7F         	AND		#07FH
+   293 00:D35F: 56 01         	CMP		#1
+   294 00:D361: 12 12         	BNE		L_Adjust_Result_Move_Right_Prog
+   295                        L_Adjust_Result_Prog_Loop1:
+   296 00:D363: 7E E5         	LDX		BUF6+1
+   297 00:D365: 63 84 00      	LDA		RAM+4,X
+   298 00:D368: 60 85 00      	ORA		RAM+5,X
+   299 00:D36B: 60 86 00      	ORA		RAM+6,X
+   300 00:D36E: 60 87 00      	ORA		RAM+7,X
+   301 00:D371: 12 02         	BNE		L_Adjust_Result_Move_Right_Prog
+   302 00:D373: 17 33         	BRA		L_Adjust_Result_Prog_Zero
+   303                        
+   304                        L_Adjust_Result_Move_Right_Prog:
+   305 00:D375: 7E E5         	LDX		BUF6+1
+   306 00:D377: 15 C1 CE      	JSR		L_Move_Right_One_DIG_Prog
+   307 00:D37A: 7E E4         	LDX		BUF6
+   308 00:D37C: 63 80 00      	LDA		RAM,X
+   309 00:D37F: 51 7F         	AND		#07FH
+   310 00:D381: 56 01         	CMP		#1
+   311 00:D383: 13 10         	BEQ		L_Adjust_Result_Prog_Error
+   312 00:D385: 7E E4         	LDX		BUF6
+   313 00:D387: 63 80 00      	LDA		RAM,X
+   314 00:D38A: 7F E6         	STA		BUF6+2
+   315 00:D38C: 79 E6         	DEC		BUF6+2
+   316 00:D38E: 73 E6         	LDA		BUF6+2
+   317 00:D390: 6F 80 00      	STA		RAM,X
+   318 00:D393: 17 A8         	BRA		L_Adjust_Result_Prog_Loop
+   319                        L_Adjust_Result_Prog_Error:
+   320 00:D395: 7E E4         	LDX		BUF6
+   321 00:D397: 63 80 00      	LDA		RAM,X
+   322 00:D39A: 51 80         	AND		#080H
+   323 00:D39C: 50 08         	ORA		#MAX_DIG
+   324 00:D39E: 6F 80 00      	STA		RAM,X
+   325 00:D3A1: 53 02         	LDA		#Err_FUll
+   326 00:D3A3: 4F 8F 18      	STA		ERR
+   327 00:D3A6: 17 95         	BRA		L_Adjust_Result_Prog_Loop
+   328                        L_Adjust_Result_Prog_Zero:
+   329 00:D3A8: 7E E5         	LDX		BUF6+1
+   330 00:D3AA: 63 80 00      	LDA		RAM,X
+   331 00:D3AD: 60 81 00      	ORA		RAM+1,X
+   332 00:D3B0: 60 82 00      	ORA		RAM+2,X
+   333 00:D3B3: 60 83 00      	ORA		RAM+3,X
+   334 00:D3B6: 12 07         	BNE		L_Adjust_Result_Prog_Zero_RTS
+   335 00:D3B8: 53 00         	LDA		#0
+   336 00:D3BA: 7E E4         	LDX		BUF6
+   337 00:D3BC: 6F 80 00      	STA		RAM,X
+   338                        L_Adjust_Result_Prog_Zero_RTS:
+   339 00:D3BF: 09            	RTS
+   339                        
    181                        .Include	Calculator\Calculator_Display.asm
      1                        L_Display_Calculator_Prog:
-     2 00:D3CF: 53 00             LDA     #0
-     3 00:D3D1: 5E 31             LDX     #lcd_d8
-     4 00:D3D3: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
-     5 00:D3D6: 15 B1 CB      	JSR		L_Dis_lcd_T8_Prog
-     6 00:D3D9: 09                RTS
+     2 00:D3C0: 53 00             LDA     #0
+     3 00:D3C2: 5E 31             LDX     #lcd_d8
+     4 00:D3C4: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+     5 00:D3C7: 15 B1 CB      	JSR		L_Dis_lcd_T8_Prog
+     6 00:D3CA: 09                RTS
      7                        ;=======================================================
      8                        
      9                        L_Clr_0_Prog:
-    10 00:D3DA: 5E 03         	LDX		#3
-    11 00:D3DC: 53 08         	LDA     #8
-    12 00:D3DE: 7F F8             STA     DINX
+    10 00:D3CB: 5E 03         	LDX		#3
+    11 00:D3CD: 53 08         	LDA     #8
+    12 00:D3CF: 7F F8             STA     DINX
     13                        DISP_GET_INX_LOOP:
-    14 00:D3E0: 63 80 18      	LDA		DBUF, X
-    15 00:D3E3: 51 F0         	AND		#0F0H
+    14 00:D3D1: 63 80 18      	LDA		DBUF, X
+    15 00:D3D4: 51 F0         	AND		#0F0H
     16                        	LJNZ	RET;等于0继续，不等于退出
-+   16 00:D3E5: 13 03          BEQ MACRO_SYMBOL_0000
-+   16 00:D3E7: 16 F8 D8       JMP RET
++   16 00:D3D6: 13 03          BEQ MACRO_SYMBOL_0000
++   16 00:D3D8: 16 E9 D8       JMP RET
 +   16                         MACRO_SYMBOL_0000:
-    17 00:D3EA: 43 84 18      	LDA		DBUF+DFD
-    18 00:D3ED: 51 7F         	AND		#07FH
-    19 00:D3EF: 76 F8         	CMP		DINX;检查小数点位数是否大于最大值
+    17 00:D3DB: 43 84 18      	LDA		DBUF+DFD
+    18 00:D3DE: 51 7F         	AND		#07FH
+    19 00:D3E0: 76 F8         	CMP		DINX;检查小数点位数是否大于最大值
     20                        	LJZ		RET;相等退出，不相等继续
-+   20 00:D3F1: 12 03          BNE MACRO_SYMBOL_0001
-+   20 00:D3F3: 16 F8 D8       JMP RET
++   20 00:D3E2: 12 03          BNE MACRO_SYMBOL_0001
++   20 00:D3E4: 16 E9 D8       JMP RET
 +   20                         MACRO_SYMBOL_0001:
-    21 00:D3F6: 63 80 18      	LDA		DBUF, X
-    22 00:D3F9: 51 0F         	AND		#00FH
-    23 00:D3FB: 50 A0         	ORA		#0A0H;清除高四位，保留低四位
-    24 00:D3FD: 6F 80 18      	STA		DBUF, X
-    25 00:D400: 79 F8         	DEC		DINX
+    21 00:D3E7: 63 80 18      	LDA		DBUF, X
+    22 00:D3EA: 51 0F         	AND		#00FH
+    23 00:D3EC: 50 A0         	ORA		#0A0H;清除高四位，保留低四位
+    24 00:D3EE: 6F 80 18      	STA		DBUF, X
+    25 00:D3F1: 79 F8         	DEC		DINX
     26                        	LJE		DINX, 1, RET;比较Dinx的值和1，相等退出
 +   26                         .if(())
-+   26 00:D402: 73 F8          LDA DINX
-+   26 00:D404: 56 01          CMP #$0001
-+   26 00:D406: 12 03          BNE MACRO_SYMBOL_0002
-+   26 00:D408: 16 F8 D8       JMP RET
++   26 00:D3F3: 73 F8          LDA DINX
++   26 00:D3F5: 56 01          CMP #$0001
++   26 00:D3F7: 12 03          BNE MACRO_SYMBOL_0002
++   26 00:D3F9: 16 E9 D8       JMP RET
 +   26                         .else LDA CMP BNE JMP .endif
 +   26                         MACRO_SYMBOL_0002:
-    27 00:D40B: 63 80 18      	LDA		DBUF, X
-    28 00:D40E: 51 0F         	AND		#0FH
+    27 00:D3FC: 63 80 18      	LDA		DBUF, X
+    28 00:D3FF: 51 0F         	AND		#0FH
     29                        	LJNZ	RET;低四位不等于0退出
-+   29 00:D410: 13 03          BEQ MACRO_SYMBOL_0003
-+   29 00:D412: 16 F8 D8       JMP RET
++   29 00:D401: 13 03          BEQ MACRO_SYMBOL_0003
++   29 00:D403: 16 E9 D8       JMP RET
 +   29                         MACRO_SYMBOL_0003:
-    30 00:D415: 43 84 18      	LDA		DBUF+DFD
-    31 00:D418: 51 7F         	AND		#07FH;检查小数点位数是否大于最大值
-    32 00:D41A: 76 F8         	CMP		DINX
+    30 00:D406: 43 84 18      	LDA		DBUF+DFD
+    31 00:D409: 51 7F         	AND		#07FH;检查小数点位数是否大于最大值
+    32 00:D40B: 76 F8         	CMP		DINX
     33                        	LJZ		RET;相等退出，不相等继续
-+   33 00:D41C: 12 03          BNE MACRO_SYMBOL_0004
-+   33 00:D41E: 16 F8 D8       JMP RET
++   33 00:D40D: 12 03          BNE MACRO_SYMBOL_0004
++   33 00:D40F: 16 E9 D8       JMP RET
 +   33                         MACRO_SYMBOL_0004:
-    34 00:D421: 63 80 18      	LDA		DBUF, X
-    35 00:D424: 51 F0         	AND		#0F0H
-    36 00:D426: 50 0A         	ORA		#00AH
-    37 00:D428: 6F 80 18      	STA		DBUF, X
-    38 00:D42B: 79 F8         	DEC		DINX
-    39 00:D42D: 0F            	DEX
-    40 00:D42E: 17 B0         	BRA		DISP_GET_INX_LOOP
+    34 00:D412: 63 80 18      	LDA		DBUF, X
+    35 00:D415: 51 F0         	AND		#0F0H
+    36 00:D417: 50 0A         	ORA		#00AH
+    37 00:D419: 6F 80 18      	STA		DBUF, X
+    38 00:D41C: 79 F8         	DEC		DINX
+    39 00:D41E: 0F            	DEX
+    40 00:D41F: 17 B0         	BRA		DISP_GET_INX_LOOP
     41                        ;======================================================================
     42                        L_Display_FD_Prog:
-    43 00:D430: 15 57 D4      	JSR		L_Clr_FD_Prog
-    44 00:D433: 43 84 18          LDA     DBUF+DFD
-    45 00:D436: 51 7F             AND     #07FH
-    46 00:D438: 04                CLC
-    47 00:D439: 06                CLD
-    48 00:D43A: 18                ROL
-    49 00:D43B: 1B                TAX
-    50 00:D43C: 63 46 D4          LDA     Table_FD+1,X
-    51 00:D43F: 0A                PHA
-    52 00:D440: 63 45 D4          LDA     Table_FD,X
-    53 00:D443: 0A                PHA
-    54 00:D444: 09                RTS
+    43 00:D421: 15 48 D4      	JSR		L_Clr_FD_Prog
+    44 00:D424: 43 84 18          LDA     DBUF+DFD
+    45 00:D427: 51 7F             AND     #07FH
+    46 00:D429: 04                CLC
+    47 00:D42A: 06                CLD
+    48 00:D42B: 18                ROL
+    49 00:D42C: 1B                TAX
+    50 00:D42D: 63 37 D4          LDA     Table_FD+1,X
+    51 00:D430: 0A                PHA
+    52 00:D431: 63 36 D4          LDA     Table_FD,X
+    53 00:D434: 0A                PHA
+    54 00:D435: 09                RTS
     55                        Table_FD:
-    56 00:D445: B0 CB         	DW      L_Dis_lcd_T8_Prog-1
-    57 00:D447: B0 CB             DW      L_Dis_lcd_T8_Prog-1
-    58 00:D449: AC CB             DW      L_Dis_lcd_T7_Prog-1
-    59 00:D44B: A8 CB             DW      L_Dis_lcd_T6_Prog-1
-    60 00:D44D: A4 CB             DW      L_Dis_lcd_T5_Prog-1
-    61 00:D44F: A0 CB             DW      L_Dis_lcd_T4_Prog-1
-    62 00:D451: 9C CB             DW      L_Dis_lcd_T3_Prog-1
-    63 00:D453: 98 CB             DW      L_Dis_lcd_T2_Prog-1
-    64 00:D455: 94 CB             DW      L_Dis_lcd_T1_Prog-1
+    56 00:D436: B0 CB         	DW      L_Dis_lcd_T8_Prog-1
+    57 00:D438: B0 CB             DW      L_Dis_lcd_T8_Prog-1
+    58 00:D43A: AC CB             DW      L_Dis_lcd_T7_Prog-1
+    59 00:D43C: A8 CB             DW      L_Dis_lcd_T6_Prog-1
+    60 00:D43E: A4 CB             DW      L_Dis_lcd_T5_Prog-1
+    61 00:D440: A0 CB             DW      L_Dis_lcd_T4_Prog-1
+    62 00:D442: 9C CB             DW      L_Dis_lcd_T3_Prog-1
+    63 00:D444: 98 CB             DW      L_Dis_lcd_T2_Prog-1
+    64 00:D446: 94 CB             DW      L_Dis_lcd_T1_Prog-1
     65                        
     66                        L_Clr_FD_Prog:
-    67 00:D457: 15 D4 CB      	JSR		L_Clr_lcd_T1_Prog
-    68 00:D45A: 15 D8 CB      	JSR		L_Clr_lcd_T2_Prog
-    69 00:D45D: 15 DC CB      	JSR		L_Clr_lcd_T3_Prog
-    70 00:D460: 15 E0 CB      	JSR		L_Clr_lcd_T4_Prog
-    71 00:D463: 15 E4 CB      	JSR		L_Clr_lcd_T5_Prog
-    72 00:D466: 15 E8 CB      	JSR		L_Clr_lcd_T6_Prog
-    73 00:D469: 15 EC CB      	JSR		L_Clr_lcd_T7_Prog
-    74 00:D46C: 15 F0 CB      	JSR		L_Clr_lcd_T8_Prog
-    75 00:D46F: 09            	RTS
+    67 00:D448: 15 D4 CB      	JSR		L_Clr_lcd_T1_Prog
+    68 00:D44B: 15 D8 CB      	JSR		L_Clr_lcd_T2_Prog
+    69 00:D44E: 15 DC CB      	JSR		L_Clr_lcd_T3_Prog
+    70 00:D451: 15 E0 CB      	JSR		L_Clr_lcd_T4_Prog
+    71 00:D454: 15 E4 CB      	JSR		L_Clr_lcd_T5_Prog
+    72 00:D457: 15 E8 CB      	JSR		L_Clr_lcd_T6_Prog
+    73 00:D45A: 15 EC CB      	JSR		L_Clr_lcd_T7_Prog
+    74 00:D45D: 15 F0 CB      	JSR		L_Clr_lcd_T8_Prog
+    75 00:D460: 09            	RTS
     76                        ;======================================================================
     77                        L_Display_NEG_Prog:
-    78 00:D470: 43 84 18      	LDA		DBUF+DFD
-    79 00:D473: 51 80         	AND		#080H
+    78 00:D461: 43 84 18      	LDA		DBUF+DFD
+    79 00:D464: 51 80         	AND		#080H
     80                        	LJZ		L_Display_NEG_Prog_RTS
-+   80 00:D475: 12 03          BNE MACRO_SYMBOL_0005
-+   80 00:D477: 16 9E D4       JMP L_Display_NEG_Prog_RTS
++   80 00:D466: 12 03          BNE MACRO_SYMBOL_0005
++   80 00:D468: 16 8F D4       JMP L_Display_NEG_Prog_RTS
 +   80                         MACRO_SYMBOL_0005:
     81                        	JE		DINX, 12, L_Display_NEG_Prog_RTS;相等跳转，不相等继续执行
 +   81                         .if(())
-+   81 00:D47A: 73 F8          LDA DINX
-+   81 00:D47C: 56 0C          CMP #$000C
-+   81 00:D47E: 13 1E          BEQ L_Display_NEG_Prog_RTS
++   81 00:D46B: 73 F8          LDA DINX
++   81 00:D46D: 56 0C          CMP #$000C
++   81 00:D46F: 13 1E          BEQ L_Display_NEG_Prog_RTS
 +   81                         .else LDA CMP BEQ .endif
-    82 00:D480: 73 F8         	LDA		DINX
-    83 00:D482: 04            	CLC
-    84 00:D483: 19            	ROR
-    85 00:D484: 1B            	TAX
+    82 00:D471: 73 F8         	LDA		DINX
+    83 00:D473: 04            	CLC
+    84 00:D474: 19            	ROR
+    85 00:D475: 1B            	TAX
     86                        	JNC		DISP_NEG_L;判断是低四位还是高四位，若为偶数处理低四位，否则处理高四位
-+   86 00:D485: 10 0D          BCC DISP_NEG_L
-    87 00:D487: 06            	CLD
-    88 00:D488: 04            	CLC
-    89 00:D489: 63 80 18      	LDA		DBUF,X
-    90 00:D48C: 51 0F         	AND		#00FH
-    91 00:D48E: 50 B0         	ORA		#0B0H
-    92 00:D490: 6F 80 18      	STA		DBUF,X
-    93 00:D493: 09            	RTS
++   86 00:D476: 10 0D          BCC DISP_NEG_L
+    87 00:D478: 06            	CLD
+    88 00:D479: 04            	CLC
+    89 00:D47A: 63 80 18      	LDA		DBUF,X
+    90 00:D47D: 51 0F         	AND		#00FH
+    91 00:D47F: 50 B0         	ORA		#0B0H
+    92 00:D481: 6F 80 18      	STA		DBUF,X
+    93 00:D484: 09            	RTS
     94                        DISP_NEG_L:
-    95 00:D494: 63 80 18      	LDA		DBUF,X
-    96 00:D497: 51 F0         	AND		#0F0H
-    97 00:D499: 50 0B         	ORA		#00BH
-    98 00:D49B: 6F 80 18      	STA		DBUF,X
+    95 00:D485: 63 80 18      	LDA		DBUF,X
+    96 00:D488: 51 F0         	AND		#0F0H
+    97 00:D48A: 50 0B         	ORA		#00BH
+    98 00:D48C: 6F 80 18      	STA		DBUF,X
     99                        L_Display_NEG_Prog_RTS:
-   100 00:D49E: 09                RTS
+   100 00:D48F: 09                RTS
    101                        ;==============================================================
    102                        ; L_Symbol_Prog:
    103                        ;     RTS
    104                        ; =====================================================================
    105                        L_Copy_DBUF_TO_D1BUF_FD_Prog:
-   106 00:D49F: 43 84 18      	LDA		DBUF+DFD
-   107 00:D4A2: 4F 89 18      	STA		D1BUF+D1FD
-   108 00:D4A5: 43 80 18      	LDA		DBUF
-   109 00:D4A8: 4F 85 18      	STA		D1BUF
-   110 00:D4AB: 43 81 18      	LDA		DBUF+1
-   111 00:D4AE: 4F 86 18      	STA		D1BUF+1
-   112 00:D4B1: 43 82 18      	LDA		DBUF+2
-   113 00:D4B4: 4F 87 18      	STA		D1BUF+2
-   114 00:D4B7: 43 83 18      	LDA		DBUF+3
-   115 00:D4BA: 4F 88 18      	STA		D1BUF+3
-   116 00:D4BD: 09            	RTS
+   106 00:D490: 43 84 18      	LDA		DBUF+DFD
+   107 00:D493: 4F 89 18      	STA		D1BUF+D1FD
+   108 00:D496: 43 80 18      	LDA		DBUF
+   109 00:D499: 4F 85 18      	STA		D1BUF
+   110 00:D49C: 43 81 18      	LDA		DBUF+1
+   111 00:D49F: 4F 86 18      	STA		D1BUF+1
+   112 00:D4A2: 43 82 18      	LDA		DBUF+2
+   113 00:D4A5: 4F 87 18      	STA		D1BUF+2
+   114 00:D4A8: 43 83 18      	LDA		DBUF+3
+   115 00:D4AB: 4F 88 18      	STA		D1BUF+3
+   116 00:D4AE: 09            	RTS
    117                        	;-----------------------------------
    118                        L_Copy_D1BUF_TO_DBUF_FD_Prog:
-   119 00:D4BE: 43 89 18      	LDA		D1BUF+D1FD
-   120 00:D4C1: 7F EC         	STA		IBUF+IFD
-   121 00:D4C3: 43 85 18      	LDA		D1BUF
-   122 00:D4C6: 7F E8         	STA		IBUF
-   123 00:D4C8: 43 86 18      	LDA		D1BUF+1
-   124 00:D4CB: 7F E9         	STA		IBUF+1
-   125 00:D4CD: 43 87 18      	LDA		D1BUF+2
-   126 00:D4D0: 7F EA         	STA		IBUF+2
-   127 00:D4D2: 43 88 18      	LDA		D1BUF+3
-   128 00:D4D5: 7F EB         	STA		IBUF+3
-   129 00:D4D7: 09            	RTS
+   119 00:D4AF: 43 89 18      	LDA		D1BUF+D1FD
+   120 00:D4B2: 7F EC         	STA		IBUF+IFD
+   121 00:D4B4: 43 85 18      	LDA		D1BUF
+   122 00:D4B7: 7F E8         	STA		IBUF
+   123 00:D4B9: 43 86 18      	LDA		D1BUF+1
+   124 00:D4BC: 7F E9         	STA		IBUF+1
+   125 00:D4BE: 43 87 18      	LDA		D1BUF+2
+   126 00:D4C1: 7F EA         	STA		IBUF+2
+   127 00:D4C3: 43 88 18      	LDA		D1BUF+3
+   128 00:D4C6: 7F EB         	STA		IBUF+3
+   129 00:D4C8: 09            	RTS
    130                        ;=====================================================================
    131                        L_Display_Number_IBUF_Prog:
-   132 00:D4D8: 15 E6 D4      	JSR		L_Copy_IBUF_TO_DBUF_FD_Prog
-   133 00:D4DB: 16 0F D5      	JMP		L_Display_Number_Prog
+   132 00:D4C9: 15 D7 D4      	JSR		L_Copy_IBUF_TO_DBUF_FD_Prog
+   133 00:D4CC: 16 00 D5      	JMP		L_Display_Number_Prog
    134                        	;-----------------------------------
    135                        L_Display_Number_BUF1_Prog:
-   136 00:D4DE: 5E 3A         	LDX		#(BUF1-RAM)
-   137 00:D4E0: 15 ED D4      	JSR		L_Save_DBUF_Prog
-   138 00:D4E3: 16 0F D5      	JMP		L_Display_Number_Prog
+   136 00:D4CF: 5E 3A         	LDX		#(BUF1-RAM)
+   137 00:D4D1: 15 DE D4      	JSR		L_Save_DBUF_Prog
+   138 00:D4D4: 16 00 D5      	JMP		L_Display_Number_Prog
    139                        ;=====================================================================
    140                        L_Copy_IBUF_TO_DBUF_FD_Prog:
-   141 00:D4E6: 5E 68         	LDX		#(IBUF-RAM)
-   142 00:D4E8: 63 84 00      	LDA		RAM+IFD,X
-   143 00:D4EB: 17 03         	BRA		L_Save_DBUF_Prog_X
+   141 00:D4D7: 5E 68         	LDX		#(IBUF-RAM)
+   142 00:D4D9: 63 84 00      	LDA		RAM+IFD,X
+   143 00:D4DC: 17 03         	BRA		L_Save_DBUF_Prog_X
    144                        L_Save_DBUF_Prog:
-   145 00:D4ED: 63 88 00      	LDA		RAM+FD,X
+   145 00:D4DE: 63 88 00      	LDA		RAM+FD,X
    146                        L_Save_DBUF_Prog_X:
-   147 00:D4F0: 4F 84 18      	STA		DBUF+DFD
-   148 00:D4F3: 63 80 00      	LDA		RAM,X
-   149 00:D4F6: 4F 80 18      	STA		DBUF
-   150 00:D4F9: 63 81 00      	LDA		RAM+1,X
-   151 00:D4FC: 4F 81 18      	STA		DBUF+1
-   152 00:D4FF: 63 82 00      	LDA		RAM+2,X
-   153 00:D502: 4F 82 18      	STA		DBUF+2
-   154 00:D505: 63 83 00      	LDA		RAM+3,X
-   155 00:D508: 4F 83 18      	STA		DBUF+3
-   156 00:D50B: 09            	RTS
+   147 00:D4E1: 4F 84 18      	STA		DBUF+DFD
+   148 00:D4E4: 63 80 00      	LDA		RAM,X
+   149 00:D4E7: 4F 80 18      	STA		DBUF
+   150 00:D4EA: 63 81 00      	LDA		RAM+1,X
+   151 00:D4ED: 4F 81 18      	STA		DBUF+1
+   152 00:D4F0: 63 82 00      	LDA		RAM+2,X
+   153 00:D4F3: 4F 82 18      	STA		DBUF+2
+   154 00:D4F6: 63 83 00      	LDA		RAM+3,X
+   155 00:D4F9: 4F 83 18      	STA		DBUF+3
+   156 00:D4FC: 09            	RTS
    157                        L_Err_Prog_Display_TO:
-   158 00:D50C: 16 7D D5      	JMP		L_Err_Prog_Display
+   158 00:D4FD: 16 6E D5      	JMP		L_Err_Prog_Display
    159                        ;=====================================================================
    160                        L_Display_Number_Prog:
-   161 00:D50F: 15 9F D4      	JSR		L_Copy_DBUF_TO_D1BUF_FD_Prog
+   161 00:D500: 15 90 D4      	JSR		L_Copy_DBUF_TO_D1BUF_FD_Prog
    162                        	;----------------------------------
-   163 00:D512: 15 DA D3          JSR     L_Clr_0_Prog
-   164 00:D515: 15 30 D4          JSR     L_Display_FD_Prog
-   165 00:D518: 15 70 D4          JSR     L_Display_NEG_Prog
-   166 00:D51B: 43 8F 18      	LDA		ERR
-   167 00:D51E: 12 EC         	BNE		L_Err_Prog_Display_TO
+   163 00:D503: 15 CB D3          JSR     L_Clr_0_Prog
+   164 00:D506: 15 21 D4          JSR     L_Display_FD_Prog
+   165 00:D509: 15 61 D4          JSR     L_Display_NEG_Prog
+   166 00:D50C: 43 8F 18      	LDA		ERR
+   167 00:D50F: 12 EC         	BNE		L_Err_Prog_Display_TO
    168                        	;----------------------------------
    169                        L_Display_Number_Prog_DBUF:;DBUF+3存储的是高位数字
-   170 00:D520: 43 83 18      	LDA		DBUF+3
-   171 00:D523: 51 F0         	AND     #F0H
-   172 00:D525: 15 47 C8      	JSR		L_ROR_4Bit_Prog
-   173 00:D528: 5E 00             LDX     #lcd_d1
-   174 00:D52A: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
-   175 00:D52D: 43 83 18          LDA		DBUF+3
-   176 00:D530: 51 0F         	AND     #0FH
-   177 00:D532: 5E 07             LDX     #lcd_d2
-   178 00:D534: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+   170 00:D511: 43 83 18      	LDA		DBUF+3
+   171 00:D514: 51 F0         	AND     #F0H
+   172 00:D516: 15 47 C8      	JSR		L_ROR_4Bit_Prog
+   173 00:D519: 5E 00             LDX     #lcd_d1
+   174 00:D51B: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+   175 00:D51E: 43 83 18          LDA		DBUF+3
+   176 00:D521: 51 0F         	AND     #0FH
+   177 00:D523: 5E 07             LDX     #lcd_d2
+   178 00:D525: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
    179                        
    180                        
-   181 00:D537: 43 82 18          LDA		DBUF+2
-   182 00:D53A: 51 F0         	AND     #F0H
-   183 00:D53C: 15 47 C8      	JSR		L_ROR_4Bit_Prog
-   184 00:D53F: 5E 0E             LDX     #lcd_d3
-   185 00:D541: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
-   186 00:D544: 43 82 18          LDA		DBUF+2
-   187 00:D547: 51 0F         	AND     #0FH
-   188 00:D549: 5E 15             LDX     #lcd_d4
-   189 00:D54B: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+   181 00:D528: 43 82 18          LDA		DBUF+2
+   182 00:D52B: 51 F0         	AND     #F0H
+   183 00:D52D: 15 47 C8      	JSR		L_ROR_4Bit_Prog
+   184 00:D530: 5E 0E             LDX     #lcd_d3
+   185 00:D532: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+   186 00:D535: 43 82 18          LDA		DBUF+2
+   187 00:D538: 51 0F         	AND     #0FH
+   188 00:D53A: 5E 15             LDX     #lcd_d4
+   189 00:D53C: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
    190                        
    191                        
-   192 00:D54E: 43 81 18          LDA		DBUF+1
-   193 00:D551: 51 F0         	AND     #F0H
-   194 00:D553: 15 47 C8      	JSR		L_ROR_4Bit_Prog
-   195 00:D556: 5E 1C             LDX     #lcd_d5
-   196 00:D558: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
-   197 00:D55B: 43 81 18          LDA		DBUF+1
-   198 00:D55E: 51 0F         	AND     #0FH
-   199 00:D560: 5E 23             LDX     #lcd_d6
-   200 00:D562: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+   192 00:D53F: 43 81 18          LDA		DBUF+1
+   193 00:D542: 51 F0         	AND     #F0H
+   194 00:D544: 15 47 C8      	JSR		L_ROR_4Bit_Prog
+   195 00:D547: 5E 1C             LDX     #lcd_d5
+   196 00:D549: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+   197 00:D54C: 43 81 18          LDA		DBUF+1
+   198 00:D54F: 51 0F         	AND     #0FH
+   199 00:D551: 5E 23             LDX     #lcd_d6
+   200 00:D553: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
    201                        
    202                        
-   203 00:D565: 43 80 18          LDA		DBUF
-   204 00:D568: 51 F0         	AND     #F0H
-   205 00:D56A: 15 47 C8      	JSR		L_ROR_4Bit_Prog
-   206 00:D56D: 5E 2A             LDX     #lcd_d7
-   207 00:D56F: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
-   208 00:D572: 43 80 18          LDA		DBUF
-   209 00:D575: 51 0F         	AND     #0FH
-   210 00:D577: 5E 31             LDX     #lcd_d8
-   211 00:D579: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
-   212 00:D57C: 09            	RTS
+   203 00:D556: 43 80 18          LDA		DBUF
+   204 00:D559: 51 F0         	AND     #F0H
+   205 00:D55B: 15 47 C8      	JSR		L_ROR_4Bit_Prog
+   206 00:D55E: 5E 2A             LDX     #lcd_d7
+   207 00:D560: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+   208 00:D563: 43 80 18          LDA		DBUF
+   209 00:D566: 51 0F         	AND     #0FH
+   210 00:D568: 5E 31             LDX     #lcd_d8
+   211 00:D56A: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+   212 00:D56D: 09            	RTS
    213                        
    214                        
    215                        L_Err_Prog_Display:
-   216 00:D57D: 43 8F 18      	LDA		ERR
-   217 00:D580: 56 01         	CMP		#ERR_DIV0
-   218 00:D582: 13 05         	BEQ		L_Err_Prog_Display_DIV0
-   219 00:D584: 56 02         	CMP		#Err_FUll
-   220 00:D586: 13 1A         	BEQ		L_Err_Prog_Display_Full
-   221 00:D588: 09            	RTS
+   216 00:D56E: 43 8F 18      	LDA		ERR
+   217 00:D571: 56 01         	CMP		#ERR_DIV0
+   218 00:D573: 13 05         	BEQ		L_Err_Prog_Display_DIV0
+   219 00:D575: 56 02         	CMP		#Err_FUll
+   220 00:D577: 13 1A         	BEQ		L_Err_Prog_Display_Full
+   221 00:D579: 09            	RTS
    222                        
    223                        
    224                        L_Err_Prog_Display_DIV0:
-   225 00:D589: 53 AA         	LDA		#AAH
-   226 00:D58B: 4F 81 18      	STA		DBUF+1
-   227 00:D58E: 4F 82 18      	STA		DBUF+2
-   228 00:D591: 4F 83 18      	STA		DBUF+3
-   229 00:D594: 4F 80 18      	STA		DBUF
-   230 00:D597: 15 20 D5      	JSR		L_Display_Number_Prog_DBUF
-   231 00:D59A: 53 11         	LDA		#17
-   232 00:D59C: 5E 31         	LDX		#lcd_d8
-   233 00:D59E: 15 E4 C7      	JSR		L_Dis_8Bit_DigitDot_Prog
-   234 00:D5A1: 09            	RTS
+   225 00:D57A: 53 AA         	LDA		#AAH
+   226 00:D57C: 4F 81 18      	STA		DBUF+1
+   227 00:D57F: 4F 82 18      	STA		DBUF+2
+   228 00:D582: 4F 83 18      	STA		DBUF+3
+   229 00:D585: 4F 80 18      	STA		DBUF
+   230 00:D588: 15 11 D5      	JSR		L_Display_Number_Prog_DBUF
+   231 00:D58B: 53 11         	LDA		#17
+   232 00:D58D: 5E 31         	LDX		#lcd_d8
+   233 00:D58F: 15 E4 C7      	JSR		L_Dis_8Bit_DigitDot_Prog
+   234 00:D592: 09            	RTS
    235                        L_Err_Prog_Display_Full:
-   236 00:D5A2: 43 8A 18      	LDA		BBUF
-   237 00:D5A5: 51 F0         	AND		#F0H
-   238 00:D5A7: 50 0A         	ORA		#0AH
-   239 00:D5A9: 15 20 D5      	JSR		L_Display_Number_Prog_DBUF
-   240 00:D5AC: 53 11         	LDA		#17
-   241 00:D5AE: 5E 31         	LDX		#lcd_d8
-   242 00:D5B0: 15 E4 C7      	JSR		L_Dis_8Bit_DigitDot_Prog
-   243 00:D5B3: 09            	RTS
+   236 00:D593: 43 8A 18      	LDA		BBUF
+   237 00:D596: 51 F0         	AND		#F0H
+   238 00:D598: 50 0A         	ORA		#0AH
+   239 00:D59A: 15 11 D5      	JSR		L_Display_Number_Prog_DBUF
+   240 00:D59D: 53 11         	LDA		#17
+   241 00:D59F: 5E 31         	LDX		#lcd_d8
+   242 00:D5A1: 15 E4 C7      	JSR		L_Dis_8Bit_DigitDot_Prog
+   243 00:D5A4: 09            	RTS
    244                        
    245                        L_Display_Number_Prog_DBUF3:;DBUF+3存储的是高位数字
-   246 00:D5B4: 43 83 18      	LDA		DBUF+3
-   247 00:D5B7: 51 F0         	AND     #F0H
-   248 00:D5B9: 15 47 C8      	JSR		L_ROR_4Bit_Prog
-   249 00:D5BC: 5E 00             LDX     #lcd_d1
-   250 00:D5BE: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
-   251 00:D5C1: 43 83 18          LDA		DBUF+3
-   252 00:D5C4: 51 0F         	AND     #0FH
-   253 00:D5C6: 5E 07             LDX     #lcd_d2
-   254 00:D5C8: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
-   255 00:D5CB: 09            	RTS
+   246 00:D5A5: 43 83 18      	LDA		DBUF+3
+   247 00:D5A8: 51 F0         	AND     #F0H
+   248 00:D5AA: 15 47 C8      	JSR		L_ROR_4Bit_Prog
+   249 00:D5AD: 5E 00             LDX     #lcd_d1
+   250 00:D5AF: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+   251 00:D5B2: 43 83 18          LDA		DBUF+3
+   252 00:D5B5: 51 0F         	AND     #0FH
+   253 00:D5B7: 5E 07             LDX     #lcd_d2
+   254 00:D5B9: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+   255 00:D5BC: 09            	RTS
    256                        L_Display_Number_Prog_DBUF2:
-   257 00:D5CC: 43 82 18          LDA		DBUF+2
-   258 00:D5CF: 51 F0         	AND     #F0H
-   259 00:D5D1: 15 47 C8      	JSR		L_ROR_4Bit_Prog
-   260 00:D5D4: 5E 0E             LDX     #lcd_d3
-   261 00:D5D6: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
-   262 00:D5D9: 43 82 18          LDA		DBUF+2
-   263 00:D5DC: 51 0F         	AND     #0FH
-   264 00:D5DE: 5E 15             LDX     #lcd_d4
-   265 00:D5E0: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
-   266 00:D5E3: 09            	RTS
+   257 00:D5BD: 43 82 18          LDA		DBUF+2
+   258 00:D5C0: 51 F0         	AND     #F0H
+   259 00:D5C2: 15 47 C8      	JSR		L_ROR_4Bit_Prog
+   260 00:D5C5: 5E 0E             LDX     #lcd_d3
+   261 00:D5C7: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+   262 00:D5CA: 43 82 18          LDA		DBUF+2
+   263 00:D5CD: 51 0F         	AND     #0FH
+   264 00:D5CF: 5E 15             LDX     #lcd_d4
+   265 00:D5D1: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+   266 00:D5D4: 09            	RTS
    267                        L_Display_Number_Prog_DBUF1:
-   268 00:D5E4: 43 81 18          LDA		DBUF+1
-   269 00:D5E7: 51 F0         	AND     #F0H
-   270 00:D5E9: 15 47 C8      	JSR		L_ROR_4Bit_Prog
-   271 00:D5EC: 5E 1C             LDX     #lcd_d5
-   272 00:D5EE: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
-   273 00:D5F1: 43 81 18          LDA		DBUF+1
-   274 00:D5F4: 51 0F         	AND     #0FH
-   275 00:D5F6: 5E 23             LDX     #lcd_d6
-   276 00:D5F8: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+   268 00:D5D5: 43 81 18          LDA		DBUF+1
+   269 00:D5D8: 51 F0         	AND     #F0H
+   270 00:D5DA: 15 47 C8      	JSR		L_ROR_4Bit_Prog
+   271 00:D5DD: 5E 1C             LDX     #lcd_d5
+   272 00:D5DF: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+   273 00:D5E2: 43 81 18          LDA		DBUF+1
+   274 00:D5E5: 51 0F         	AND     #0FH
+   275 00:D5E7: 5E 23             LDX     #lcd_d6
+   276 00:D5E9: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
    277                        
    278                        L_Display_Number_Prog_DBUF0:
-   279 00:D5FB: 43 80 18          LDA		DBUF
-   280 00:D5FE: 51 F0         	AND     #F0H
-   281 00:D600: 15 47 C8      	JSR		L_ROR_4Bit_Prog
-   282 00:D603: 5E 2A             LDX     #lcd_d7
-   283 00:D605: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
-   284 00:D608: 43 80 18          LDA		DBUF
-   285 00:D60B: 51 0F         	AND     #0FH
-   286 00:D60D: 5E 31             LDX     #lcd_d8
-   287 00:D60F: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
-   288 00:D612: 09            	RTS
+   279 00:D5EC: 43 80 18          LDA		DBUF
+   280 00:D5EF: 51 F0         	AND     #F0H
+   281 00:D5F1: 15 47 C8      	JSR		L_ROR_4Bit_Prog
+   282 00:D5F4: 5E 2A             LDX     #lcd_d7
+   283 00:D5F6: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+   284 00:D5F9: 43 80 18          LDA		DBUF
+   285 00:D5FC: 51 0F         	AND     #0FH
+   286 00:D5FE: 5E 31             LDX     #lcd_d8
+   287 00:D600: 15 E4 C7          JSR     L_Dis_8Bit_DigitDot_Prog
+   288 00:D603: 09            	RTS
    289                        
    290                        
    291                        
@@ -5877,45 +5872,45 @@ Current file: main.asm
      5                        
      6                        ;===========================================
      7                        L_Calculator_Frist_Press_Prog:
-     8 00:D613: 15 AD DD          JSR     L_Beep_1s
-     9 00:D616: 15 1D D6          JSR     L_Calculator_Scankey_Prog
-    10 00:D619: 15 32 D9          JSR     L_Calculator_Calc_Prog_State_Mechine
-    11 00:D61C: 09                RTS
+     8 00:D604: 15 9E DD          JSR     L_Beep_1s
+     9 00:D607: 15 0E D6          JSR     L_Calculator_Scankey_Prog
+    10 00:D60A: 15 23 D9          JSR     L_Calculator_Calc_Prog_State_Mechine
+    11 00:D60D: 09                RTS
     12                        
     13                        L_Calculator_Scankey_Prog:
-    14 00:D61D: 43 97 18          LDA     Calculator_State
-    15 00:D620: 04                CLC
-    16 00:D621: 06                CLD
-    17 00:D622: 18                ROL
-    18 00:D623: 1B                TAX
-    19 00:D624: 63 2E D6          LDA     Table_Calculator_State+1,X
-    20 00:D627: 0A                PHA
-    21 00:D628: 63 2D D6          LDA     Table_Calculator_State,X
-    22 00:D62B: 0A                PHA
-    23 00:D62C: 09                RTS
+    14 00:D60E: 43 97 18          LDA     Calculator_State
+    15 00:D611: 04                CLC
+    16 00:D612: 06                CLD
+    17 00:D613: 18                ROL
+    18 00:D614: 1B                TAX
+    19 00:D615: 63 1F D6          LDA     Table_Calculator_State+1,X
+    20 00:D618: 0A                PHA
+    21 00:D619: 63 1E D6          LDA     Table_Calculator_State,X
+    22 00:D61C: 0A                PHA
+    23 00:D61D: 09                RTS
     24                        Table_Calculator_State:
-    25 00:D62D: 38 D6             DW      L_Calculator_Init_Prog-1
-    26 00:D62F: 50 D6             DW      L_Calculator_State_Symbol_First_Press_Prog-1
-    27 00:D631: 9E D6             DW      L_Calculator_State_Input_Prog-1
-    28 00:D633: BD D6             DW      L_Calculator_State_Equal_Press_Prog-1
-    29 00:D635: DE D6             DW      L_Calculator_State_Involution-1
-    30 00:D637: 0B D7             DW      L_Calculator_State_Involution_Number_Input_Prog-1
+    25 00:D61E: 29 D6             DW      L_Calculator_Init_Prog-1
+    26 00:D620: 41 D6             DW      L_Calculator_State_Symbol_First_Press_Prog-1
+    27 00:D622: 8F D6             DW      L_Calculator_State_Input_Prog-1
+    28 00:D624: AE D6             DW      L_Calculator_State_Equal_Press_Prog-1
+    29 00:D626: CF D6             DW      L_Calculator_State_Involution-1
+    30 00:D628: FC D6             DW      L_Calculator_State_Involution_Number_Input_Prog-1
     31                        ;======================================================================
     32                        L_Calculator_Init_Prog:
-    33 00:D639: 15 E6 D7          JSR     Calculator_Input
-    34 00:D63C: 73 A6             LDA     P_Scankey_value
-    35 00:D63E: 56 10             CMP     #MAX_Number_Input
+    33 00:D62A: 15 D7 D7          JSR     Calculator_Input
+    34 00:D62D: 73 A6             LDA     P_Scankey_value
+    35 00:D62F: 56 10             CMP     #MAX_Number_Input
     36                        
-    37 00:D640: 10 0E             BCC     L_Calculator_Init_Prog_RTS
-    38 00:D642: 56 14             CMP     #D_NUM_Equal_Press
-    39 00:D644: 13 0A             BEQ     L_Calculator_Init_Prog_RTS
+    37 00:D631: 10 0E             BCC     L_Calculator_Init_Prog_RTS
+    38 00:D633: 56 14             CMP     #D_NUM_Equal_Press
+    39 00:D635: 13 0A             BEQ     L_Calculator_Init_Prog_RTS
     40                        
-    41 00:D646: 53 01             LDA     #Calculator_State_Symbol_First_Press;一旦符号键按下，将IBUF的内容传送到，BUF1中
-    42 00:D648: 4F 97 18          STA     Calculator_State                    ;并改变计算器当前状态
-    43 00:D64B: 53 01             LDA     #Calc_First_Output
-    44 00:D64D: 4F 99 18          STA     Calculator_State_Mechine            ;输出状态机
+    41 00:D637: 53 01             LDA     #Calculator_State_Symbol_First_Press;一旦符号键按下，将IBUF的内容传送到，BUF1中
+    42 00:D639: 4F 97 18          STA     Calculator_State                    ;并改变计算器当前状态
+    43 00:D63C: 53 01             LDA     #Calc_First_Output
+    44 00:D63E: 4F 99 18          STA     Calculator_State_Mechine            ;输出状态机
     45                        L_Calculator_Init_Prog_RTS:
-    46 00:D650: 09                RTS
+    46 00:D641: 09                RTS
     47                        
     48                        
     49                        
@@ -5924,260 +5919,260 @@ Current file: main.asm
     52                        L_Calculator_State_Symbol_First_Press_Prog:
     53                        ;在计算器按下符号键后，判断再次按下的是什么键，;如果是数字键改变状态，如果是符号键，改变符号状态，
     54                        ;并判断是否是乘方模式;当小于16时判断数字键按下跳转，改变扫键状态;当大于16时判断是符号键按下，当按下等于号是进行运算
-    55 00:D651: 43 8F 18          LDA     ERR
-    56 00:D654: 12 31             BNE     Calculator_State_Involution_Judgement_RTS;存在错误退出
-    57 00:D656: 73 A6             LDA     P_Scankey_value
-    58 00:D658: 56 10             CMP     #MAX_Number_Input
-    59 00:D65A: 10 2C             BCC     Calculator_State_Number_Input  ;小于16说明按下的是数字键
+    55 00:D642: 43 8F 18          LDA     ERR
+    56 00:D645: 12 31             BNE     Calculator_State_Involution_Judgement_RTS;存在错误退出
+    57 00:D647: 73 A6             LDA     P_Scankey_value
+    58 00:D649: 56 10             CMP     #MAX_Number_Input
+    59 00:D64B: 10 2C             BCC     Calculator_State_Number_Input  ;小于16说明按下的是数字键
     60                        
-    61 00:D65C: 73 A6             LDA     P_Scankey_value
-    62 00:D65E: 56 14             CMP     #D_NUM_Equal_Press
-    63 00:D660: 13 32             BEQ     L_Calculator_State_Symbol_No_Number;按下等于号自己与自己乘法或除法
-    64 00:D662: 43 98 18          LDA     Calculator_Symbol_State
-    65 00:D665: 56 03             CMP     #State_Mul
-    66 00:D667: 13 04             BEQ     Calculator_State_Involution_Judgement;判断原先的符号状态是否是乘法
-    67 00:D669: 15 B7 D8          JSR     Calculator_Input_Symbol_Prog
-    68 00:D66C: 09                RTS
+    61 00:D64D: 73 A6             LDA     P_Scankey_value
+    62 00:D64F: 56 14             CMP     #D_NUM_Equal_Press
+    63 00:D651: 13 32             BEQ     L_Calculator_State_Symbol_No_Number;按下等于号自己与自己乘法或除法
+    64 00:D653: 43 98 18          LDA     Calculator_Symbol_State
+    65 00:D656: 56 03             CMP     #State_Mul
+    66 00:D658: 13 04             BEQ     Calculator_State_Involution_Judgement;判断原先的符号状态是否是乘法
+    67 00:D65A: 15 A8 D8          JSR     Calculator_Input_Symbol_Prog
+    68 00:D65D: 09                RTS
     69                        
     70                        Calculator_State_Involution_Judgement:;判断是不是再次按下了乘法键如果是则判断为乘方模式
-    71 00:D66D: 15 B7 D8          JSR     Calculator_Input_Symbol_Prog
-    72 00:D670: 43 98 18          LDA     Calculator_Symbol_State
-    73 00:D673: 56 03             CMP     #State_Mul
-    74 00:D675: 12 10             BNE     Calculator_State_Involution_Judgement_RTS;判断是否再次按下乘号
-    75 00:D677: 53 05             LDA     #State_Involution
-    76 00:D679: 4F 98 18          STA     Calculator_Symbol_State
-    77 00:D67C: 15 18 CC          JSR     L_Display_lcd_Involution_Prog
-    78 00:D67F: 15 72 D7          JSR     L_Copy_BUF1_TO_BBUF_Prog
-    79 00:D682: 53 04             LDA     #Calculator_State_Involution
-    80 00:D684: 4F 97 18          STA     Calculator_State
+    71 00:D65E: 15 A8 D8          JSR     Calculator_Input_Symbol_Prog
+    72 00:D661: 43 98 18          LDA     Calculator_Symbol_State
+    73 00:D664: 56 03             CMP     #State_Mul
+    74 00:D666: 12 10             BNE     Calculator_State_Involution_Judgement_RTS;判断是否再次按下乘号
+    75 00:D668: 53 05             LDA     #State_Involution
+    76 00:D66A: 4F 98 18          STA     Calculator_Symbol_State
+    77 00:D66D: 15 18 CC          JSR     L_Display_lcd_Involution_Prog
+    78 00:D670: 15 63 D7          JSR     L_Copy_BUF1_TO_BBUF_Prog
+    79 00:D673: 53 04             LDA     #Calculator_State_Involution
+    80 00:D675: 4F 97 18          STA     Calculator_State
     81                            ; LDA     #Calc_First_Output_Involution
     82                            ; STA     Calculator_State_Mechine
     83                        Calculator_State_Involution_Judgement_RTS:
-    84 00:D687: 09                RTS
+    84 00:D678: 09                RTS
     85                        ;======================================================================
     86                        Calculator_State_Number_Input:;存在按键输入数字跳转计算器输入状态
-    87 00:D688: 15 C5 D7          JSR     L_Clear_IBUF_FD_Prog;清除IBUF的值
-    88 00:D68B: 15 E6 D7          JSR     Calculator_Input
-    89 00:D68E: 53 02             LDA     #Calculator_State_Input;设置
-    90 00:D690: 4F 97 18          STA     Calculator_State
-    91 00:D693: 09                RTS
+    87 00:D679: 15 B6 D7          JSR     L_Clear_IBUF_FD_Prog;清除IBUF的值
+    88 00:D67C: 15 D7 D7          JSR     Calculator_Input
+    89 00:D67F: 53 02             LDA     #Calculator_State_Input;设置
+    90 00:D681: 4F 97 18          STA     Calculator_State
+    91 00:D684: 09                RTS
     92                        
     93                        L_Calculator_State_Symbol_No_Number:;当没有数字键按下并按下等号时，进行自加，
-    94 00:D694: 53 02             LDA     #Calc_First_Output_
-    95 00:D696: 4F 99 18          STA     Calculator_State_Mechine
-    96 00:D699: 53 03             LDA     #Calculator_State_Equal_Press;没有
-    97 00:D69B: 4F 97 18          STA     Calculator_State
+    94 00:D685: 53 02             LDA     #Calc_First_Output_
+    95 00:D687: 4F 99 18          STA     Calculator_State_Mechine
+    96 00:D68A: 53 03             LDA     #Calculator_State_Equal_Press;没有
+    97 00:D68C: 4F 97 18          STA     Calculator_State
     98                        
-    99 00:D69E: 09                RTS
+    99 00:D68F: 09                RTS
    100                        ;======================================================
    101                        L_Calculator_State_Input_Prog:
-   102 00:D69F: 15 E6 D7          JSR     Calculator_Input
-   103 00:D6A2: 73 A6             LDA     P_Scankey_value
-   104 00:D6A4: 56 10             CMP     #MAX_Number_Input
-   105 00:D6A6: 10 15             BCC     L_Calculator_State_Input_Prog_RTS;判断当前输入的是否为数字键，如果是退出，不是继续判断
-   106 00:D6A8: 53 03             LDA     #Calc_First_Output_In
-   107 00:D6AA: 4F 99 18          STA     Calculator_State_Mechine;给输出状态机值
-   108 00:D6AD: 53 03             LDA     #Calculator_State_Equal_Press
-   109 00:D6AF: 4F 97 18          STA     Calculator_State
-   110 00:D6B2: 73 A6             LDA     P_Scankey_value
-   111 00:D6B4: 56 14             CMP     #D_NUM_Equal_Press
-   112 00:D6B6: 13 05             BEQ     L_Calculator_State_Input_Prog_RTS;判断是否按下等于号键，如果是退出不是则
-   113 00:D6B8: 53 01             LDA     #Calculator_State_Symbol_First_Press
-   114 00:D6BA: 4F 97 18          STA     Calculator_State
+   102 00:D690: 15 D7 D7          JSR     Calculator_Input
+   103 00:D693: 73 A6             LDA     P_Scankey_value
+   104 00:D695: 56 10             CMP     #MAX_Number_Input
+   105 00:D697: 10 15             BCC     L_Calculator_State_Input_Prog_RTS;判断当前输入的是否为数字键，如果是退出，不是继续判断
+   106 00:D699: 53 03             LDA     #Calc_First_Output_In
+   107 00:D69B: 4F 99 18          STA     Calculator_State_Mechine;给输出状态机值
+   108 00:D69E: 53 03             LDA     #Calculator_State_Equal_Press
+   109 00:D6A0: 4F 97 18          STA     Calculator_State
+   110 00:D6A3: 73 A6             LDA     P_Scankey_value
+   111 00:D6A5: 56 14             CMP     #D_NUM_Equal_Press
+   112 00:D6A7: 13 05             BEQ     L_Calculator_State_Input_Prog_RTS;判断是否按下等于号键，如果是退出不是则
+   113 00:D6A9: 53 01             LDA     #Calculator_State_Symbol_First_Press
+   114 00:D6AB: 4F 97 18          STA     Calculator_State
    115                        L_Calculator_State_Input_Prog_RTS:
-   116 00:D6BD: 09                RTS
+   116 00:D6AE: 09                RTS
    117                        ;==================================================
    118                        L_Calculator_State_Equal_Press_Prog:
-   119 00:D6BE: 43 8F 18          LDA     ERR
-   120 00:D6C1: 12 15             BNE     L_Calculator_State_Equal_Press_Prog_RTS;判断是否存在错误，如果不存在错误的话继续
-   121 00:D6C3: 73 A6             LDA     P_Scankey_value
-   122 00:D6C5: 56 10             CMP     #MAX_Number_Input
-   123 00:D6C7: 10 10             BCC     L_Calculator_State_Equal_Press_Prog_Number_Press
-   124 00:D6C9: 56 14             CMP     #D_NUM_Equal_Press
-   125 00:D6CB: 13 0B             BEQ     L_Calculator_State_Equal_Press_Prog_RTS;按下等号无意义
-   126 00:D6CD: 53 01             LDA     #Calculator_State_Symbol_First_Press
-   127 00:D6CF: 4F 97 18          STA     Calculator_State
-   128 00:D6D2: 15 A6 D7          JSR     L_COPY_BUF1_TO_IBUF_FD_Prog
-   129 00:D6D5: 16 51 D6          JMP     L_Calculator_State_Symbol_First_Press_Prog;按下加减乘除相当于进入按键一次按下问题
+   119 00:D6AF: 43 8F 18          LDA     ERR
+   120 00:D6B2: 12 15             BNE     L_Calculator_State_Equal_Press_Prog_RTS;判断是否存在错误，如果不存在错误的话继续
+   121 00:D6B4: 73 A6             LDA     P_Scankey_value
+   122 00:D6B6: 56 10             CMP     #MAX_Number_Input
+   123 00:D6B8: 10 10             BCC     L_Calculator_State_Equal_Press_Prog_Number_Press
+   124 00:D6BA: 56 14             CMP     #D_NUM_Equal_Press
+   125 00:D6BC: 13 0B             BEQ     L_Calculator_State_Equal_Press_Prog_RTS;按下等号无意义
+   126 00:D6BE: 53 01             LDA     #Calculator_State_Symbol_First_Press
+   127 00:D6C0: 4F 97 18          STA     Calculator_State
+   128 00:D6C3: 15 97 D7          JSR     L_COPY_BUF1_TO_IBUF_FD_Prog
+   129 00:D6C6: 16 42 D6          JMP     L_Calculator_State_Symbol_First_Press_Prog;按下加减乘除相当于进入按键一次按下问题
    130                        
    131                        
    132                        L_Calculator_State_Equal_Press_Prog_RTS:
-   133 00:D6D8: 09                RTS
+   133 00:D6C9: 09                RTS
    134                        
    135                        L_Calculator_State_Equal_Press_Prog_Number_Press:;当按下等号在按下数字键时相当于一切清零
-   136 00:D6D9: 15 17 D9          JSR     L_Clear_Calculator_Prog
-   137 00:D6DC: 16 39 D6          JMP     L_Calculator_Init_Prog
+   136 00:D6CA: 15 08 D9          JSR     L_Clear_Calculator_Prog
+   137 00:D6CD: 16 2A D6          JMP     L_Calculator_Init_Prog
    138                        
    139                        ;=======================================================
    140                        L_Calculator_State_Involution:
-   141 00:D6DF: 43 8F 18          LDA     ERR
-   142 00:D6E2: 12 15             BNE     L_Calculator_State_Involution_RTS;当出现错误时
-   143 00:D6E4: 73 A6             LDA     P_Scankey_value
-   144 00:D6E6: 56 14             CMP     #D_NUM_Equal_Press
-   145 00:D6E8: 13 10             BEQ     L_Calculator_State_Involution_Equal_Press;当按下等号后
-   146 00:D6EA: 56 10             CMP     #MAX_Number_Input
-   147 00:D6EC: 10 12             BCC     L_Calculator_State_Involution_Input_Number
-   148 00:D6EE: 53 01             LDA     #Calculator_State_Symbol_First_Press;此时按下加减乘除键
-   149 00:D6F0: 4F 97 18          STA     Calculator_State;此时BUF1,BUF2已将运算值存储
-   150 00:D6F3: 15 A6 D7          JSR     L_COPY_BUF1_TO_IBUF_FD_Prog
-   151 00:D6F6: 15 E6 D7          JSR     Calculator_Input
+   141 00:D6D0: 43 8F 18          LDA     ERR
+   142 00:D6D3: 12 15             BNE     L_Calculator_State_Involution_RTS;当出现错误时
+   143 00:D6D5: 73 A6             LDA     P_Scankey_value
+   144 00:D6D7: 56 14             CMP     #D_NUM_Equal_Press
+   145 00:D6D9: 13 10             BEQ     L_Calculator_State_Involution_Equal_Press;当按下等号后
+   146 00:D6DB: 56 10             CMP     #MAX_Number_Input
+   147 00:D6DD: 10 12             BCC     L_Calculator_State_Involution_Input_Number
+   148 00:D6DF: 53 01             LDA     #Calculator_State_Symbol_First_Press;此时按下加减乘除键
+   149 00:D6E1: 4F 97 18          STA     Calculator_State;此时BUF1,BUF2已将运算值存储
+   150 00:D6E4: 15 97 D7          JSR     L_COPY_BUF1_TO_IBUF_FD_Prog
+   151 00:D6E7: 15 D7 D7          JSR     Calculator_Input
    152                        L_Calculator_State_Involution_RTS:
-   153 00:D6F9: 09                RTS
+   153 00:D6EA: 09                RTS
    154                        L_Calculator_State_Involution_Equal_Press:
    155                            ; LDA     #Calculator_State_Equal_Press
    156                            ; STA     Calculator_State
-   157 00:D6FA: 53 04             LDA     #Calc_First_Output_Involution
-   158 00:D6FC: 4F 99 18          STA     Calculator_State_Mechine
-   159 00:D6FF: 09                RTS
+   157 00:D6EB: 53 04             LDA     #Calc_First_Output_Involution
+   158 00:D6ED: 4F 99 18          STA     Calculator_State_Mechine
+   159 00:D6F0: 09                RTS
    160                        
    161                        L_Calculator_State_Involution_Input_Number:
-   162 00:D700: 15 C5 D7          JSR     L_Clear_IBUF_FD_Prog
+   162 00:D6F1: 15 B6 D7          JSR     L_Clear_IBUF_FD_Prog
    163                        L_Calculator_State_Involution_Number_Input_Prog_Input_Number:
-   164 00:D703: 15 E6 D7          JSR     Calculator_Input
-   165 00:D706: 53 05             LDA     #Calculator_State_Involution_Input
-   166 00:D708: 4F 97 18          STA     Calculator_State
-   167 00:D70B: 09                RTS
+   164 00:D6F4: 15 D7 D7          JSR     Calculator_Input
+   165 00:D6F7: 53 05             LDA     #Calculator_State_Involution_Input
+   166 00:D6F9: 4F 97 18          STA     Calculator_State
+   167 00:D6FC: 09                RTS
    168                        ;===============================================
    169                        L_Calculator_State_Involution_Number_Input_Prog:
-   170 00:D70C: 43 8F 18          LDA     ERR
-   171 00:D70F: 12 12             BNE     L_Calculator_State_Involution_Number_Input_Prog_RTS
-   172 00:D711: 73 A6             LDA     P_Scankey_value
-   173 00:D713: 56 10             CMP     #MAX_Number_Input
-   174 00:D715: 10 EC             BCC     L_Calculator_State_Involution_Number_Input_Prog_Input_Number
-   175 00:D717: 56 14             CMP     #D_NUM_Equal_Press
-   176 00:D719: 13 09             BEQ     L_Calculator_State_Involution_Number_Input_Prog_Equal_Press
-   177 00:D71B: 53 01             LDA     #Calculator_State_Symbol_First_Press;此时按下加减乘除键
-   178 00:D71D: 4F 97 18          STA     Calculator_State;此时BUF1,BUF2已将运算值存储
-   179 00:D720: 15 E6 D7          JSR     Calculator_Input
+   170 00:D6FD: 43 8F 18          LDA     ERR
+   171 00:D700: 12 12             BNE     L_Calculator_State_Involution_Number_Input_Prog_RTS
+   172 00:D702: 73 A6             LDA     P_Scankey_value
+   173 00:D704: 56 10             CMP     #MAX_Number_Input
+   174 00:D706: 10 EC             BCC     L_Calculator_State_Involution_Number_Input_Prog_Input_Number
+   175 00:D708: 56 14             CMP     #D_NUM_Equal_Press
+   176 00:D70A: 13 09             BEQ     L_Calculator_State_Involution_Number_Input_Prog_Equal_Press
+   177 00:D70C: 53 01             LDA     #Calculator_State_Symbol_First_Press;此时按下加减乘除键
+   178 00:D70E: 4F 97 18          STA     Calculator_State;此时BUF1,BUF2已将运算值存储
+   179 00:D711: 15 D7 D7          JSR     Calculator_Input
    180                        L_Calculator_State_Involution_Number_Input_Prog_RTS:
-   181 00:D723: 09                RTS
+   181 00:D714: 09                RTS
    182                        L_Calculator_State_Involution_Number_Input_Prog_Equal_Press:
-   183 00:D724: 53 04             LDA     #Calculator_State_Involution
-   184 00:D726: 4F 97 18          STA     Calculator_State
-   185 00:D729: 53 05             LDA     #Calc_First_Output_Involution_IN
-   186 00:D72B: 4F 99 18          STA     Calculator_State_Mechine
+   183 00:D715: 53 04             LDA     #Calculator_State_Involution
+   184 00:D717: 4F 97 18          STA     Calculator_State
+   185 00:D71A: 53 05             LDA     #Calc_First_Output_Involution_IN
+   186 00:D71C: 4F 99 18          STA     Calculator_State_Mechine
    187                            RTS
-   187 00:D72E: 09            
+   187 00:D71F: 09            
    183                        .Include	Calculator\Calculator_Base_1.asm
      1                        L_Judge_IBUF_Prog:
-     2 00:D72F: 73 E8         	LDA		IBUF
-     3 00:D731: 70 E9         	ORA		IBUF+1
-     4 00:D733: 70 EA         	ORA		IBUF+2
-     5 00:D735: 70 EB         	ORA		IBUF+3
-     6 00:D737: 09            	RTS
+     2 00:D720: 73 E8         	LDA		IBUF
+     3 00:D722: 70 E9         	ORA		IBUF+1
+     4 00:D724: 70 EA         	ORA		IBUF+2
+     5 00:D726: 70 EB         	ORA		IBUF+3
+     6 00:D728: 09            	RTS
      7                        ;---------------------------------
      8                        L_Move_Left_One_Bit_Prog_IBUF:
-     9 00:D738: 04            	CLC
-    10 00:D739: 7A E8         	ROL		IBUF
-    11 00:D73B: 7A E9         	ROL		IBUF+1
-    12 00:D73D: 7A EA         	ROL		IBUF+2
-    13 00:D73F: 7A EB         	ROL		IBUF+3
-    14 00:D741: 09            	RTS
+     9 00:D729: 04            	CLC
+    10 00:D72A: 7A E8         	ROL		IBUF
+    11 00:D72C: 7A E9         	ROL		IBUF+1
+    12 00:D72E: 7A EA         	ROL		IBUF+2
+    13 00:D730: 7A EB         	ROL		IBUF+3
+    14 00:D732: 09            	RTS
     15                        ;---------------------------------
     16                        L_Move_Right_One_Bit_Prog_IBUF:
-    17 00:D742: 04            	CLC
-    18 00:D743: 7B EB         	ROR		IBUF+3
-    19 00:D745: 7B EA         	ROR		IBUF+2
-    20 00:D747: 7B E9         	ROR		IBUF+1
-    21 00:D749: 7B E8         	ROR		IBUF
-    22 00:D74B: 09            	RTS
+    17 00:D733: 04            	CLC
+    18 00:D734: 7B EB         	ROR		IBUF+3
+    19 00:D736: 7B EA         	ROR		IBUF+2
+    20 00:D738: 7B E9         	ROR		IBUF+1
+    21 00:D73A: 7B E8         	ROR		IBUF
+    22 00:D73C: 09            	RTS
     23                        ;--------------------------------
     24                        L_COPY_IBUF_TO_BUF1_FD_Prog:
-    25 00:D74C: 5E 3A         	LDX		#(BUF1-RAM)
-    26 00:D74E: 73 E8         	LDA		IBUF
-    27 00:D750: 6F 80 00      	STA		RAM, X
-    28 00:D753: 73 E9         	LDA		IBUF+1
-    29 00:D755: 6F 81 00      	STA		RAM+1, X
-    30 00:D758: 73 EA         	LDA		IBUF+2
-    31 00:D75A: 6F 82 00      	STA		RAM+2, X
-    32 00:D75D: 73 EB         	LDA		IBUF+3
-    33 00:D75F: 6F 83 00      	STA		RAM+3, X
-    34 00:D762: 73 EC         	LDA		IBUF+IFD
-    35 00:D764: 6F 88 00      	STA		RAM+FD, X
-    36 00:D767: 09            	RTS
+    25 00:D73D: 5E 3A         	LDX		#(BUF1-RAM)
+    26 00:D73F: 73 E8         	LDA		IBUF
+    27 00:D741: 6F 80 00      	STA		RAM, X
+    28 00:D744: 73 E9         	LDA		IBUF+1
+    29 00:D746: 6F 81 00      	STA		RAM+1, X
+    30 00:D749: 73 EA         	LDA		IBUF+2
+    31 00:D74B: 6F 82 00      	STA		RAM+2, X
+    32 00:D74E: 73 EB         	LDA		IBUF+3
+    33 00:D750: 6F 83 00      	STA		RAM+3, X
+    34 00:D753: 73 EC         	LDA		IBUF+IFD
+    35 00:D755: 6F 88 00      	STA		RAM+FD, X
+    36 00:D758: 09            	RTS
     37                        ;----------------------------------
     38                        L_COPY_BUF1_TO_BUF2_FD:
-    39 00:D768: 5E 3A         	LDX		#(BUF1-RAM)
-    40 00:D76A: 15 5E D0      	JSR		L_Copy_To_BUF2
-    41 00:D76D: 73 C2         	LDA		BUF1+FD
-    42 00:D76F: 7F CB         	STA		BUF2+FD
-    43 00:D771: 09            	RTS
+    39 00:D759: 5E 3A         	LDX		#(BUF1-RAM)
+    40 00:D75B: 15 5E D0      	JSR		L_Copy_To_BUF2
+    41 00:D75E: 73 C2         	LDA		BUF1+FD
+    42 00:D760: 7F CB         	STA		BUF2+FD
+    43 00:D762: 09            	RTS
     44                        L_Copy_BUF1_TO_BBUF_Prog:
-    45 00:D772: 73 BA         	LDA		BUF1
-    46 00:D774: 4F 8A 18      	STA		BBUF
-    47 00:D777: 73 BB         	LDA		BUF1+1
-    48 00:D779: 4F 8B 18      	STA		BBUF+1
-    49 00:D77C: 73 BC         	LDA		BUF1+2
-    50 00:D77E: 4F 8C 18      	STA		BBUF+2
-    51 00:D781: 73 BD         	LDA		BUF1+3
-    52 00:D783: 4F 8D 18      	STA		BBUF+3
-    53 00:D786: 73 BE         	LDA		BUF1+IFD
-    54 00:D788: 4F 8E 18      	STA		BBUF+BFD
-    55 00:D78B: 09            	RTS
+    45 00:D763: 73 BA         	LDA		BUF1
+    46 00:D765: 4F 8A 18      	STA		BBUF
+    47 00:D768: 73 BB         	LDA		BUF1+1
+    48 00:D76A: 4F 8B 18      	STA		BBUF+1
+    49 00:D76D: 73 BC         	LDA		BUF1+2
+    50 00:D76F: 4F 8C 18      	STA		BBUF+2
+    51 00:D772: 73 BD         	LDA		BUF1+3
+    52 00:D774: 4F 8D 18      	STA		BBUF+3
+    53 00:D777: 73 BE         	LDA		BUF1+IFD
+    54 00:D779: 4F 8E 18      	STA		BBUF+BFD
+    55 00:D77C: 09            	RTS
     56                        
     57                        L_COPY_BBUF_TO_BUF1_Prog:
-    58 00:D78C: 43 8A 18      	LDA		BBUF
-    59 00:D78F: 7F BA         	STA		BUF1
-    60 00:D791: 43 8B 18      	LDA		BBUF+1
-    61 00:D794: 7F BB         	STA		BUF1+1
-    62 00:D796: 43 8C 18      	LDA		BBUF+2
-    63 00:D799: 7F BC         	STA		BUF1+2
-    64 00:D79B: 43 8D 18      	LDA		BBUF+3
-    65 00:D79E: 7F BD         	STA		BUF1+3
-    66 00:D7A0: 43 8E 18      	LDA		BBUF+BFD
-    67 00:D7A3: 7F BE         	STA		BUF1+IFD
-    68 00:D7A5: 09            	RTS
+    58 00:D77D: 43 8A 18      	LDA		BBUF
+    59 00:D780: 7F BA         	STA		BUF1
+    60 00:D782: 43 8B 18      	LDA		BBUF+1
+    61 00:D785: 7F BB         	STA		BUF1+1
+    62 00:D787: 43 8C 18      	LDA		BBUF+2
+    63 00:D78A: 7F BC         	STA		BUF1+2
+    64 00:D78C: 43 8D 18      	LDA		BBUF+3
+    65 00:D78F: 7F BD         	STA		BUF1+3
+    66 00:D791: 43 8E 18      	LDA		BBUF+BFD
+    67 00:D794: 7F BE         	STA		BUF1+IFD
+    68 00:D796: 09            	RTS
     69                        L_COPY_BUF1_TO_IBUF_FD_Prog:
-    70 00:D7A6: 73 BA         	LDA		BUF1
-    71 00:D7A8: 7F E8         	STA		IBUF
-    72 00:D7AA: 73 BB         	LDA		BUF1+1
-    73 00:D7AC: 7F E9         	STA		IBUF+1
-    74 00:D7AE: 73 BC         	LDA		BUF1+2
-    75 00:D7B0: 7F EA         	STA		IBUF+2
-    76 00:D7B2: 73 BD         	LDA		BUF1+3
-    77 00:D7B4: 7F EB         	STA		IBUF+3
-    78 00:D7B6: 73 BE         	LDA		BUF1+IFD
-    79 00:D7B8: 7F EC         	STA		IBUF+BFD
-    80 00:D7BA: 09            	RTS
+    70 00:D797: 73 BA         	LDA		BUF1
+    71 00:D799: 7F E8         	STA		IBUF
+    72 00:D79B: 73 BB         	LDA		BUF1+1
+    73 00:D79D: 7F E9         	STA		IBUF+1
+    74 00:D79F: 73 BC         	LDA		BUF1+2
+    75 00:D7A1: 7F EA         	STA		IBUF+2
+    76 00:D7A3: 73 BD         	LDA		BUF1+3
+    77 00:D7A5: 7F EB         	STA		IBUF+3
+    78 00:D7A7: 73 BE         	LDA		BUF1+IFD
+    79 00:D7A9: 7F EC         	STA		IBUF+BFD
+    80 00:D7AB: 09            	RTS
     81                        ;===========================================
     82                        L_COPY_BUF2_TO_BUF1_FD:
-    83 00:D7BB: 5E 43         	LDX		#(BUF2-RAM)
-    84 00:D7BD: 15 35 D0      	JSR		L_Copy_To_BUF1
-    85 00:D7C0: 73 CB         	LDA		BUF2+FD
-    86 00:D7C2: 7F C2         	STA		BUF1+FD
-    87 00:D7C4: 09            	RTS
+    83 00:D7AC: 5E 43         	LDX		#(BUF2-RAM)
+    84 00:D7AE: 15 35 D0      	JSR		L_Copy_To_BUF1
+    85 00:D7B1: 73 CB         	LDA		BUF2+FD
+    86 00:D7B3: 7F C2         	STA		BUF1+FD
+    87 00:D7B5: 09            	RTS
     88                        L_Clear_IBUF_FD_Prog:
-    89 00:D7C5: 5E 68         	LDX		#(IBUF-RAM)
-    90 00:D7C7: 15 CE CE      	JSR		L_Clear_BUF_Prog
-    91 00:D7CA: 53 00         	LDA		#0
-    92 00:D7CC: 6F 84 00      	STA		RAM+IFD,X
-    93 00:D7CF: 09            	RTS
+    89 00:D7B6: 5E 68         	LDX		#(IBUF-RAM)
+    90 00:D7B8: 15 CE CE      	JSR		L_Clear_BUF_Prog
+    91 00:D7BB: 53 00         	LDA		#0
+    92 00:D7BD: 6F 84 00      	STA		RAM+IFD,X
+    93 00:D7C0: 09            	RTS
     94                        L_Clear_BUF1_FD_Prog:
-    95 00:D7D0: 5E 3A         	LDX		#(BUF1-RAM)
-    96 00:D7D2: 15 CE CE      	JSR		L_Clear_BUF_Prog
-    97 00:D7D5: 53 00         	LDA		#0
-    98 00:D7D7: 6F 88 00      	STA		RAM+FD,X
-    99 00:D7DA: 09            	RTS
+    95 00:D7C1: 5E 3A         	LDX		#(BUF1-RAM)
+    96 00:D7C3: 15 CE CE      	JSR		L_Clear_BUF_Prog
+    97 00:D7C6: 53 00         	LDA		#0
+    98 00:D7C8: 6F 88 00      	STA		RAM+FD,X
+    99 00:D7CB: 09            	RTS
    100                        L_Clear_BUF2_FD_Prog
-   101 00:D7DB: 5E 43         	LDX		#(BUF2-RAM)
-   102 00:D7DD: 15 CE CE      	JSR		L_Clear_BUF_Prog
-   103 00:D7E0: 53 00         	LDA		#0
-   104 00:D7E2: 6F 88 00      	STA		RAM+FD,X
-   105 00:D7E5: 09            	RTS
+   101 00:D7CC: 5E 43         	LDX		#(BUF2-RAM)
+   102 00:D7CE: 15 CE CE      	JSR		L_Clear_BUF_Prog
+   103 00:D7D1: 53 00         	LDA		#0
+   104 00:D7D3: 6F 88 00      	STA		RAM+FD,X
+   105 00:D7D6: 09            	RTS
    106                        ;=====================================
    107                        Calculator_Input:
-   108 00:D7E6: 73 A6             LDA     P_Scankey_value
-   109 00:D7E8: 56 10             CMP     #MAX_Number_Input
-   110 00:D7EA: 10 05             BCC     Calculator_Input_Number_Prog_TO
-   111 00:D7EC: 56 14             CMP     #D_NUM_Equal_Press
-   112 00:D7EE: 10 04             BCC     Calculator_Input_Symbol_Prog_TO
-   113 00:D7F0: 09                RTS
+   108 00:D7D7: 73 A6             LDA     P_Scankey_value
+   109 00:D7D9: 56 10             CMP     #MAX_Number_Input
+   110 00:D7DB: 10 05             BCC     Calculator_Input_Number_Prog_TO
+   111 00:D7DD: 56 14             CMP     #D_NUM_Equal_Press
+   112 00:D7DF: 10 04             BCC     Calculator_Input_Symbol_Prog_TO
+   113 00:D7E1: 09                RTS
    114                        
    115                        Calculator_Input_Number_Prog_TO:
-   116 00:D7F1: 16 54 D8          JMP     Calculator_Input_Number_Prog
+   116 00:D7E2: 16 45 D8          JMP     Calculator_Input_Number_Prog
    117                        
    118                        Calculator_Input_Symbol_Prog_TO:
-   119 00:D7F4: 16 B7 D8          JMP     Calculator_Input_Symbol_Prog
+   119 00:D7E5: 16 A8 D8          JMP     Calculator_Input_Symbol_Prog
    120                        
    121                        
    122                        
@@ -6188,20 +6183,20 @@ Current file: main.asm
    127                        
    128                        ; ;============================================
    129                        L_Input_Full_Prog:
-   130 00:D7F7: 73 EB             LDA     IBUF+MAX_BYTE-1
-   131 00:D7F9: 51 F0             AND     #0F0H
+   130 00:D7E8: 73 EB             LDA     IBUF+MAX_BYTE-1
+   131 00:D7EA: 51 F0             AND     #0F0H
    132                            LJNZ    L_Input_Full_Error
-+  132 00:D7FB: 13 03          BEQ MACRO_SYMBOL_0006
-+  132 00:D7FD: 16 0E D8       JMP L_Input_Full_Error
++  132 00:D7EC: 13 03          BEQ MACRO_SYMBOL_0006
++  132 00:D7EE: 16 FF D7       JMP L_Input_Full_Error
 +  132                         MACRO_SYMBOL_0006:
-   133 00:D800: 73 EC             LDA     IBUF+IFD
-   134 00:D802: 51 7F             AND     #07FH
-   135 00:D804: 56 08             CMP     #MAX_DIG
+   133 00:D7F1: 73 EC             LDA     IBUF+IFD
+   134 00:D7F3: 51 7F             AND     #07FH
+   135 00:D7F5: 56 08             CMP     #MAX_DIG
    136                            LJZ     RET1
-+  136 00:D806: 12 03          BNE MACRO_SYMBOL_0007
-+  136 00:D808: 16 F2 D8       JMP RET1
++  136 00:D7F7: 12 03          BNE MACRO_SYMBOL_0007
++  136 00:D7F9: 16 E3 D8       JMP RET1
 +  136                         MACRO_SYMBOL_0007:
-   137 00:D80B: 16 F5 D8          JMP     RET0
+   137 00:D7FC: 16 E6 D8          JMP     RET0
    138                        
    139                        ; ;=========================================
    140                        
@@ -6210,34 +6205,34 @@ Current file: main.asm
    143                        	; LJNZ	RET1
    144                        	; LDA     #ERR_IN
    145                            ; STA     ERR
-   146 00:D80E: 16 F2 D8      	JMP		RET1
-   147 00:D811: 09                RTS
+   146 00:D7FF: 16 E3 D8      	JMP		RET1
+   147 00:D802: 09                RTS
    148                        
    149                        Input_FD_Inc:
-   150 00:D812: 73 EC         	LDA		IBUF+IFD
-   151 00:D814: 51 7F         	AND		#07FH
+   150 00:D803: 73 EC         	LDA		IBUF+IFD
+   151 00:D805: 51 7F         	AND		#07FH
    152                        	LJZ		RET
-+  152 00:D816: 12 03          BNE MACRO_SYMBOL_0008
-+  152 00:D818: 16 F8 D8       JMP RET
++  152 00:D807: 12 03          BNE MACRO_SYMBOL_0008
++  152 00:D809: 16 E9 D8       JMP RET
 +  152                         MACRO_SYMBOL_0008:
-   153 00:D81B: 04                CLC
-   154 00:D81C: 73 EC         	LDA     IBUF+IFD
-   155 00:D81E: 54 01             ADC     #1
-   156 00:D820: 7F EC             STA     IBUF+IFD
-   157 00:D822: 09            	RTS
+   153 00:D80C: 04                CLC
+   154 00:D80D: 73 EC         	LDA     IBUF+IFD
+   155 00:D80F: 54 01             ADC     #1
+   156 00:D811: 7F EC             STA     IBUF+IFD
+   157 00:D813: 09            	RTS
    158                        
    159                        Input_FD:
-   160 00:D823: 73 EC         	LDA		IBUF+IFD
-   161 00:D825: 51 7F         	AND		#07FH
+   160 00:D814: 73 EC         	LDA		IBUF+IFD
+   161 00:D816: 51 7F         	AND		#07FH
    162                        	LJNZ	RET
-+  162 00:D827: 13 03          BEQ MACRO_SYMBOL_0009
-+  162 00:D829: 16 F8 D8       JMP RET
++  162 00:D818: 13 03          BEQ MACRO_SYMBOL_0009
++  162 00:D81A: 16 E9 D8       JMP RET
 +  162                         MACRO_SYMBOL_0009:
-   163 00:D82C: 04                CLC
-   164 00:D82D: 73 EC             LDA     IBUF+IFD
-   165 00:D82F: 54 01             ADC     #1
-   166 00:D831: 7F EC             STA     IBUF+IFD
-   167 00:D833: 09            	RTS
+   163 00:D81D: 04                CLC
+   164 00:D81E: 73 EC             LDA     IBUF+IFD
+   165 00:D820: 54 01             ADC     #1
+   166 00:D822: 7F EC             STA     IBUF+IFD
+   167 00:D824: 09            	RTS
    168                        
    169                        
    170                        
@@ -6245,245 +6240,245 @@ Current file: main.asm
    172                        ; ;============================================
    173                        
    174                        Calculator_Input_Number:
-   175 00:D834: 7F F2             STA     ACC
-   176 00:D836: 15 F7 D7          JSR     L_Input_Full_Prog
+   175 00:D825: 7F F2             STA     ACC
+   176 00:D827: 15 E8 D7          JSR     L_Input_Full_Prog
    177                            LJNZ    RET
-+  177 00:D839: 13 03          BEQ MACRO_SYMBOL_000A
-+  177 00:D83B: 16 F8 D8       JMP RET
++  177 00:D82A: 13 03          BEQ MACRO_SYMBOL_000A
++  177 00:D82C: 16 E9 D8       JMP RET
 +  177                         MACRO_SYMBOL_000A:
-   178 00:D83E: 15 12 D8          JSR     Input_FD_Inc
+   178 00:D82F: 15 03 D8          JSR     Input_FD_Inc
    179                        
-   180 00:D841: 15 38 D7          JSR     L_Move_Left_One_Bit_Prog_IBUF
-   181 00:D844: 15 38 D7          JSR     L_Move_Left_One_Bit_Prog_IBUF
-   182 00:D847: 15 38 D7          JSR     L_Move_Left_One_Bit_Prog_IBUF
-   183 00:D84A: 15 38 D7          JSR     L_Move_Left_One_Bit_Prog_IBUF
-   184 00:D84D: 73 E8             LDA     IBUF
-   185 00:D84F: 70 F2             ORA     ACC
-   186 00:D851: 7F E8             STA     IBUF
-   187 00:D853: 09                RTS
+   180 00:D832: 15 29 D7          JSR     L_Move_Left_One_Bit_Prog_IBUF
+   181 00:D835: 15 29 D7          JSR     L_Move_Left_One_Bit_Prog_IBUF
+   182 00:D838: 15 29 D7          JSR     L_Move_Left_One_Bit_Prog_IBUF
+   183 00:D83B: 15 29 D7          JSR     L_Move_Left_One_Bit_Prog_IBUF
+   184 00:D83E: 73 E8             LDA     IBUF
+   185 00:D840: 70 F2             ORA     ACC
+   186 00:D842: 7F E8             STA     IBUF
+   187 00:D844: 09                RTS
    188                        ;============================================
    189                        
    190                        
    191                        Calculator_Input_Number_Prog:
-   192 00:D854: 73 A6             LDA     P_Scankey_value
-   193 00:D856: 56 0C             CMP     #D_NUM0_Press
-   194 00:D858: 13 29             BEQ     Calculator_Input_Number0
-   195 00:D85A: 56 01             CMP     #D_NUM1_Press
-   196 00:D85C: 13 29             BEQ     Calculator_Input_Number1
-   197 00:D85E: 56 02             CMP     #D_NUM2_Press
-   198 00:D860: 13 29             BEQ     Calculator_Input_Number2
-   199 00:D862: 56 03             CMP     #D_NUM3_Press
-   200 00:D864: 13 29             BEQ     Calculator_Input_Number3
-   201 00:D866: 56 04             CMP     #D_NUM4_Press
-   202 00:D868: 13 29             BEQ     Calculator_Input_Number4
-   203 00:D86A: 56 05             CMP     #D_NUM5_Press
-   204 00:D86C: 13 29             BEQ     Calculator_Input_Number5
-   205 00:D86E: 56 08             CMP     #D_NUM6_Press
-   206 00:D870: 13 29             BEQ     Calculator_Input_Number6
-   207 00:D872: 56 09             CMP     #D_NUM7_Press
-   208 00:D874: 13 29             BEQ     Calculator_Input_Number7
-   209 00:D876: 56 0A             CMP     #D_NUM8_Press
-   210 00:D878: 13 29             BEQ     Calculator_Input_Number8
-   211 00:D87A: 56 0B             CMP     #D_NUM9_Press
-   212 00:D87C: 13 29             BEQ     Calculator_Input_Number9
-   213 00:D87E: 56 0F             CMP     #D_NUM_Point_Press
-   214 00:D880: 13 2E             BEQ     Input_Dot
-   215 00:D882: 09                RTS
+   192 00:D845: 73 A6             LDA     P_Scankey_value
+   193 00:D847: 56 0C             CMP     #D_NUM0_Press
+   194 00:D849: 13 29             BEQ     Calculator_Input_Number0
+   195 00:D84B: 56 01             CMP     #D_NUM1_Press
+   196 00:D84D: 13 29             BEQ     Calculator_Input_Number1
+   197 00:D84F: 56 02             CMP     #D_NUM2_Press
+   198 00:D851: 13 29             BEQ     Calculator_Input_Number2
+   199 00:D853: 56 03             CMP     #D_NUM3_Press
+   200 00:D855: 13 29             BEQ     Calculator_Input_Number3
+   201 00:D857: 56 04             CMP     #D_NUM4_Press
+   202 00:D859: 13 29             BEQ     Calculator_Input_Number4
+   203 00:D85B: 56 05             CMP     #D_NUM5_Press
+   204 00:D85D: 13 29             BEQ     Calculator_Input_Number5
+   205 00:D85F: 56 08             CMP     #D_NUM6_Press
+   206 00:D861: 13 29             BEQ     Calculator_Input_Number6
+   207 00:D863: 56 09             CMP     #D_NUM7_Press
+   208 00:D865: 13 29             BEQ     Calculator_Input_Number7
+   209 00:D867: 56 0A             CMP     #D_NUM8_Press
+   210 00:D869: 13 29             BEQ     Calculator_Input_Number8
+   211 00:D86B: 56 0B             CMP     #D_NUM9_Press
+   212 00:D86D: 13 29             BEQ     Calculator_Input_Number9
+   213 00:D86F: 56 0F             CMP     #D_NUM_Point_Press
+   214 00:D871: 13 2E             BEQ     Input_Dot
+   215 00:D873: 09                RTS
    216                        Calculator_Input_Number0:
-   217 00:D883: 53 00             LDA     #0
-   218 00:D885: 17 22             BRA     Calculator_Input_NumberX
+   217 00:D874: 53 00             LDA     #0
+   218 00:D876: 17 22             BRA     Calculator_Input_NumberX
    219                        Calculator_Input_Number1:
-   220 00:D887: 53 01             LDA     #1
-   221 00:D889: 17 1E             BRA     Calculator_Input_NumberX
+   220 00:D878: 53 01             LDA     #1
+   221 00:D87A: 17 1E             BRA     Calculator_Input_NumberX
    222                        Calculator_Input_Number2:
-   223 00:D88B: 53 02             LDA     #2
-   224 00:D88D: 17 1A             BRA     Calculator_Input_NumberX
+   223 00:D87C: 53 02             LDA     #2
+   224 00:D87E: 17 1A             BRA     Calculator_Input_NumberX
    225                        Calculator_Input_Number3:
-   226 00:D88F: 53 03             LDA     #3
-   227 00:D891: 17 16             BRA     Calculator_Input_NumberX
+   226 00:D880: 53 03             LDA     #3
+   227 00:D882: 17 16             BRA     Calculator_Input_NumberX
    228                        Calculator_Input_Number4:
-   229 00:D893: 53 04             LDA     #4
-   230 00:D895: 17 12             BRA     Calculator_Input_NumberX
+   229 00:D884: 53 04             LDA     #4
+   230 00:D886: 17 12             BRA     Calculator_Input_NumberX
    231                        Calculator_Input_Number5:
-   232 00:D897: 53 05             LDA     #5
-   233 00:D899: 17 0E             BRA     Calculator_Input_NumberX
+   232 00:D888: 53 05             LDA     #5
+   233 00:D88A: 17 0E             BRA     Calculator_Input_NumberX
    234                        Calculator_Input_Number6:
-   235 00:D89B: 53 06             LDA     #6
-   236 00:D89D: 17 0A             BRA     Calculator_Input_NumberX
+   235 00:D88C: 53 06             LDA     #6
+   236 00:D88E: 17 0A             BRA     Calculator_Input_NumberX
    237                        Calculator_Input_Number7:
-   238 00:D89F: 53 07             LDA     #7
-   239 00:D8A1: 17 06             BRA     Calculator_Input_NumberX
+   238 00:D890: 53 07             LDA     #7
+   239 00:D892: 17 06             BRA     Calculator_Input_NumberX
    240                        Calculator_Input_Number8:
-   241 00:D8A3: 53 08             LDA     #8
-   242 00:D8A5: 17 02             BRA     Calculator_Input_NumberX
+   241 00:D894: 53 08             LDA     #8
+   242 00:D896: 17 02             BRA     Calculator_Input_NumberX
    243                        Calculator_Input_Number9:
-   244 00:D8A7: 53 09             LDA     #9
+   244 00:D898: 53 09             LDA     #9
    245                        Calculator_Input_NumberX
-   246 00:D8A9: 15 34 D8          JSR		Calculator_Input_Number
-   247 00:D8AC: 15 D8 D4          JSR     L_Display_Number_IBUF_Prog
-   248 00:D8AF: 09                RTS
+   246 00:D89A: 15 25 D8          JSR		Calculator_Input_Number
+   247 00:D89D: 15 C9 D4          JSR     L_Display_Number_IBUF_Prog
+   248 00:D8A0: 09                RTS
    249                        
    250                        Input_Dot:
-   251 00:D8B0: 15 23 D8      	JSR		Input_FD
-   252 00:D8B3: 15 D8 D4      	JSR     L_Display_Number_IBUF_Prog
-   253 00:D8B6: 09                RTS
+   251 00:D8A1: 15 14 D8      	JSR		Input_FD
+   252 00:D8A4: 15 C9 D4      	JSR     L_Display_Number_IBUF_Prog
+   253 00:D8A7: 09                RTS
    254                        
    255                        
    256                        Calculator_Input_Symbol_Prog:
-   257 00:D8B7: 73 A6             LDA     P_Scankey_value
-   258 00:D8B9: 56 14             CMP     #D_NUM_Equal_Press
-   259 00:D8BB: 13 11             BEQ		Input_Equal
-   260 00:D8BD: 56 10             CMP     #D_NUM_Add_Press
-   261 00:D8BF: 13 11         	BEQ		Input_Add
-   262 00:D8C1: 56 11             CMP     #D_NUM_Minus_Press
-   263 00:D8C3: 13 14         	BEQ		Input_Sub_Prog
-   264 00:D8C5: 56 12             CMP     #D_NUM_Multiply_Press
-   265 00:D8C7: 13 17         	BEQ		Input_Mul_Prog
-   266 00:D8C9: 56 13             CMP     #D_NUM_Divid_Press
-   267 00:D8CB: 13 1A         	BEQ		Input_DIV
-   268 00:D8CD: 09            	RTS
+   257 00:D8A8: 73 A6             LDA     P_Scankey_value
+   258 00:D8AA: 56 14             CMP     #D_NUM_Equal_Press
+   259 00:D8AC: 13 11             BEQ		Input_Equal
+   260 00:D8AE: 56 10             CMP     #D_NUM_Add_Press
+   261 00:D8B0: 13 11         	BEQ		Input_Add
+   262 00:D8B2: 56 11             CMP     #D_NUM_Minus_Press
+   263 00:D8B4: 13 14         	BEQ		Input_Sub_Prog
+   264 00:D8B6: 56 12             CMP     #D_NUM_Multiply_Press
+   265 00:D8B8: 13 17         	BEQ		Input_Mul_Prog
+   266 00:D8BA: 56 13             CMP     #D_NUM_Divid_Press
+   267 00:D8BC: 13 1A         	BEQ		Input_DIV
+   268 00:D8BE: 09            	RTS
    269                        Input_Equal:
    270                        	; LDA		#State_Equal
    271                        	; STA		Calculator_Symbol_State_Equal
    272                        	; BRA		Input_Symbol_Equal
-   273 00:D8CE: 15 74 CC      	JSR		L_Dis_Calculator_Symbol_Prog_Equal
-   274 00:D8D1: 09            	RTS
+   273 00:D8BF: 15 74 CC      	JSR		L_Dis_Calculator_Symbol_Prog_Equal
+   274 00:D8C2: 09            	RTS
    275                        Input_Add:
-   276 00:D8D2: 53 01         	LDA		#State_Add
-   277 00:D8D4: 4F 98 18      	STA		Calculator_Symbol_State
-   278 00:D8D7: 17 15         	BRA		Input_Symbol
+   276 00:D8C3: 53 01         	LDA		#State_Add
+   277 00:D8C5: 4F 98 18      	STA		Calculator_Symbol_State
+   278 00:D8C8: 17 15         	BRA		Input_Symbol
    279                        Input_Sub_Prog:
-   280 00:D8D9: 53 02         	LDA		#State_SUB
-   281 00:D8DB: 4F 98 18      	STA		Calculator_Symbol_State
-   282 00:D8DE: 17 0E         	BRA		Input_Symbol
+   280 00:D8CA: 53 02         	LDA		#State_SUB
+   281 00:D8CC: 4F 98 18      	STA		Calculator_Symbol_State
+   282 00:D8CF: 17 0E         	BRA		Input_Symbol
    283                        Input_Mul_Prog:
-   284 00:D8E0: 53 03         	LDA		#State_Mul
-   285 00:D8E2: 4F 98 18      	STA		Calculator_Symbol_State
-   286 00:D8E5: 17 07         	BRA		Input_Symbol
+   284 00:D8D1: 53 03         	LDA		#State_Mul
+   285 00:D8D3: 4F 98 18      	STA		Calculator_Symbol_State
+   286 00:D8D6: 17 07         	BRA		Input_Symbol
    287                        Input_DIV:
-   288 00:D8E7: 53 04         	LDA		#State_DIV
-   289 00:D8E9: 4F 98 18      	STA		Calculator_Symbol_State
-   290 00:D8EC: 17 00         	BRA		Input_Symbol
+   288 00:D8D8: 53 04         	LDA		#State_DIV
+   289 00:D8DA: 4F 98 18      	STA		Calculator_Symbol_State
+   290 00:D8DD: 17 00         	BRA		Input_Symbol
    291                        Input_Symbol:
-   292 00:D8EE: 15 55 CC      	JSR		L_Dis_Calculator_Symbol_Prog
-   293 00:D8F1: 09            	RTS
+   292 00:D8DF: 15 55 CC      	JSR		L_Dis_Calculator_Symbol_Prog
+   293 00:D8E2: 09            	RTS
    294                        ; Input_Symbol_Equal:
    295                        ; 	JSR		L_Dis_Calculator_Symbol_Prog_Equal
    296                        ; 	RTS
    297                        ;===================================
    298                        RET1:
-   299 00:D8F2: 53 01             LDA     #1
-   300 00:D8F4: 09                RTS
+   299 00:D8E3: 53 01             LDA     #1
+   300 00:D8E5: 09                RTS
    301                        RET0:
-   302 00:D8F5: 53 00             LDA     #0
-   303 00:D8F7: 09                RTS
+   302 00:D8E6: 53 00             LDA     #0
+   303 00:D8E8: 09                RTS
    304                        RET:
-   305 00:D8F8: 09                RTS
+   305 00:D8E9: 09                RTS
    306                        
    307                        ;=====================================
    308                        L_Calculator_Calc_Prog:
-   309 00:D8F9: 04            	CLC
-   310 00:D8FA: 06            	CLD
-   311 00:D8FB: 43 98 18      	LDA		Calculator_Symbol_State
-   312 00:D8FE: 18            	ROL
-   313 00:D8FF: 1B            	TAX
-   314 00:D900: 63 0A D9      	LDA		Table_Calc+1,X
-   315 00:D903: 0A            	PHA
-   316 00:D904: 63 09 D9      	LDA		Table_Calc,X
-   317 00:D907: 0A            	PHA
-   318 00:D908: 09            	RTS
+   309 00:D8EA: 04            	CLC
+   310 00:D8EB: 06            	CLD
+   311 00:D8EC: 43 98 18      	LDA		Calculator_Symbol_State
+   312 00:D8EF: 18            	ROL
+   313 00:D8F0: 1B            	TAX
+   314 00:D8F1: 63 FB D8      	LDA		Table_Calc+1,X
+   315 00:D8F4: 0A            	PHA
+   316 00:D8F5: 63 FA D8      	LDA		Table_Calc,X
+   317 00:D8F8: 0A            	PHA
+   318 00:D8F9: 09            	RTS
    319                        Table_Calc:
-   320 00:D909: F7 D8         	DW		RET-1
-   321 00:D90B: 82 D1         	DW		L_Control_Add_Prog-1
-   322 00:D90D: EA D1         	DW		L_Control_SUB_Prog-1
-   323 00:D90F: 15 D2         	DW		L_Control_Mul_Prog-1
-   324 00:D911: 99 D2         	DW		L_Control_DIV_Prog-1
-   325 00:D913: 15 D2         	DW		L_Control_Mul_Prog-1
+   320 00:D8FA: E8 D8         	DW		RET-1
+   321 00:D8FC: 82 D1         	DW		L_Control_Add_Prog-1
+   322 00:D8FE: EA D1         	DW		L_Control_SUB_Prog-1
+   323 00:D900: 15 D2         	DW		L_Control_Mul_Prog-1
+   324 00:D902: 99 D2         	DW		L_Control_DIV_Prog-1
+   325 00:D904: 15 D2         	DW		L_Control_Mul_Prog-1
    326                        
    327                        
    328                        
    329                        ;==========================================
    330                        L_OutPut_Result_IN_:;存在按键输入数字的函数
    331                        
-   332 00:D915: 09            	RTS
+   332 00:D906: 09            	RTS
    333                        L_OutPut_Result_:;不存在按键输入数字的函数
    334                        
-   335 00:D916: 09            	RTS
+   335 00:D907: 09            	RTS
    336                        
    337                        
    338                        
    339                        L_Clear_Calculator_Prog:
-   340 00:D917: 15 D0 D7      	JSR		L_Clear_BUF1_FD_Prog
+   340 00:D908: 15 C1 D7      	JSR		L_Clear_BUF1_FD_Prog
    341                        L_Clear_Calculator_Prog_ERR:
-   342 00:D91A: 15 19 CD      	JSR		L_Clr_All_8Bit_Prog
-   343 00:D91D: 15 3B CC      	JSR		L_Clr_Calculator_Symbol_Prog
-   344 00:D920: 53 00         	LDA		#0
-   345 00:D922: 4F 97 18      	STA		Calculator_State
-   346 00:D925: 4F 98 18      	STA		Calculator_Symbol_State
-   347 00:D928: 4F 99 18      	STA		Calculator_State_Mechine
+   342 00:D90B: 15 19 CD      	JSR		L_Clr_All_8Bit_Prog
+   343 00:D90E: 15 3B CC      	JSR		L_Clr_Calculator_Symbol_Prog
+   344 00:D911: 53 00         	LDA		#0
+   345 00:D913: 4F 97 18      	STA		Calculator_State
+   346 00:D916: 4F 98 18      	STA		Calculator_Symbol_State
+   347 00:D919: 4F 99 18      	STA		Calculator_State_Mechine
    348                        
-   349 00:D92B: 15 DB D7      	JSR		L_Clear_BUF2_FD_Prog
-   350 00:D92E: 15 C5 D7      	JSR		L_Clear_IBUF_FD_Prog
+   349 00:D91C: 15 CC D7      	JSR		L_Clear_BUF2_FD_Prog
+   350 00:D91F: 15 B6 D7      	JSR		L_Clear_IBUF_FD_Prog
    351                        	RTS
-   351 00:D931: 09            
+   351 00:D922: 09            
    184                        .Include	Calculator\Calculator_Mechine.asm
      1                        L_Calculator_Calc_Prog_State_Mechine:
-     2 00:D932: 43 99 18          LDA     Calculator_State_Mechine
-     3 00:D935: 04                CLC
-     4 00:D936: 06                CLD
-     5 00:D937: 18                ROL
-     6 00:D938: 1B                TAX
-     7 00:D939: 63 43 D9          LDA     Table_Calc_OutPut+1,X
-     8 00:D93C: 0A                PHA
-     9 00:D93D: 63 42 D9          LDA     Table_Calc_OutPut,X
-    10 00:D940: 0A                PHA
-    11 00:D941: 09                RTS
+     2 00:D923: 43 99 18          LDA     Calculator_State_Mechine
+     3 00:D926: 04                CLC
+     4 00:D927: 06                CLD
+     5 00:D928: 18                ROL
+     6 00:D929: 1B                TAX
+     7 00:D92A: 63 34 D9          LDA     Table_Calc_OutPut+1,X
+     8 00:D92D: 0A                PHA
+     9 00:D92E: 63 33 D9          LDA     Table_Calc_OutPut,X
+    10 00:D931: 0A                PHA
+    11 00:D932: 09                RTS
     12                        
     13                        Table_Calc_OutPut:
-    14 00:D942: 4D D9             DW      L_OutPut_Prog_Init-1
-    15 00:D944: 4E D9             DW      L_Output_Prog_First_Output-1
-    16 00:D946: 5A D9             DW      L_Output_Prog_First_Output_-1
-    17 00:D948: 63 D9             DW      L_Output_Prog_First_Output_IN-1
-    18 00:D94A: 6F D9             DW      L_Output_Prog_Involution_-1
-    19 00:D94C: 7B D9             DW      L_Output_Prog_Involution_IN-1
+    14 00:D933: 3E D9             DW      L_OutPut_Prog_Init-1
+    15 00:D935: 3F D9             DW      L_Output_Prog_First_Output-1
+    16 00:D937: 4B D9             DW      L_Output_Prog_First_Output_-1
+    17 00:D939: 54 D9             DW      L_Output_Prog_First_Output_IN-1
+    18 00:D93B: 60 D9             DW      L_Output_Prog_Involution_-1
+    19 00:D93D: 6C D9             DW      L_Output_Prog_Involution_IN-1
     20                        L_OutPut_Prog_Init:
-    21 00:D94E: 09                RTS
+    21 00:D93F: 09                RTS
     22                        ;===============================================================
     23                        L_Output_Prog_First_Output:;按键第一次按下加减乘除符号键所造成的影响
-    24 00:D94F: 15 4C D7          JSR     L_COPY_IBUF_TO_BUF1_FD_Prog
+    24 00:D940: 15 3D D7          JSR     L_COPY_IBUF_TO_BUF1_FD_Prog
     25                            ; JSR     L_Control_BUF1_Adjust_Result
-    26 00:D952: 15 68 D7          JSR     L_COPY_BUF1_TO_BUF2_FD
-    27 00:D955: 53 00             LDA     #Calc_Init
-    28 00:D957: 4F 99 18          STA     Calculator_State_Mechine
-    29 00:D95A: 09                RTS
+    26 00:D943: 15 59 D7          JSR     L_COPY_BUF1_TO_BUF2_FD
+    27 00:D946: 53 00             LDA     #Calc_Init
+    28 00:D948: 4F 99 18          STA     Calculator_State_Mechine
+    29 00:D94B: 09                RTS
     30                        ;===============================================================
     31                        L_Output_Prog_First_Output_:;没有数字按下时按下等号键
-    32 00:D95B: 15 4C D7          JSR     L_COPY_IBUF_TO_BUF1_FD_Prog
+    32 00:D94C: 15 3D D7          JSR     L_COPY_IBUF_TO_BUF1_FD_Prog
     33                            ; JSR     L_Control_BUF1_Adjust_Result
-    34 00:D95E: 15 F9 D8          JSR     L_Calculator_Calc_Prog
-    35 00:D961: 16 8B D9          JMP     L_Display_Calculator_Output
+    34 00:D94F: 15 EA D8          JSR     L_Calculator_Calc_Prog
+    35 00:D952: 16 7C D9          JMP     L_Display_Calculator_Output
     36                        ;===============================================================
     37                        L_Output_Prog_First_Output_IN:;有数字按下时的输出
-    38 00:D964: 15 68 D7          JSR     L_COPY_BUF1_TO_BUF2_FD
-    39 00:D967: 15 4C D7          JSR     L_COPY_IBUF_TO_BUF1_FD_Prog
+    38 00:D955: 15 59 D7          JSR     L_COPY_BUF1_TO_BUF2_FD
+    39 00:D958: 15 3D D7          JSR     L_COPY_IBUF_TO_BUF1_FD_Prog
     40                            ; JSR     L_Control_BUF1_Adjust_Result
-    41 00:D96A: 15 F9 D8          JSR     L_Calculator_Calc_Prog
-    42 00:D96D: 16 8B D9          JMP     L_Display_Calculator_Output
+    41 00:D95B: 15 EA D8          JSR     L_Calculator_Calc_Prog
+    42 00:D95E: 16 7C D9          JMP     L_Display_Calculator_Output
     43                        ;===============================================================
     44                        L_Output_Prog_Involution_:;当没有数字输入时，将BUF1送到BUF2，读取存储的BBUF,相乘
-    45 00:D970: 15 68 D7          JSR     L_COPY_BUF1_TO_BUF2_FD
-    46 00:D973: 15 8C D7          JSR     L_COPY_BBUF_TO_BUF1_Prog
+    45 00:D961: 15 59 D7          JSR     L_COPY_BUF1_TO_BUF2_FD
+    46 00:D964: 15 7D D7          JSR     L_COPY_BBUF_TO_BUF1_Prog
     47                            ; JSR     L_Control_BUF1_Adjust_Result
-    48 00:D976: 15 16 D2          JSR     L_Control_Mul_Prog
-    49 00:D979: 16 8B D9          JMP     L_Display_Calculator_Output
+    48 00:D967: 15 16 D2          JSR     L_Control_Mul_Prog
+    49 00:D96A: 16 7C D9          JMP     L_Display_Calculator_Output
     50                        ;===============================================================
     51                        L_Output_Prog_Involution_IN:
-    52 00:D97C: 15 4C D7          JSR     L_COPY_IBUF_TO_BUF1_FD_Prog
+    52 00:D96D: 15 3D D7          JSR     L_COPY_IBUF_TO_BUF1_FD_Prog
     53                            ; JSR     L_Control_BUF1_Adjust_Result
-    54 00:D97F: 15 68 D7          JSR     L_COPY_BUF1_TO_BUF2_FD
-    55 00:D982: 15 8C D7          JSR     L_COPY_BBUF_TO_BUF1_Prog
-    56 00:D985: 15 16 D2          JSR     L_Control_Mul_Prog
-    57 00:D988: 16 8B D9          JMP     L_Display_Calculator_Output
+    54 00:D970: 15 59 D7          JSR     L_COPY_BUF1_TO_BUF2_FD
+    55 00:D973: 15 7D D7          JSR     L_COPY_BBUF_TO_BUF1_Prog
+    56 00:D976: 15 16 D2          JSR     L_Control_Mul_Prog
+    57 00:D979: 16 7C D9          JMP     L_Display_Calculator_Output
     58                        ;===============================================================
     59                        ;===============================================================
     60                        ;===============================================================
@@ -6496,474 +6491,474 @@ Current file: main.asm
     67                        ;===============================================================
     68                        
     69                        L_Display_Calculator_Output:
-    70 00:D98B: 53 00             LDA     #Calc_Init
-    71 00:D98D: 4F 99 18          STA     Calculator_State_Mechine
-    72 00:D990: 15 BB D7          JSR     L_COPY_BUF2_TO_BUF1_FD
-    73 00:D993: 15 DE D4          JSR     L_Display_Number_BUF1_Prog
+    70 00:D97C: 53 00             LDA     #Calc_Init
+    71 00:D97E: 4F 99 18          STA     Calculator_State_Mechine
+    72 00:D981: 15 AC D7          JSR     L_COPY_BUF2_TO_BUF1_FD
+    73 00:D984: 15 CF D4          JSR     L_Display_Number_BUF1_Prog
     74                        
     75                        
     76                        
-    77 00:D996: 73 A6             LDA     P_Scankey_value
-    78 00:D998: 56 14             CMP     #20
-    79 00:D99A: 12 0F             BNE     L_Display_Calculator_Output_RTS
-    80 00:D99C: 15 74 CC          JSR		L_Dis_Calculator_Symbol_Prog_Equal
-    81 00:D99F: 43 98 18          LDA     Calculator_Symbol_State
-    82 00:D9A2: 56 05             CMP     #State_Involution
-    83 00:D9A4: 13 05             BEQ     L_Display_Calculator_Output_RTS
-    84 00:D9A6: 53 00             LDA     #State_Null
-    85 00:D9A8: 4F 98 18          STA     Calculator_Symbol_State
+    77 00:D987: 73 A6             LDA     P_Scankey_value
+    78 00:D989: 56 14             CMP     #20
+    79 00:D98B: 12 0F             BNE     L_Display_Calculator_Output_RTS
+    80 00:D98D: 15 74 CC          JSR		L_Dis_Calculator_Symbol_Prog_Equal
+    81 00:D990: 43 98 18          LDA     Calculator_Symbol_State
+    82 00:D993: 56 05             CMP     #State_Involution
+    83 00:D995: 13 05             BEQ     L_Display_Calculator_Output_RTS
+    84 00:D997: 53 00             LDA     #State_Null
+    85 00:D999: 4F 98 18          STA     Calculator_Symbol_State
     86                        L_Display_Calculator_Output_RTS:
-    87 00:D9AB: 09                RTS
+    87 00:D99C: 09                RTS
     87                        
    185                        
    186                        
    187                        
    188                        .INCLUDE	Half_s\Half.asm
      1                        L_Half_Second_Prog:
-     2 00:D9AC: 30 A0 0E      	BBR0 	Sys_Flag_B,L_END_Half_Second_Prog	;判断半秒标志
-     3 00:D9AF: 20 A0         	RMB0 	Sys_Flag_B							;清楚半秒标志
-     4 00:D9B1: 73 A3         	LDA		R_Reset_Time
-     5 00:D9B3: 12 21         	BNE		L_Reset_2s_Prog
-     6 00:D9B5: 39 A0 06      	BBS1	Sys_Flag_B,L_1Second_Prog			;判断一秒标志
-     7 00:D9B8: 29 A0         	SMB1	Sys_Flag_B							;设置1秒标志
-     8 00:D9BA: 15 B4 DC      	JSR		L_SysFlash_Prog						;闪烁程序
+     2 00:D99D: 30 A0 0E      	BBR0 	Sys_Flag_B,L_END_Half_Second_Prog	;判断半秒标志
+     3 00:D9A0: 20 A0         	RMB0 	Sys_Flag_B							;清楚半秒标志
+     4 00:D9A2: 73 A3         	LDA		R_Reset_Time
+     5 00:D9A4: 12 21         	BNE		L_Reset_2s_Prog
+     6 00:D9A6: 39 A0 06      	BBS1	Sys_Flag_B,L_1Second_Prog			;判断一秒标志
+     7 00:D9A9: 29 A0         	SMB1	Sys_Flag_B							;设置1秒标志
+     8 00:D9AB: 15 A5 DC      	JSR		L_SysFlash_Prog						;闪烁程序
      9                        L_END_Half_Second_Prog:
-    10 00:D9BD: 09                RTS
+    10 00:D9AE: 09                RTS
     11                        ;=================================================================
     12                        L_1Second_Prog:
-    13 00:D9BE: 21 A0             RMB1    Sys_Flag_B;清除1秒标志
-    14 00:D9C0: 15 8E DC      	JSR		L_Set_Mode_Auto_Exit
-    15 00:D9C3: 15 86 DD      	JSR		L_Control_Beep_prog_Auto_Exit
+    13 00:D9AF: 21 A0             RMB1    Sys_Flag_B;清除1秒标志
+    14 00:D9B1: 15 7F DC      	JSR		L_Set_Mode_Auto_Exit
+    15 00:D9B4: 15 77 DD      	JSR		L_Control_Beep_prog_Auto_Exit
     16                        
-    17 00:D9C6: 15 E7 D9      	JSR     L_Update_Time_Prog
-    18 00:D9C9: 15 63 DA      	JSR		L_Update_Another_Time_Prog
-    19 00:D9CC: 15 BE DB      	JSR		L_Alarm_Prog
-    20 00:D9CF: 15 4E DC          JSR		L_Control_Positive_Timer_Prog
-    21 00:D9D2: 15 2B C9      	JSR		L_Display_Normal_Prog
-    22 00:D9D5: 09            	RTS
+    17 00:D9B7: 15 D8 D9      	JSR     L_Update_Time_Prog
+    18 00:D9BA: 15 54 DA      	JSR		L_Update_Another_Time_Prog
+    19 00:D9BD: 15 AF DB      	JSR		L_Alarm_Prog
+    20 00:D9C0: 15 3F DC          JSR		L_Control_Positive_Timer_Prog
+    21 00:D9C3: 15 2B C9      	JSR		L_Display_Normal_Prog
+    22 00:D9C6: 09            	RTS
     23                        ;==============================================================
     24                        L_Reset_2s_Prog:;全显
-    25 00:D9D6: 79 A3         	DEC		R_Reset_Time
-    26 00:D9D8: 73 A3         	LDA		R_Reset_Time
-    27 00:D9DA: 12 0A         	BNE		L_End_Reset_2s_Prog
-    28 00:D9DC: 15 F0 C0      	JSR		L_Clr_All_DisRam_Prog
-    29 00:D9DF: 15 C2 C9      	JSR		L_Display_Prog
-    30 00:D9E2: 15 AD DD      	JSR		L_Beep_1s
-    31 00:D9E5: 09            	RTS
+    25 00:D9C7: 79 A3         	DEC		R_Reset_Time
+    26 00:D9C9: 73 A3         	LDA		R_Reset_Time
+    27 00:D9CB: 12 0A         	BNE		L_End_Reset_2s_Prog
+    28 00:D9CD: 15 F0 C0      	JSR		L_Clr_All_DisRam_Prog
+    29 00:D9D0: 15 C2 C9      	JSR		L_Display_Prog
+    30 00:D9D3: 15 9E DD      	JSR		L_Beep_1s
+    31 00:D9D6: 09            	RTS
     32                        L_End_Reset_2s_Prog:
-    33 00:D9E6: 09            	RTS
+    33 00:D9D7: 09            	RTS
     33                        
    189                        .INCLUDE	Half_s\Clock.asm
      1                        ;=========================
      2                        L_Update_Time_Prog:
      3                        	; JSR		L_Update_Time_Ms_Prog
-     4 00:D9E7: 15 38 DA      	JSR		L_Update_Time_Sec_Prog
+     4 00:D9D8: 15 29 DA      	JSR		L_Update_Time_Sec_Prog
      5                        
      6                        
-     7 00:D9EA: 10 20         	BCC		L_End_Update_Time_Prog
+     7 00:D9DB: 10 20         	BCC		L_End_Update_Time_Prog
      8                        
-     9 00:D9EC: 15 18 DA      	JSR		L_Control_Snz_Prog
-    10 00:D9EF: 15 3D DA      	JSR		L_Update_Time_Min_Prog
+     9 00:D9DD: 15 09 DA      	JSR		L_Control_Snz_Prog
+    10 00:D9E0: 15 2E DA      	JSR		L_Update_Time_Min_Prog
     11                        
     12                        
-    13 00:D9F2: 10 18         	BCC		L_End_Update_Time_Prog
+    13 00:D9E3: 10 18         	BCC		L_End_Update_Time_Prog
     14                        
     15                        
-    16 00:D9F4: 15 0D DA      	JSR		L_Control_Beep_Time_On_Alarm_Prog
-    17 00:D9F7: 15 42 DA      	JSR		L_Update_Time_Hr_Prog
+    16 00:D9E5: 15 FE D9      	JSR		L_Control_Beep_Time_On_Alarm_Prog
+    17 00:D9E8: 15 33 DA      	JSR		L_Update_Time_Hr_Prog
     18                        
     19                        
-    20 00:D9FA: 10 10         	BCC		L_End_Update_Time_Prog
+    20 00:D9EB: 10 10         	BCC		L_End_Update_Time_Prog
     21                        
-    22 00:D9FC: 15 49 DA      	JSR		L_Update_Time_Day_Prog
+    22 00:D9ED: 15 3A DA      	JSR		L_Update_Time_Day_Prog
     23                        
     24                        
-    25 00:D9FF: 10 08         	BCC		L_End_Update_Date_Prog
+    25 00:D9F0: 10 08         	BCC		L_End_Update_Date_Prog
     26                        
-    27 00:DA01: 15 51 DA      	JSR		L_Update_Time_Month_Prog
+    27 00:D9F2: 15 42 DA      	JSR		L_Update_Time_Month_Prog
     28                        
     29                        
-    30 00:DA04: 10 03         	BCC		L_End_Update_Date_Prog
+    30 00:D9F5: 10 03         	BCC		L_End_Update_Date_Prog
     31                        
-    32 00:DA06: 15 58 DA      	JSR		L_Update_Time_Year_Prog
+    32 00:D9F7: 15 49 DA      	JSR		L_Update_Time_Year_Prog
     33                        
     34                        
     35                        L_End_Update_Date_Prog:
-    36 00:DA09: 15 1B DB      	JSR		L_Auto_Counter_Week
+    36 00:D9FA: 15 0C DB      	JSR		L_Auto_Counter_Week
     37                        L_End_Update_Time_Prog:
-    38 00:DA0C: 09            	RTS
+    38 00:D9FD: 09            	RTS
     39                        ;================================================
     40                        L_Control_Beep_Time_On_Alarm_Prog:;控制整点报时
-    41 00:DA0D: 31 A1 FC      	BBR1	Sys_Flag_C,L_End_Update_Time_Prog;判断整点报时是否开启
-    42 00:DA10: 53 02         	LDA		#2
-    43 00:DA12: 4F 94 18      	STA		R_Voice_Unit
+    41 00:D9FE: 31 A1 FC      	BBR1	Sys_Flag_C,L_End_Update_Time_Prog;判断整点报时是否开启
+    42 00:DA01: 53 02         	LDA		#2
+    43 00:DA03: 4F 94 18      	STA		R_Voice_Unit
     44                        	EN_LCD_IRQ
-+   44 00:DA15: 2E 0E          SMB6 IER
-    45 00:DA17: 09            	RTS
++   44 00:DA06: 2E 0E          SMB6 IER
+    45 00:DA08: 09            	RTS
     46                        ;==================================================
     47                        ;控制贪睡闹钟
     48                        L_Control_Snz_Prog:
-    49 00:DA18: 37 A1 F1      	BBR7	Sys_Flag_C,L_End_Update_Time_Prog
-    50 00:DA1B: 00            	SEC
-    51 00:DA1C: 43 95 18      	LDA		R_Snz_Time
-    52 00:DA1F: 55 01         	SBC		#1
-    53 00:DA21: 4F 95 18      	STA		R_Snz_Time
-    54 00:DA24: 12 E6         	BNE		L_End_Update_Time_Prog
-    55 00:DA26: 53 05         	LDA		#D_Snz_Time
-    56 00:DA28: 4F 95 18      	STA		R_Snz_Time
-    57 00:DA2B: 15 E7 DB      	JSR		L_Alarm_Control_Prog_2
-    58 00:DA2E: 43 96 18      	LDA		R_Snz_Frequency
-    59 00:DA31: 00            	SEC
-    60 00:DA32: 55 01         	SBC		#1
-    61 00:DA34: 4F 96 18      	STA		R_Snz_Frequency
-    62 00:DA37: 09            	RTS
+    49 00:DA09: 37 A1 F1      	BBR7	Sys_Flag_C,L_End_Update_Time_Prog
+    50 00:DA0C: 00            	SEC
+    51 00:DA0D: 43 95 18      	LDA		R_Snz_Time
+    52 00:DA10: 55 01         	SBC		#1
+    53 00:DA12: 4F 95 18      	STA		R_Snz_Time
+    54 00:DA15: 12 E6         	BNE		L_End_Update_Time_Prog
+    55 00:DA17: 53 05         	LDA		#D_Snz_Time
+    56 00:DA19: 4F 95 18      	STA		R_Snz_Time
+    57 00:DA1C: 15 D8 DB      	JSR		L_Alarm_Control_Prog_2
+    58 00:DA1F: 43 96 18      	LDA		R_Snz_Frequency
+    59 00:DA22: 00            	SEC
+    60 00:DA23: 55 01         	SBC		#1
+    61 00:DA25: 4F 96 18      	STA		R_Snz_Frequency
+    62 00:DA28: 09            	RTS
     63                        ;===================================
     64                        ;-----时间的增加---------------------
     65                        ;===================================
     66                        ;----------------------------------
     67                        L_Update_Time_Sec_Prog:
-    68 00:DA38: 5E 00         	LDX 	#(R_Time_Sec-Time_Str_Addr)
-    69 00:DA3A: 16 7C DA      	JMP		L_Inc_To_60_Prog
+    68 00:DA29: 5E 00         	LDX 	#(R_Time_Sec-Time_Str_Addr)
+    69 00:DA2B: 16 6D DA      	JMP		L_Inc_To_60_Prog
     70                        L_Update_Time_Min_Prog:;时间分钟更新加
-    71 00:DA3D: 5E 01         	LDX		#(R_Time_Min-Time_Str_Addr)
-    72 00:DA3F: 16 7C DA      	JMP		L_Inc_To_60_Prog
+    71 00:DA2E: 5E 01         	LDX		#(R_Time_Min-Time_Str_Addr)
+    72 00:DA30: 16 6D DA      	JMP		L_Inc_To_60_Prog
     73                        ;---------------------------
     74                        L_Update_Time_Hr_Prog:;时间小时更新加
-    75 00:DA42: 5E 02         	LDX		#(R_Time_Hr-Time_Str_Addr)
-    76 00:DA44: 53 17         	LDA		#23
-    77 00:DA46: 16 7E DA      	JMP		L_Inc_To_Any_Count_Prog
+    75 00:DA33: 5E 02         	LDX		#(R_Time_Hr-Time_Str_Addr)
+    76 00:DA35: 53 17         	LDA		#23
+    77 00:DA37: 16 6F DA      	JMP		L_Inc_To_Any_Count_Prog
     78                        ;----------------------------------
     79                        L_Update_Time_Day_Prog:;时间天数更新加
-    80 00:DA49: 15 D6 DA      	JSR		L_Check_MaxDay_Prog
-    81 00:DA4C: 5E 03         	LDX		#(R_Time_Day-Time_Str_Addr)
-    82 00:DA4E: 16 98 DA      	JMP		L_Inc_To_Any_Count_Prog_To_1
+    80 00:DA3A: 15 C7 DA      	JSR		L_Check_MaxDay_Prog
+    81 00:DA3D: 5E 03         	LDX		#(R_Time_Day-Time_Str_Addr)
+    82 00:DA3F: 16 89 DA      	JMP		L_Inc_To_Any_Count_Prog_To_1
     83                        ;-------------------------------------
     84                        L_Update_Time_Month_Prog:;时间月更新加
-    85 00:DA51: 5E 04         	LDX		#(R_Time_Month-Time_Str_Addr)
-    86 00:DA53: 53 0C         	LDA		#12
-    87 00:DA55: 16 98 DA      	JMP		L_Inc_To_Any_Count_Prog_To_1
+    85 00:DA42: 5E 04         	LDX		#(R_Time_Month-Time_Str_Addr)
+    86 00:DA44: 53 0C         	LDA		#12
+    87 00:DA46: 16 89 DA      	JMP		L_Inc_To_Any_Count_Prog_To_1
     88                        
     89                        ;----------------------------------
     90                        L_Update_Time_Year_Prog:;时间年更新加
-    91 00:DA58: 5E 05         	LDX		#(R_Time_Year-Time_Str_Addr)
-    92 00:DA5A: 53 63         	LDA		#99
-    93 00:DA5C: 15 7E DA      	JSR		L_Inc_To_Any_Count_Prog
-    94 00:DA5F: 15 E5 DA      	JSR		L_Judge_MaxDay_Prog
-    95 00:DA62: 09            	RTS
+    91 00:DA49: 5E 05         	LDX		#(R_Time_Year-Time_Str_Addr)
+    92 00:DA4B: 53 63         	LDA		#99
+    93 00:DA4D: 15 6F DA      	JSR		L_Inc_To_Any_Count_Prog
+    94 00:DA50: 15 D6 DA      	JSR		L_Judge_MaxDay_Prog
+    95 00:DA53: 09            	RTS
     96                        ;======================================
     97                        ;---------第二时间更新------------------
     98                        ;======================================
     99                        L_Update_Another_Time_Prog:
-   100 00:DA63: 73 A8         	LDA		R_Time_Sec
-   101 00:DA65: 12 08         	BNE		L_Update_Another_Time_Prog_OUT
-   102 00:DA67: 15 70 DA      	JSR		L_Update_Another_Time_Min_Prog
-   103 00:DA6A: 10 03         	BCC		L_Update_Another_Time_Prog_OUT
-   104 00:DA6C: 15 75 DA      	JSR		L_Update_Another_Time_Hr_Prog
+   100 00:DA54: 73 A8         	LDA		R_Time_Sec
+   101 00:DA56: 12 08         	BNE		L_Update_Another_Time_Prog_OUT
+   102 00:DA58: 15 61 DA      	JSR		L_Update_Another_Time_Min_Prog
+   103 00:DA5B: 10 03         	BCC		L_Update_Another_Time_Prog_OUT
+   104 00:DA5D: 15 66 DA      	JSR		L_Update_Another_Time_Hr_Prog
    105                        L_Update_Another_Time_Prog_OUT:
-   106 00:DA6F: 09            	RTS
+   106 00:DA60: 09            	RTS
    107                        
    108                        L_Update_Another_Time_Min_Prog:;时间分钟更新加
-   109 00:DA70: 5E 07         	LDX		#(R_Time_Min_Another-Time_Str_Addr)
-   110 00:DA72: 16 7C DA      	JMP		L_Inc_To_60_Prog
+   109 00:DA61: 5E 07         	LDX		#(R_Time_Min_Another-Time_Str_Addr)
+   110 00:DA63: 16 6D DA      	JMP		L_Inc_To_60_Prog
    111                        ;---------------------------
    112                        L_Update_Another_Time_Hr_Prog:;时间小时更新加
-   113 00:DA75: 5E 08         	LDX		#(R_Time_Hr_Another-Time_Str_Addr)
-   114 00:DA77: 53 17         	LDA		#23
-   115 00:DA79: 16 7E DA      	JMP		L_Inc_To_Any_Count_Prog
+   113 00:DA66: 5E 08         	LDX		#(R_Time_Hr_Another-Time_Str_Addr)
+   114 00:DA68: 53 17         	LDA		#23
+   115 00:DA6A: 16 6F DA      	JMP		L_Inc_To_Any_Count_Prog
    116                        
    117                        
    118                        ;================================
    119                        L_Inc_To_60_Prog:;将数从0加到59
-   120 00:DA7C: 53 3B         	LDA		#59
+   120 00:DA6D: 53 3B         	LDA		#59
    121                        L_Inc_To_Any_Count_Prog:
-   122 00:DA7E: 00            	SEC
-   123 00:DA7F: 65 28 18      	SBC		Time_Addr,X
-   124 00:DA82: 13 0D         	BEQ		L_Inc_Over_Prog
-   125 00:DA84: 10 0B         	BCC		L_Inc_Over_Prog
-   126 00:DA86: 04            	CLC
-   127 00:DA87: 63 28 18      	LDA		Time_Addr,X
-   128 00:DA8A: 54 01         	ADC		#1
-   129 00:DA8C: 6F 28 18      	STA		Time_Addr,X
-   130 00:DA8F: 04            	CLC
-   131 00:DA90: 09            	RTS
+   122 00:DA6F: 00            	SEC
+   123 00:DA70: 65 28 18      	SBC		Time_Addr,X
+   124 00:DA73: 13 0D         	BEQ		L_Inc_Over_Prog
+   125 00:DA75: 10 0B         	BCC		L_Inc_Over_Prog
+   126 00:DA77: 04            	CLC
+   127 00:DA78: 63 28 18      	LDA		Time_Addr,X
+   128 00:DA7B: 54 01         	ADC		#1
+   129 00:DA7D: 6F 28 18      	STA		Time_Addr,X
+   130 00:DA80: 04            	CLC
+   131 00:DA81: 09            	RTS
    132                        L_Inc_Over_Prog:
-   133 00:DA91: 53 00         	LDA		#0
-   134 00:DA93: 6F 28 18      	STA		Time_Addr,X
-   135 00:DA96: 00            	SEC
+   133 00:DA82: 53 00         	LDA		#0
+   134 00:DA84: 6F 28 18      	STA		Time_Addr,X
+   135 00:DA87: 00            	SEC
    136                        L_End_Inc_To_60_Prog:
-   137 00:DA97: 09            	RTS
+   137 00:DA88: 09            	RTS
    138                        
    139                        L_Inc_To_Any_Count_Prog_To_1:;将数从1加到59
-   140 00:DA98: 00            	SEC
-   141 00:DA99: 65 28 18      	SBC		Time_Addr,X
-   142 00:DA9C: 13 0C         	BEQ		L_Inc_Over_Prog_To_1
-   143 00:DA9E: 10 0A         	BCC		L_Inc_Over_Prog_To_1
-   144 00:DAA0: 04            	CLC
-   145 00:DAA1: 63 28 18      	LDA		Time_Addr,X
-   146 00:DAA4: 54 01         	ADC		#1
-   147 00:DAA6: 6F 28 18      	STA		Time_Addr,X
-   148 00:DAA9: 09            	RTS
+   140 00:DA89: 00            	SEC
+   141 00:DA8A: 65 28 18      	SBC		Time_Addr,X
+   142 00:DA8D: 13 0C         	BEQ		L_Inc_Over_Prog_To_1
+   143 00:DA8F: 10 0A         	BCC		L_Inc_Over_Prog_To_1
+   144 00:DA91: 04            	CLC
+   145 00:DA92: 63 28 18      	LDA		Time_Addr,X
+   146 00:DA95: 54 01         	ADC		#1
+   147 00:DA97: 6F 28 18      	STA		Time_Addr,X
+   148 00:DA9A: 09            	RTS
    149                        L_Inc_Over_Prog_To_1:
-   150 00:DAAA: 53 01         	LDA		#1
-   151 00:DAAC: 6F 28 18      	STA		Time_Addr,X
-   152 00:DAAF: 09            	RTS
+   150 00:DA9B: 53 01         	LDA		#1
+   151 00:DA9D: 6F 28 18      	STA		Time_Addr,X
+   152 00:DAA0: 09            	RTS
    153                        ;=======================================================
    154                        L_Dec_To_60_Prog:
-   155 00:DAB0: 53 3B         	LDA		#59
+   155 00:DAA1: 53 3B         	LDA		#59
    156                        L_Dec_To_0_Prog:
-   157 00:DAB2: 7F F2         	STA		P_Temp
-   158 00:DAB4: 53 00         	LDA		#0
+   157 00:DAA3: 7F F2         	STA		P_Temp
+   158 00:DAA5: 53 00         	LDA		#0
    159                        L_Dec_To_Anycount_Prog:
-   160 00:DAB6: 00            	SEC
-   161 00:DAB7: 65 28 18          SBC     Time_Addr,X
-   162 00:DABA: 13 0D         	BEQ		L_Dec_Over_Prog
-   163 00:DABC: 11 0B         	BCS		L_Dec_Over_Prog
+   160 00:DAA7: 00            	SEC
+   161 00:DAA8: 65 28 18          SBC     Time_Addr,X
+   162 00:DAAB: 13 0D         	BEQ		L_Dec_Over_Prog
+   163 00:DAAD: 11 0B         	BCS		L_Dec_Over_Prog
    164                        
-   165 00:DABE: 00            	SEC
-   166 00:DABF: 63 28 18      	LDA		Time_Addr,X
-   167 00:DAC2: 55 01         	SBC		#1
-   168 00:DAC4: 6F 28 18      	STA		Time_Addr,X
-   169 00:DAC7: 00            	SEC
-   170 00:DAC8: 09            	RTS
+   165 00:DAAF: 00            	SEC
+   166 00:DAB0: 63 28 18      	LDA		Time_Addr,X
+   167 00:DAB3: 55 01         	SBC		#1
+   168 00:DAB5: 6F 28 18      	STA		Time_Addr,X
+   169 00:DAB8: 00            	SEC
+   170 00:DAB9: 09            	RTS
    171                        L_Dec_Over_Prog:
-   172 00:DAC9: 73 F2         	LDA		P_Temp
-   173 00:DACB: 6F 28 18      	STA		Time_Addr,X
-   174 00:DACE: 04            	CLC
-   175 00:DACF: 09            	RTS
+   172 00:DABA: 73 F2         	LDA		P_Temp
+   173 00:DABC: 6F 28 18      	STA		Time_Addr,X
+   174 00:DABF: 04            	CLC
+   175 00:DAC0: 09            	RTS
    176                        L_Dec_To_1_Prog:
-   177 00:DAD0: 7F F2             STA     P_Temp
-   178 00:DAD2: 53 01             LDA     #1
-   179 00:DAD4: 17 E0             BRA     L_Dec_To_Anycount_Prog
+   177 00:DAC1: 7F F2             STA     P_Temp
+   178 00:DAC3: 53 01             LDA     #1
+   179 00:DAC5: 17 E0             BRA     L_Dec_To_Anycount_Prog
    180                        ;===============================================
    181                        ;=====================================
    182                        ;-------------------------------------
    183                        ;=====================================
    184                        L_Check_MaxDay_Prog:;检查每月的最大天数
-   185 00:DAD6: 73 AC         	LDA		R_Time_Month
-   186 00:DAD8: 07            	DEC
-   187 00:DAD9: 1B            	TAX
+   185 00:DAC7: 73 AC         	LDA		R_Time_Month
+   186 00:DAC9: 07            	DEC
+   187 00:DACA: 1B            	TAX
    188                        L_Check_MaxDay_Prog_Alarm_clock_Prog:
-   189 00:DADA: 3B A0 04      	BBS3	Sys_Flag_B,L_Check_LeapYear_MaxDay_Prog
-   190 00:DADD: 63 73 DB      	LDA		T_NoLeapYear_Month,X
-   191 00:DAE0: 09            	RTS
+   189 00:DACB: 3B A0 04      	BBS3	Sys_Flag_B,L_Check_LeapYear_MaxDay_Prog
+   190 00:DACE: 63 64 DB      	LDA		T_NoLeapYear_Month,X
+   191 00:DAD1: 09            	RTS
    192                        L_Check_LeapYear_MaxDay_Prog:
-   193 00:DAE1: 63 67 DB      	LDA		T_LeapYear_Month,X
-   194 00:DAE4: 09            	RTS
+   193 00:DAD2: 63 58 DB      	LDA		T_LeapYear_Month,X
+   194 00:DAD5: 09            	RTS
    195                        ;==============================
    196                        ;------------------------------
    197                        ;==============================
    198                        L_Judge_MaxDay_Prog:;如果最大天数最大超界限，则给予月份的最大天数
-   199 00:DAE5: 15 D6 DA      	JSR		L_Check_MaxDay_Prog
-   200 00:DAE8: 7F F7         	STA		P_Temp+5
-   201 00:DAEA: 76 AB         	CMP		R_Time_Day
-   202 00:DAEC: 11 04         	BCS		L_Judge_MaxDay_Prog_RTS
-   203 00:DAEE: 73 F7         	LDA		P_Temp+5
-   204 00:DAF0: 7F AB         	STA		R_Time_Day
+   199 00:DAD6: 15 C7 DA      	JSR		L_Check_MaxDay_Prog
+   200 00:DAD9: 7F F7         	STA		P_Temp+5
+   201 00:DADB: 76 AB         	CMP		R_Time_Day
+   202 00:DADD: 11 04         	BCS		L_Judge_MaxDay_Prog_RTS
+   203 00:DADF: 73 F7         	LDA		P_Temp+5
+   204 00:DAE1: 7F AB         	STA		R_Time_Day
    205                        L_Judge_MaxDay_Prog_RTS:
-   206 00:DAF2: 09            	RTS
+   206 00:DAE3: 09            	RTS
    207                        ;==================================
    208                        L_Check_LeapYear_Prog:;检查是否是闰年
-   209 00:DAF3: 73 AD         	LDA		R_Time_Year
-   210 00:DAF5: 7F F2         	STA		P_Temp
-   211 00:DAF7: 04            	CLC
-   212 00:DAF8: 7B F2         	ROR		P_Temp
-   213 00:DAFA: 7E F2         	LDX		P_Temp
-   214 00:DAFC: 63 7F DB      	LDA		T_LeapYear_Week,X
-   215 00:DAFF: 7F F2         	STA		P_Temp
-   216 00:DB01: 30 AD 0C      	BBR0	R_Time_Year,L_Counter_LeapYear;建表从2000年开始处于低四位，高四位，需要右移四位
-   217 00:DB04: 04            	CLC
-   218 00:DB05: 7B F2         	ROR		P_Temp
-   219 00:DB07: 04            	CLC
-   220 00:DB08: 7B F2         	ROR		P_Temp
-   221 00:DB0A: 04            	CLC
-   222 00:DB0B: 7B F2         	ROR		P_Temp
-   223 00:DB0D: 04            	CLC
-   224 00:DB0E: 7B F2         	ROR		P_Temp
+   209 00:DAE4: 73 AD         	LDA		R_Time_Year
+   210 00:DAE6: 7F F2         	STA		P_Temp
+   211 00:DAE8: 04            	CLC
+   212 00:DAE9: 7B F2         	ROR		P_Temp
+   213 00:DAEB: 7E F2         	LDX		P_Temp
+   214 00:DAED: 63 70 DB      	LDA		T_LeapYear_Week,X
+   215 00:DAF0: 7F F2         	STA		P_Temp
+   216 00:DAF2: 30 AD 0C      	BBR0	R_Time_Year,L_Counter_LeapYear;建表从2000年开始处于低四位，高四位，需要右移四位
+   217 00:DAF5: 04            	CLC
+   218 00:DAF6: 7B F2         	ROR		P_Temp
+   219 00:DAF8: 04            	CLC
+   220 00:DAF9: 7B F2         	ROR		P_Temp
+   221 00:DAFB: 04            	CLC
+   222 00:DAFC: 7B F2         	ROR		P_Temp
+   223 00:DAFE: 04            	CLC
+   224 00:DAFF: 7B F2         	ROR		P_Temp
    225                        L_Counter_LeapYear:
-   226 00:DB10: 23 A0         	RMB3	Sys_Flag_B
-   227 00:DB12: 53 08         	LDA		#08H
-   228 00:DB14: 71 F2         	AND		P_Temp
-   229 00:DB16: 70 A0         	ORA		Sys_Flag_B
-   230 00:DB18: 7F A0         	STA		Sys_Flag_B;第四位为1则为闰年，否则·为平年
-   231 00:DB1A: 09            	RTS
+   226 00:DB01: 23 A0         	RMB3	Sys_Flag_B
+   227 00:DB03: 53 08         	LDA		#08H
+   228 00:DB05: 71 F2         	AND		P_Temp
+   229 00:DB07: 70 A0         	ORA		Sys_Flag_B
+   230 00:DB09: 7F A0         	STA		Sys_Flag_B;第四位为1则为闰年，否则·为平年
+   231 00:DB0B: 09            	RTS
    232                        ;===========================================
    233                        ;P_Temp,0-3bit存储对应年分的1月1日星期几，4bit存储平闰年
    234                        ;P_Temp+1存储前几个月的天数除以7的余数
    235                        L_Auto_Counter_Week:
-   236 00:DB1B: 15 F3 DA      	JSR		L_Check_LeapYear_Prog
-   237 00:DB1E: 15 E5 DA      	JSR		L_Judge_MaxDay_Prog
-   238 00:DB21: 73 AC         	LDA		R_Time_Month
-   239 00:DB23: 1B            	TAX
-   240 00:DB24: 63 B1 DB      	LDA		T_Month_Week,X
-   241 00:DB27: 7F F3         	STA		P_Temp+1
-   242 00:DB29: 33 A0 0C      	BBR3	Sys_Flag_B,L_Counter_Week_2;非闰年跳转，非闰年需要将右移四位
-   243 00:DB2C: 04            	CLC
-   244 00:DB2D: 7B F3         	ROR		P_Temp+1
-   245 00:DB2F: 04            	CLC
-   246 00:DB30: 7B F3         	ROR		P_Temp+1
-   247 00:DB32: 04            	CLC
-   248 00:DB33: 7B F3         	ROR		P_Temp+1
-   249 00:DB35: 04            	CLC
-   250 00:DB36: 7B F3         	ROR		P_Temp+1
+   236 00:DB0C: 15 E4 DA      	JSR		L_Check_LeapYear_Prog
+   237 00:DB0F: 15 D6 DA      	JSR		L_Judge_MaxDay_Prog
+   238 00:DB12: 73 AC         	LDA		R_Time_Month
+   239 00:DB14: 1B            	TAX
+   240 00:DB15: 63 A2 DB      	LDA		T_Month_Week,X
+   241 00:DB18: 7F F3         	STA		P_Temp+1
+   242 00:DB1A: 33 A0 0C      	BBR3	Sys_Flag_B,L_Counter_Week_2;非闰年跳转，非闰年需要将右移四位
+   243 00:DB1D: 04            	CLC
+   244 00:DB1E: 7B F3         	ROR		P_Temp+1
+   245 00:DB20: 04            	CLC
+   246 00:DB21: 7B F3         	ROR		P_Temp+1
+   247 00:DB23: 04            	CLC
+   248 00:DB24: 7B F3         	ROR		P_Temp+1
+   249 00:DB26: 04            	CLC
+   250 00:DB27: 7B F3         	ROR		P_Temp+1
    251                        L_Counter_Week_2:;十六进制运算
-   252 00:DB38: 53 0F         	LDA		#$0F
-   253 00:DB3A: 71 F3         	AND		P_Temp+1;保留低四位多余的天数
-   254 00:DB3C: 7F F3         	STA		P_Temp+1
-   255 00:DB3E: 53 07         	LDA		#7
-   256 00:DB40: 71 F2         	AND		P_Temp;保留低三位位每年一月一号星期几
-   257 00:DB42: 04            	CLC
-   258 00:DB43: 74 F3         	ADC		P_Temp+1;每年一月一日星期几加上日期再加上多余的天数
-   259 00:DB45: 74 AB         	ADC		R_Time_Day
-   260 00:DB47: 7F F2         	STA		P_Temp
+   252 00:DB29: 53 0F         	LDA		#$0F
+   253 00:DB2B: 71 F3         	AND		P_Temp+1;保留低四位多余的天数
+   254 00:DB2D: 7F F3         	STA		P_Temp+1
+   255 00:DB2F: 53 07         	LDA		#7
+   256 00:DB31: 71 F2         	AND		P_Temp;保留低三位位每年一月一号星期几
+   257 00:DB33: 04            	CLC
+   258 00:DB34: 74 F3         	ADC		P_Temp+1;每年一月一日星期几加上日期再加上多余的天数
+   259 00:DB36: 74 AB         	ADC		R_Time_Day
+   260 00:DB38: 7F F2         	STA		P_Temp
    261                        L_Loop_WeekSub_7:
-   262 00:DB49: 00            	SEC
-   263 00:DB4A: 73 F2         	LDA		P_Temp
-   264 00:DB4C: 55 07         	SBC		#7
-   265 00:DB4E: 10 05         	BCC		L_End_Counter_Week
-   266 00:DB50: 7F F2         	STA		P_Temp
-   267 00:DB52: 16 49 DB      	JMP		L_Loop_WeekSub_7
+   262 00:DB3A: 00            	SEC
+   263 00:DB3B: 73 F2         	LDA		P_Temp
+   264 00:DB3D: 55 07         	SBC		#7
+   265 00:DB3F: 10 05         	BCC		L_End_Counter_Week
+   266 00:DB41: 7F F2         	STA		P_Temp
+   267 00:DB43: 16 3A DB      	JMP		L_Loop_WeekSub_7
    268                        L_End_Counter_Week:
-   269 00:DB55: 73 F2         	LDA		P_Temp
-   270 00:DB57: 13 05         	BEQ		L_SetWeek_Sat
-   271 00:DB59: 79 F2         	DEC		P_Temp
-   272 00:DB5B: 16 62 DB      	JMP		L_Exit_Counter_Week
+   269 00:DB46: 73 F2         	LDA		P_Temp
+   270 00:DB48: 13 05         	BEQ		L_SetWeek_Sat
+   271 00:DB4A: 79 F2         	DEC		P_Temp
+   272 00:DB4C: 16 53 DB      	JMP		L_Exit_Counter_Week
    273                        L_SetWeek_Sat:
-   274 00:DB5E: 53 06         	LDA		#6
-   275 00:DB60: 7F F2         	STA		P_Temp
+   274 00:DB4F: 53 06         	LDA		#6
+   275 00:DB51: 7F F2         	STA		P_Temp
    276                        L_Exit_Counter_Week:
-   277 00:DB62: 73 F2         	LDA		P_Temp
-   278 00:DB64: 7F AE         	STA		R_Time_Week
-   279 00:DB66: 09            	RTS
+   277 00:DB53: 73 F2         	LDA		P_Temp
+   278 00:DB55: 7F AE         	STA		R_Time_Week
+   279 00:DB57: 09            	RTS
    280                        ;===============================================
    281                        ;-------------------------------------------
    282                        T_LeapYear_Month:
-   283 00:DB67: 1F            	DB		31
-   284 00:DB68: 1D            	DB		29
-   285 00:DB69: 1F            	DB		31
-   286 00:DB6A: 1E            	DB		30
-   287 00:DB6B: 1F            	DB		31
-   288 00:DB6C: 1E            	DB		30
-   289 00:DB6D: 1F            	DB		31
-   290 00:DB6E: 1F            	DB		31
-   291 00:DB6F: 1E            	DB		30
-   292 00:DB70: 1F            	DB		31
-   293 00:DB71: 1E            	DB		30
-   294 00:DB72: 1F            	DB		31
+   283 00:DB58: 1F            	DB		31
+   284 00:DB59: 1D            	DB		29
+   285 00:DB5A: 1F            	DB		31
+   286 00:DB5B: 1E            	DB		30
+   287 00:DB5C: 1F            	DB		31
+   288 00:DB5D: 1E            	DB		30
+   289 00:DB5E: 1F            	DB		31
+   290 00:DB5F: 1F            	DB		31
+   291 00:DB60: 1E            	DB		30
+   292 00:DB61: 1F            	DB		31
+   293 00:DB62: 1E            	DB		30
+   294 00:DB63: 1F            	DB		31
    295                        T_NoLeapYear_Month:
-   296 00:DB73: 1F            	DB		31
-   297 00:DB74: 1C            	DB		28
-   298 00:DB75: 1F            	DB		31
-   299 00:DB76: 1E            	DB		30
-   300 00:DB77: 1F            	DB		31
-   301 00:DB78: 1E            	DB		30
-   302 00:DB79: 1F            	DB		31
-   303 00:DB7A: 1F            	DB		31
-   304 00:DB7B: 1E            	DB		30
-   305 00:DB7C: 1F            	DB		31
-   306 00:DB7D: 1E            	DB		30
-   307 00:DB7E: 1F            	DB		31
+   296 00:DB64: 1F            	DB		31
+   297 00:DB65: 1C            	DB		28
+   298 00:DB66: 1F            	DB		31
+   299 00:DB67: 1E            	DB		30
+   300 00:DB68: 1F            	DB		31
+   301 00:DB69: 1E            	DB		30
+   302 00:DB6A: 1F            	DB		31
+   303 00:DB6B: 1F            	DB		31
+   304 00:DB6C: 1E            	DB		30
+   305 00:DB6D: 1F            	DB		31
+   306 00:DB6E: 1E            	DB		30
+   307 00:DB6F: 1F            	DB		31
    308                        T_LeapYear_Week:
-   309 00:DB7F: 1E            	DB		1EH   ;2001,2000 ;E="1110"代表2000年1月1日是星期六(110),是闰年(1),
-   310 00:DB80: 32            	DB		32H   ;2003,2002	;000星期天
-   311 00:DB81: 6C            	DB		6CH   ;2005,2004	;001星期一
-   312 00:DB82: 10            	DB		10H   ;2007,2006	;010星期二
-   313 00:DB83: 4A            	DB		4AH   ;2009,2008	;011星期三
-   314 00:DB84: 65            	DB		65H   ;2011,2010	;100星期四
-   315 00:DB85: 28            	DB		28H   ;2013,2012	;101星期五
-   316 00:DB86: 43            	DB		43H   ;2015,2014	;110星期六
-   317 00:DB87: 0D            	DB		0DH   ;2017,2016
-   318 00:DB88: 21            	DB		21H   ;2019,2018
-   319 00:DB89: 5B            	DB		5BH   ;2021,2020
-   320 00:DB8A: 06            	DB		06H   ;2023,2022
-   321 00:DB8B: 39            	DB		39H   ;2025,2024
-   322 00:DB8C: 54            	DB		54H   ;2027,2026
-   323 00:DB8D: 1E            	DB		1EH   ;2029,2028
-   324 00:DB8E: 32            	DB		32H   ;2031,2030
-   325 00:DB8F: 6C            	DB		6CH   ;2033,2032
-   326 00:DB90: 10            	DB		10H   ;2035,2034
-   327 00:DB91: 4A            	DB		4AH   ;2037,2036
-   328 00:DB92: 65            	DB		65H   ;2039,2038
-   329 00:DB93: 28            	DB		28H   ;2041,2040
-   330 00:DB94: 43            	DB		43H   ;2043,2042
-   331 00:DB95: 0D            	DB		0DH   ;2045,2044
-   332 00:DB96: 21            	DB		21H   ;2047,2046
-   333 00:DB97: 5B            	DB		5BH   ;2049,2048
-   334 00:DB98: 06            	DB		06H   ;2051,2050
-   335 00:DB99: 39            	DB		39H   ;2053,2052
-   336 00:DB9A: 54            	DB		54H   ;2055,2054
-   337 00:DB9B: 1E            	DB		1EH   ;2057,2056
-   338 00:DB9C: 32            	DB		32H   ;2059,2058
-   339 00:DB9D: 6C            	DB		6CH   ;2061,2060
-   340 00:DB9E: 10            	DB		10H   ;2063,2062
-   341 00:DB9F: 4A            	DB		4AH   ;2065,2064
-   342 00:DBA0: 65            	DB		65H   ;2067,2066
-   343 00:DBA1: 28            	DB		28H   ;2069,2068
-   344 00:DBA2: 43            	DB		43H   ;2071,2070
-   345 00:DBA3: 0D            	DB		0DH   ;2073,2072
-   346 00:DBA4: 21            	DB		21H   ;2075,2074
-   347 00:DBA5: 5B            	DB		5BH   ;2077,2076
-   348 00:DBA6: 06            	DB		06H   ;2079,2078
-   349 00:DBA7: 39            	DB		39H   ;2081,2080
-   350 00:DBA8: 54            	DB		54H   ;2083,2082
-   351 00:DBA9: 1E            	DB		1EH   ;2085,2084
-   352 00:DBAA: 32            	DB		32H   ;2087,2086
-   353 00:DBAB: 6C            	DB		6CH   ;2089,2088
-   354 00:DBAC: 10            	DB		10H   ;2091,2090
-   355 00:DBAD: 4A            	DB		4AH   ;2093,2092
-   356 00:DBAE: 65            	DB		65H   ;2095,2094
-   357 00:DBAF: 28            	DB		28H   ;2097,2096
-   358 00:DBB0: 43            	DB		43H   ;2099,2098
+   309 00:DB70: 1E            	DB		1EH   ;2001,2000 ;E="1110"代表2000年1月1日是星期六(110),是闰年(1),
+   310 00:DB71: 32            	DB		32H   ;2003,2002	;000星期天
+   311 00:DB72: 6C            	DB		6CH   ;2005,2004	;001星期一
+   312 00:DB73: 10            	DB		10H   ;2007,2006	;010星期二
+   313 00:DB74: 4A            	DB		4AH   ;2009,2008	;011星期三
+   314 00:DB75: 65            	DB		65H   ;2011,2010	;100星期四
+   315 00:DB76: 28            	DB		28H   ;2013,2012	;101星期五
+   316 00:DB77: 43            	DB		43H   ;2015,2014	;110星期六
+   317 00:DB78: 0D            	DB		0DH   ;2017,2016
+   318 00:DB79: 21            	DB		21H   ;2019,2018
+   319 00:DB7A: 5B            	DB		5BH   ;2021,2020
+   320 00:DB7B: 06            	DB		06H   ;2023,2022
+   321 00:DB7C: 39            	DB		39H   ;2025,2024
+   322 00:DB7D: 54            	DB		54H   ;2027,2026
+   323 00:DB7E: 1E            	DB		1EH   ;2029,2028
+   324 00:DB7F: 32            	DB		32H   ;2031,2030
+   325 00:DB80: 6C            	DB		6CH   ;2033,2032
+   326 00:DB81: 10            	DB		10H   ;2035,2034
+   327 00:DB82: 4A            	DB		4AH   ;2037,2036
+   328 00:DB83: 65            	DB		65H   ;2039,2038
+   329 00:DB84: 28            	DB		28H   ;2041,2040
+   330 00:DB85: 43            	DB		43H   ;2043,2042
+   331 00:DB86: 0D            	DB		0DH   ;2045,2044
+   332 00:DB87: 21            	DB		21H   ;2047,2046
+   333 00:DB88: 5B            	DB		5BH   ;2049,2048
+   334 00:DB89: 06            	DB		06H   ;2051,2050
+   335 00:DB8A: 39            	DB		39H   ;2053,2052
+   336 00:DB8B: 54            	DB		54H   ;2055,2054
+   337 00:DB8C: 1E            	DB		1EH   ;2057,2056
+   338 00:DB8D: 32            	DB		32H   ;2059,2058
+   339 00:DB8E: 6C            	DB		6CH   ;2061,2060
+   340 00:DB8F: 10            	DB		10H   ;2063,2062
+   341 00:DB90: 4A            	DB		4AH   ;2065,2064
+   342 00:DB91: 65            	DB		65H   ;2067,2066
+   343 00:DB92: 28            	DB		28H   ;2069,2068
+   344 00:DB93: 43            	DB		43H   ;2071,2070
+   345 00:DB94: 0D            	DB		0DH   ;2073,2072
+   346 00:DB95: 21            	DB		21H   ;2075,2074
+   347 00:DB96: 5B            	DB		5BH   ;2077,2076
+   348 00:DB97: 06            	DB		06H   ;2079,2078
+   349 00:DB98: 39            	DB		39H   ;2081,2080
+   350 00:DB99: 54            	DB		54H   ;2083,2082
+   351 00:DB9A: 1E            	DB		1EH   ;2085,2084
+   352 00:DB9B: 32            	DB		32H   ;2087,2086
+   353 00:DB9C: 6C            	DB		6CH   ;2089,2088
+   354 00:DB9D: 10            	DB		10H   ;2091,2090
+   355 00:DB9E: 4A            	DB		4AH   ;2093,2092
+   356 00:DB9F: 65            	DB		65H   ;2095,2094
+   357 00:DBA0: 28            	DB		28H   ;2097,2096
+   358 00:DBA1: 43            	DB		43H   ;2099,2098
    359                        ;--------------------------------
    360                        T_Month_Week:
-   361 00:DBB1: 00            	DB		00H
-   362 00:DBB2: 00            	DB		00H   ;JANUARY		从1月1日开始，所以1月为0
-   363 00:DBB3: 33            	DB		33H   ;FABRUARY 	低4Bit为非闰年，高4Bit为闰年,
-   364 00:DBB4: 43            	DB		43H   ;MARCH		每4bit数字是前几个月全部的天数减去7的倍数的剩余天数
-   365 00:DBB5: 76            	DB		76H   ;APRIL
-   366 00:DBB6: 21            	DB		21H   ;MAY
-   367 00:DBB7: 54            	DB		54H   ;JUNE
-   368 00:DBB8: 76            	DB		76H   ;JULY
-   369 00:DBB9: 32            	DB		32H   ;AUGUST
-   370 00:DBBA: 65            	DB		65H   ;SEPTEMBER
-   371 00:DBBB: 10            	DB		10H   ;OCTOBER
-   372 00:DBBC: 43            	DB		43H   ;NOVEMBER
-   373 00:DBBD: 65            	DB		65H   ;DECEMBER
+   361 00:DBA2: 00            	DB		00H
+   362 00:DBA3: 00            	DB		00H   ;JANUARY		从1月1日开始，所以1月为0
+   363 00:DBA4: 33            	DB		33H   ;FABRUARY 	低4Bit为非闰年，高4Bit为闰年,
+   364 00:DBA5: 43            	DB		43H   ;MARCH		每4bit数字是前几个月全部的天数减去7的倍数的剩余天数
+   365 00:DBA6: 76            	DB		76H   ;APRIL
+   366 00:DBA7: 21            	DB		21H   ;MAY
+   367 00:DBA8: 54            	DB		54H   ;JUNE
+   368 00:DBA9: 76            	DB		76H   ;JULY
+   369 00:DBAA: 32            	DB		32H   ;AUGUST
+   370 00:DBAB: 65            	DB		65H   ;SEPTEMBER
+   371 00:DBAC: 10            	DB		10H   ;OCTOBER
+   372 00:DBAD: 43            	DB		43H   ;NOVEMBER
+   373 00:DBAE: 65            	DB		65H   ;DECEMBER
    373                        
    190                        .INCLUDE	Half_s\Alarm_Clock.asm
      1                        L_Alarm_Prog:;闹钟判断的时间是贪睡闹钟时间，而正常闹钟时间作为显示闹钟时间
-     2 00:DBBE: 73 B9         	LDA		R_Alarm_Mode
-     3 00:DBC0: 13 2F         	BEQ		L_Alarm_Prog_OUT
-     4 00:DBC2: 3C A1 2C      	BBS4	Sys_Flag_C,L_Alarm_Prog_OUT
+     2 00:DBAF: 73 B9         	LDA		R_Alarm_Mode
+     3 00:DBB1: 13 2F         	BEQ		L_Alarm_Prog_OUT
+     4 00:DBB3: 3C A1 2C      	BBS4	Sys_Flag_C,L_Alarm_Prog_OUT
      5                        
-     6 00:DBC5: 73 A8         	LDA		R_Time_Sec
-     7 00:DBC7: 12 28         	BNE		L_Alarm_Prog_OUT
-     8 00:DBC9: 73 AA         	LDA		R_Time_Hr
-     9 00:DBCB: 76 B8         	CMP		R_Alarm_Clock_Hr
-    10 00:DBCD: 12 22         	BNE		L_Alarm_Prog_OUT
-    11 00:DBCF: 73 A9         	LDA		R_Time_Min
-    12 00:DBD1: 76 B7         	CMP		R_Alarm_Clock_Min
-    13 00:DBD3: 12 1C         	BNE		L_Alarm_Prog_OUT
+     6 00:DBB6: 73 A8         	LDA		R_Time_Sec
+     7 00:DBB8: 12 28         	BNE		L_Alarm_Prog_OUT
+     8 00:DBBA: 73 AA         	LDA		R_Time_Hr
+     9 00:DBBC: 76 B8         	CMP		R_Alarm_Clock_Hr
+    10 00:DBBE: 12 22         	BNE		L_Alarm_Prog_OUT
+    11 00:DBC0: 73 A9         	LDA		R_Time_Min
+    12 00:DBC2: 76 B7         	CMP		R_Alarm_Clock_Min
+    13 00:DBC4: 12 1C         	BNE		L_Alarm_Prog_OUT
     14                        
     15                        L_Alarm_Control_Prog:
-    16 00:DBD5: 73 B9         	LDA		R_Alarm_Mode
-    17 00:DBD7: 56 02         	CMP		#2
-    18 00:DBD9: 12 0C         	BNE		L_Alarm_Control_Prog_2;判断是否为贪睡
-    19 00:DBDB: 2F A1         	SMB7	Sys_Flag_C
-    20 00:DBDD: 53 06         	LDA		#D_Snz_Frequency
-    21 00:DBDF: 4F 96 18      	STA		R_Snz_Frequency
-    22 00:DBE2: 53 05         	LDA		#D_Snz_Time
-    23 00:DBE4: 4F 95 18      	STA		R_Snz_Time
+    16 00:DBC6: 73 B9         	LDA		R_Alarm_Mode
+    17 00:DBC8: 56 02         	CMP		#2
+    18 00:DBCA: 12 0C         	BNE		L_Alarm_Control_Prog_2;判断是否为贪睡
+    19 00:DBCC: 2F A1         	SMB7	Sys_Flag_C
+    20 00:DBCE: 53 06         	LDA		#D_Snz_Frequency
+    21 00:DBD0: 4F 96 18      	STA		R_Snz_Frequency
+    22 00:DBD3: 53 05         	LDA		#D_Snz_Time
+    23 00:DBD5: 4F 95 18      	STA		R_Snz_Time
     24                        L_Alarm_Control_Prog_2:
     25                        
     26                        
     27                        
     28                        L_Alarm_Prog_1:
-    29 00:DBE7: 2C A1         	SMB4	Sys_Flag_C
-    30 00:DBE9: 53 0B         	LDA		#D_Beep_Open_Last_Time_Alarm
-    31 00:DBEB: 4F 93 18      	STA		R_Close_Beep_Time
-    32 00:DBEE: 15 86 DD      	JSR		L_Control_Beep_prog_Auto_Exit
+    29 00:DBD8: 2C A1         	SMB4	Sys_Flag_C
+    30 00:DBDA: 53 0B         	LDA		#D_Beep_Open_Last_Time_Alarm
+    31 00:DBDC: 4F 93 18      	STA		R_Close_Beep_Time
+    32 00:DBDF: 15 77 DD      	JSR		L_Control_Beep_prog_Auto_Exit
     33                        L_Alarm_Prog_OUT:
-    34 00:DBF1: 09            	RTS
+    34 00:DBE2: 09            	RTS
     35                        
     36                        
     37                        
@@ -6980,115 +6975,115 @@ Current file: main.asm
      4                            ; BBR0	Sys_Flag_D,L_Positive_Timer		;判断正计时,根据标志位判断正计时还是倒计时
      5                        	; BRA     L_Desitive_Timer		;判断倒计时
      6                        L_Update_Timer_Sec_Prog:
-     7 00:DBF2: 5E 0A             LDX     #(R_Timer_Sec-Time_Str_Addr)
-     8 00:DBF4: 16 7C DA          JMP     L_Inc_To_60_Prog
+     7 00:DBE3: 5E 0A             LDX     #(R_Timer_Sec-Time_Str_Addr)
+     8 00:DBE5: 16 6D DA          JMP     L_Inc_To_60_Prog
      9                        ;----------------------------------------------------
     10                        L_Update_Timer_Min_Prog:
-    11 00:DBF7: 5E 0B             LDX     #(R_Timer_Min-Time_Str_Addr)
-    12 00:DBF9: 16 7C DA          JMP     L_Inc_To_60_Prog
+    11 00:DBE8: 5E 0B             LDX     #(R_Timer_Min-Time_Str_Addr)
+    12 00:DBEA: 16 6D DA          JMP     L_Inc_To_60_Prog
     13                        ; ;----------------------------------------------------
     14                        L_Update_Timer_Hr_Prog:
-    15 00:DBFC: 5E 0C             LDX     #(R_Timer_Hr-Time_Str_Addr)
-    16 00:DBFE: 53 17             LDA     #23
-    17 00:DC00: 16 7E DA          JMP     L_Inc_To_Any_Count_Prog
+    15 00:DBED: 5E 0C             LDX     #(R_Timer_Hr-Time_Str_Addr)
+    16 00:DBEF: 53 17             LDA     #23
+    17 00:DBF1: 16 6F DA          JMP     L_Inc_To_Any_Count_Prog
     18                        ;----------------------------------------------------
     19                        
     20                        L_Positive_Timer:
-    21 00:DC03: 15 F2 DB          JSR     L_Update_Timer_Sec_Prog
-    22 00:DC06: 10 12             BCC     L_Timer_Prog_OUT
-    23 00:DC08: 15 F7 DB          JSR     L_Update_Timer_Min_Prog
-    24 00:DC0B: 10 0D             BCC     L_Timer_Prog_OUT
-    25 00:DC0D: 15 FC DB          JSR     L_Update_Timer_Hr_Prog
-    26 00:DC10: 10 08             BCC     L_Timer_Prog_OUT
-    27 00:DC12: 53 00             LDA     #0
-    28 00:DC14: 7F B4             STA     R_Timer_Hr
-    29 00:DC16: 7F B3             STA     R_Timer_Min
-    30 00:DC18: 7F B2             STA     R_Timer_Sec;记满重启计时
+    21 00:DBF4: 15 E3 DB          JSR     L_Update_Timer_Sec_Prog
+    22 00:DBF7: 10 12             BCC     L_Timer_Prog_OUT
+    23 00:DBF9: 15 E8 DB          JSR     L_Update_Timer_Min_Prog
+    24 00:DBFC: 10 0D             BCC     L_Timer_Prog_OUT
+    25 00:DBFE: 15 ED DB          JSR     L_Update_Timer_Hr_Prog
+    26 00:DC01: 10 08             BCC     L_Timer_Prog_OUT
+    27 00:DC03: 53 00             LDA     #0
+    28 00:DC05: 7F B4             STA     R_Timer_Hr
+    29 00:DC07: 7F B3             STA     R_Timer_Min
+    30 00:DC09: 7F B2             STA     R_Timer_Sec;记满重启计时
     31                        L_Timer_Prog_OUT:
-    32 00:DC1A: 09                RTS
+    32 00:DC0B: 09                RTS
     33                        
     34                        
     35                        
     36                        L_Update_Timer_Ms_Prog_Countine_Prog:
-    37 00:DC1B: 1B                TAX
-    38 00:DC1C: 63 6C DC          LDA     Table_Timer_Ms,X
-    39 00:DC1F: 7F B1             STA     R_Timer_Ms
-    40 00:DC21: 43 90 18          LDA     R_Mode
-    41 00:DC24: 56 04             CMP     #4
-    42 00:DC26: 12 F2             BNE     L_Timer_Prog_OUT
-    43 00:DC28: 15 7C C9          JSR     L_Display_Postive_Timer_Normal_Prog
-    44 00:DC2B: 09                RTS
+    37 00:DC0C: 1B                TAX
+    38 00:DC0D: 63 5D DC          LDA     Table_Timer_Ms,X
+    39 00:DC10: 7F B1             STA     R_Timer_Ms
+    40 00:DC12: 43 90 18          LDA     R_Mode
+    41 00:DC15: 56 04             CMP     #4
+    42 00:DC17: 12 F2             BNE     L_Timer_Prog_OUT
+    43 00:DC19: 15 7C C9          JSR     L_Display_Postive_Timer_Normal_Prog
+    44 00:DC1C: 09                RTS
     45                        
     46                        L_Update_Timer_Ms_Prog:
-    47 00:DC2C: 30 A2 EB          BBR0    Sys_Flag_D,L_Timer_Prog_OUT
-    48 00:DC2F: 78 B5             INC     R_Timer_X
-    49 00:DC31: 73 B5             LDA     R_Timer_X
-    50 00:DC33: 56 22             CMP     #34
-    51 00:DC35: 10 E4             BCC     L_Update_Timer_Ms_Prog_Countine_Prog
-    52 00:DC37: 43 90 18          LDA     R_Mode
-    53 00:DC3A: 56 04             CMP     #4
-    54 00:DC3C: 12 DC             BNE     L_Timer_Prog_OUT
-    55 00:DC3E: 53 00             LDA     #0
-    56 00:DC40: 7F B5             STA     R_Timer_X
-    57 00:DC42: 7F B1             STA     R_Timer_Ms
-    58 00:DC44: 15 7C C9          JSR     L_Display_Postive_Timer_Normal_Prog
-    59 00:DC47: 15 03 DC          JSR     L_Positive_Timer
+    47 00:DC1D: 30 A2 EB          BBR0    Sys_Flag_D,L_Timer_Prog_OUT
+    48 00:DC20: 78 B5             INC     R_Timer_X
+    49 00:DC22: 73 B5             LDA     R_Timer_X
+    50 00:DC24: 56 22             CMP     #34
+    51 00:DC26: 10 E4             BCC     L_Update_Timer_Ms_Prog_Countine_Prog
+    52 00:DC28: 43 90 18          LDA     R_Mode
+    53 00:DC2B: 56 04             CMP     #4
+    54 00:DC2D: 12 DC             BNE     L_Timer_Prog_OUT
+    55 00:DC2F: 53 00             LDA     #0
+    56 00:DC31: 7F B5             STA     R_Timer_X
+    57 00:DC33: 7F B1             STA     R_Timer_Ms
+    58 00:DC35: 15 7C C9          JSR     L_Display_Postive_Timer_Normal_Prog
+    59 00:DC38: 15 F4 DB          JSR     L_Positive_Timer
     60                        
-    61 00:DC4A: 15 7C C9          JSR     L_Display_Postive_Timer_Normal_Prog
-    62 00:DC4D: 09                RTS
+    61 00:DC3B: 15 7C C9          JSR     L_Display_Postive_Timer_Normal_Prog
+    62 00:DC3E: 09                RTS
     63                        L_Control_Positive_Timer_Prog:
-    64 00:DC4E: 30 A2 C9      	BBR0	Sys_Flag_D,L_Timer_Prog_OUT;正计时未开始
-    65 00:DC51: 3E A2 0A      	BBS6	Sys_Flag_D,L_Control_Positive_Timer_Prog_RTS
-    66 00:DC54: 2E A2         	SMB6	Sys_Flag_D
-    67 00:DC56: 73 B5         	LDA		R_Timer_X
-    68 00:DC58: 7F B6         	STA		R_Timer_X_1
-    69 00:DC5A: 15 7C C9      	JSR		L_Display_Postive_Timer_Normal_Prog
-    70 00:DC5D: 09            	RTS
+    64 00:DC3F: 30 A2 C9      	BBR0	Sys_Flag_D,L_Timer_Prog_OUT;正计时未开始
+    65 00:DC42: 3E A2 0A      	BBS6	Sys_Flag_D,L_Control_Positive_Timer_Prog_RTS
+    66 00:DC45: 2E A2         	SMB6	Sys_Flag_D
+    67 00:DC47: 73 B5         	LDA		R_Timer_X
+    68 00:DC49: 7F B6         	STA		R_Timer_X_1
+    69 00:DC4B: 15 7C C9      	JSR		L_Display_Postive_Timer_Normal_Prog
+    70 00:DC4E: 09            	RTS
     71                        L_Control_Positive_Timer_Prog_RTS:
-    72 00:DC5E: 73 B6         	LDA		R_Timer_X_1
-    73 00:DC60: 7F B5         	STA		R_Timer_X
-    74 00:DC62: 1B                TAX
-    75 00:DC63: 63 6C DC          LDA     Table_Timer_Ms,X
-    76 00:DC66: 7F B1             STA     R_Timer_Ms
-    77 00:DC68: 15 7C C9      	JSR		L_Display_Postive_Timer_Normal_Prog
-    78 00:DC6B: 09            	RTS
+    72 00:DC4F: 73 B6         	LDA		R_Timer_X_1
+    73 00:DC51: 7F B5         	STA		R_Timer_X
+    74 00:DC53: 1B                TAX
+    75 00:DC54: 63 5D DC          LDA     Table_Timer_Ms,X
+    76 00:DC57: 7F B1             STA     R_Timer_Ms
+    77 00:DC59: 15 7C C9      	JSR		L_Display_Postive_Timer_Normal_Prog
+    78 00:DC5C: 09            	RTS
     79                        
     80                        
     81                        Table_Timer_Ms:
-    82 00:DC6C: 00                .DB     0
-    83 00:DC6D: 03                .DB     3
-    84 00:DC6E: 06                .DB     6
-    85 00:DC6F: 09                .DB     9
-    86 00:DC70: 0C                .DB     12
-    87 00:DC71: 0F                .DB     15
-    88 00:DC72: 12                .DB     18
-    89 00:DC73: 15                .DB     21
-    90 00:DC74: 18                .DB     24
-    91 00:DC75: 1B                .DB     27
-    92 00:DC76: 1E                .DB     30
-    93 00:DC77: 21                .DB     33
-    94 00:DC78: 24                .DB     36
-    95 00:DC79: 27                .DB     39
-    96 00:DC7A: 2A                .DB     42
-    97 00:DC7B: 2D                .DB     45
-    98 00:DC7C: 30                .DB     48
-    99 00:DC7D: 33                .DB     51
-   100 00:DC7E: 36                .DB     54
-   101 00:DC7F: 39                .DB     57
-   102 00:DC80: 3C                .DB     60
-   103 00:DC81: 3F                .DB     63
-   104 00:DC82: 42                .DB     66
-   105 00:DC83: 45                .DB     69
-   106 00:DC84: 48                .DB     72
-   107 00:DC85: 4B                .DB     75
-   108 00:DC86: 4E                .DB     78
-   109 00:DC87: 51                .DB     81
-   110 00:DC88: 54                .DB     84
-   111 00:DC89: 57                .DB     87
-   112 00:DC8A: 5A                .DB     90
-   113 00:DC8B: 5D                .DB     93
-   114 00:DC8C: 60                .DB     96
-   115 00:DC8D: 63                .DB     99
+    82 00:DC5D: 00                .DB     0
+    83 00:DC5E: 03                .DB     3
+    84 00:DC5F: 06                .DB     6
+    85 00:DC60: 09                .DB     9
+    86 00:DC61: 0C                .DB     12
+    87 00:DC62: 0F                .DB     15
+    88 00:DC63: 12                .DB     18
+    89 00:DC64: 15                .DB     21
+    90 00:DC65: 18                .DB     24
+    91 00:DC66: 1B                .DB     27
+    92 00:DC67: 1E                .DB     30
+    93 00:DC68: 21                .DB     33
+    94 00:DC69: 24                .DB     36
+    95 00:DC6A: 27                .DB     39
+    96 00:DC6B: 2A                .DB     42
+    97 00:DC6C: 2D                .DB     45
+    98 00:DC6D: 30                .DB     48
+    99 00:DC6E: 33                .DB     51
+   100 00:DC6F: 36                .DB     54
+   101 00:DC70: 39                .DB     57
+   102 00:DC71: 3C                .DB     60
+   103 00:DC72: 3F                .DB     63
+   104 00:DC73: 42                .DB     66
+   105 00:DC74: 45                .DB     69
+   106 00:DC75: 48                .DB     72
+   107 00:DC76: 4B                .DB     75
+   108 00:DC77: 4E                .DB     78
+   109 00:DC78: 51                .DB     81
+   110 00:DC79: 54                .DB     84
+   111 00:DC7A: 57                .DB     87
+   112 00:DC7B: 5A                .DB     90
+   113 00:DC7C: 5D                .DB     93
+   114 00:DC7D: 60                .DB     96
+   115 00:DC7E: 63                .DB     99
    116                        
    117                        
    118                        
@@ -7100,179 +7095,179 @@ Current file: main.asm
    123                        
    192                        .INCLUDE	Half_s\Common.asm
      1                        L_Set_Mode_Auto_Exit:
-     2 00:DC8E: 33 9F 22      	BBR3	Sys_Flag_A,L_Set_Mode_Auto_Exit_OUT
-     3 00:DC91: 73 9F         	LDA		Sys_Flag_A
-     4 00:DC93: 51 14         	AND		#14H
-     5 00:DC95: 12 1C         	BNE		L_Set_Mode_Auto_Exit_OUT;长按和快加时不进行设置
-     6 00:DC97: 04            	CLC
-     7 00:DC98: 43 91 18      	LDA		R_Set_Mode_Exit_Time
-     8 00:DC9B: 54 01         	ADC		#1
-     9 00:DC9D: 4F 91 18      	STA		R_Set_Mode_Exit_Time
-    10 00:DCA0: 56 51         	CMP		#D_Set_Mode_Exit_Time
-    11 00:DCA2: 11 03         	BCS		L_Set_Mode_Auto_Exit_1
-    12 00:DCA4: 13 01         	BEQ		L_Set_Mode_Auto_Exit_1
-    13 00:DCA6: 09            	RTS
+     2 00:DC7F: 33 9F 22      	BBR3	Sys_Flag_A,L_Set_Mode_Auto_Exit_OUT
+     3 00:DC82: 73 9F         	LDA		Sys_Flag_A
+     4 00:DC84: 51 14         	AND		#14H
+     5 00:DC86: 12 1C         	BNE		L_Set_Mode_Auto_Exit_OUT;长按和快加时不进行设置
+     6 00:DC88: 04            	CLC
+     7 00:DC89: 43 91 18      	LDA		R_Set_Mode_Exit_Time
+     8 00:DC8C: 54 01         	ADC		#1
+     9 00:DC8E: 4F 91 18      	STA		R_Set_Mode_Exit_Time
+    10 00:DC91: 56 51         	CMP		#D_Set_Mode_Exit_Time
+    11 00:DC93: 11 03         	BCS		L_Set_Mode_Auto_Exit_1
+    12 00:DC95: 13 01         	BEQ		L_Set_Mode_Auto_Exit_1
+    13 00:DC97: 09            	RTS
     14                        L_Set_Mode_Auto_Exit_1:
-    15 00:DCA7: 23 9F         	RMB3	Sys_Flag_A
-    16 00:DCA9: 53 00         	LDA		#0
-    17 00:DCAB: 4F 91 18      	STA		R_Set_Mode_Exit_Time
-    18 00:DCAE: 7F F1         	STA		R_Mode_Set
-    19 00:DCB0: 15 C2 C9      	JSR		L_Display_Prog
+    15 00:DC98: 23 9F         	RMB3	Sys_Flag_A
+    16 00:DC9A: 53 00         	LDA		#0
+    17 00:DC9C: 4F 91 18      	STA		R_Set_Mode_Exit_Time
+    18 00:DC9F: 7F F1         	STA		R_Mode_Set
+    19 00:DCA1: 15 C2 C9      	JSR		L_Display_Prog
     20                        L_Set_Mode_Auto_Exit_OUT:
-    21 00:DCB3: 09            	RTS
+    21 00:DCA4: 09            	RTS
     21                        
    193                        .INCLUDE	Half_s\Flash.asm
      1                        L_SysFlash_Prog:
-     2 00:DCB4: 15 C9 DC      	JSR		L_SysFlash_Set_Mode_Prog
-     3 00:DCB7: 15 BB DC      	JSR		L_SysFlash_Prog_Positive_Timer
+     2 00:DCA5: 15 BA DC      	JSR		L_SysFlash_Set_Mode_Prog
+     3 00:DCA8: 15 AC DC      	JSR		L_SysFlash_Prog_Positive_Timer
      4                        ; 	JSR		L_SysFlash_Alm_Symbol_Prog
      5                        ; 	JSR		L_SysFlash_Snz_Symbol_Prog
-     6 00:DCBA: 09            	RTS
+     6 00:DCAB: 09            	RTS
      7                        
      8                        
      9                        
     10                        L_SysFlash_Prog_Positive_Timer:
-    11 00:DCBB: 30 A2 0A      	BBR0	Sys_Flag_D,L_SysFlash_Prog_Positive_Timer_RTS
-    12 00:DCBE: 43 90 18      	LDA		R_Mode
-    13 00:DCC1: 56 04         	CMP		#4
-    14 00:DCC3: 12 03         	BNE		L_SysFlash_Prog_Positive_Timer_RTS
-    15 00:DCC5: 15 B5 CB      	JSR		L_Clr_col_Prog
+    11 00:DCAC: 30 A2 0A      	BBR0	Sys_Flag_D,L_SysFlash_Prog_Positive_Timer_RTS
+    12 00:DCAF: 43 90 18      	LDA		R_Mode
+    13 00:DCB2: 56 04         	CMP		#4
+    14 00:DCB4: 12 03         	BNE		L_SysFlash_Prog_Positive_Timer_RTS
+    15 00:DCB6: 15 B5 CB      	JSR		L_Clr_col_Prog
     16                        L_SysFlash_Prog_Positive_Timer_RTS:
-    17 00:DCC8: 09            	RTS
+    17 00:DCB9: 09            	RTS
     18                        
     19                        L_SysFlash_Set_Mode_Prog:
-    20 00:DCC9: 33 9F FC      	BBR3	Sys_Flag_A,L_SysFlash_Prog_Positive_Timer_RTS
-    21 00:DCCC: 43 90 18      	LDA		R_Mode
-    22 00:DCCF: 04            	CLC
-    23 00:DCD0: 06            	CLD
-    24 00:DCD1: 18            	ROL
-    25 00:DCD2: 1B            	TAX
-    26 00:DCD3: 63 DD DC      	LDA		Table_SysFlash+1,X
-    27 00:DCD6: 0A            	PHA
-    28 00:DCD7: 63 DC DC      	LDA		Table_SysFlash,X
-    29 00:DCDA: 0A            	PHA
-    30 00:DCDB: 09            	RTS
+    20 00:DCBA: 33 9F FC      	BBR3	Sys_Flag_A,L_SysFlash_Prog_Positive_Timer_RTS
+    21 00:DCBD: 43 90 18      	LDA		R_Mode
+    22 00:DCC0: 04            	CLC
+    23 00:DCC1: 06            	CLD
+    24 00:DCC2: 18            	ROL
+    25 00:DCC3: 1B            	TAX
+    26 00:DCC4: 63 CE DC      	LDA		Table_SysFlash+1,X
+    27 00:DCC7: 0A            	PHA
+    28 00:DCC8: 63 CD DC      	LDA		Table_SysFlash,X
+    29 00:DCCB: 0A            	PHA
+    30 00:DCCC: 09            	RTS
     31                        Table_SysFlash:
-    32 00:DCDC: E5 DC         	DW		L_SysFlash_Set_Mode_Prog_Time-1
-    33 00:DCDE: C7 DC         	DW		L_SysFlash_Prog_Positive_Timer_RTS-1
-    34 00:DCE0: 11 DD         	DW		L_SysFlash_Set_Mode_Prog_usually-1
-    35 00:DCE2: 11 DD         	DW		L_SysFlash_Set_Mode_Prog_usually-1
-    36 00:DCE4: C7 DC         	DW		L_SysFlash_Prog_Positive_Timer_RTS-1
+    32 00:DCCD: D6 DC         	DW		L_SysFlash_Set_Mode_Prog_Time-1
+    33 00:DCCF: B8 DC         	DW		L_SysFlash_Prog_Positive_Timer_RTS-1
+    34 00:DCD1: 02 DD         	DW		L_SysFlash_Set_Mode_Prog_usually-1
+    35 00:DCD3: 02 DD         	DW		L_SysFlash_Set_Mode_Prog_usually-1
+    36 00:DCD5: B8 DC         	DW		L_SysFlash_Prog_Positive_Timer_RTS-1
     37                        
     38                        
     39                        
     40                        L_SysFlash_Set_Mode_Prog_Time:
-    41 00:DCE6: 04            	CLC
-    42 00:DCE7: 06            	CLD
-    43 00:DCE8: 73 F1         	LDA		R_Mode_Set
-    44 00:DCEA: 18            	ROL
-    45 00:DCEB: 1B            	TAX
-    46 00:DCEC: 63 F6 DC      	LDA		Table_SysFlash_Time+1,X
-    47 00:DCEF: 0A            	PHA
-    48 00:DCF0: 63 F5 DC      	LDA		Table_SysFlash_Time,X
-    49 00:DCF3: 0A            	PHA
-    50 00:DCF4: 09            	RTS
+    41 00:DCD7: 04            	CLC
+    42 00:DCD8: 06            	CLD
+    43 00:DCD9: 73 F1         	LDA		R_Mode_Set
+    44 00:DCDB: 18            	ROL
+    45 00:DCDC: 1B            	TAX
+    46 00:DCDD: 63 E7 DC      	LDA		Table_SysFlash_Time+1,X
+    47 00:DCE0: 0A            	PHA
+    48 00:DCE1: 63 E6 DC      	LDA		Table_SysFlash_Time,X
+    49 00:DCE4: 0A            	PHA
+    50 00:DCE5: 09            	RTS
     51                        Table_SysFlash_Time:
-    52 00:DCF5: 0A DD         	DW		L_SysFlash_Set_Mode_Prog_Time_Sec-1
+    52 00:DCE6: FB DC         	DW		L_SysFlash_Set_Mode_Prog_Time_Sec-1
     53                        Table_Usually:
-    54 00:DCF7: F3 CB         	DW		L_Clr_lcd_d1_Prog-1
-    55 00:DCF9: FB CB         	DW		L_Clr_lcd_d2_Prog-1
-    56 00:DCFB: 03 CC         	DW		L_Clr_lcd_d4_Prog-1
-    57 00:DCFD: 07 CC         	DW		L_Clr_lcd_d5_Prog-1
-    58 00:DCFF: F3 CB         	DW		L_Clr_lcd_d1_Prog-1
-    59 00:DD01: FB CB         	DW		L_Clr_lcd_d2_Prog-1
-    60 00:DD03: 03 CC         	DW		L_Clr_lcd_d4_Prog-1
-    61 00:DD05: 07 CC         	DW		L_Clr_lcd_d5_Prog-1
-    62 00:DD07: 0F CC         	DW		L_Clr_lcd_d7_Prog-1
-    63 00:DD09: 13 CC         	DW		L_Clr_lcd_d8_Prog-1
+    54 00:DCE8: F3 CB         	DW		L_Clr_lcd_d1_Prog-1
+    55 00:DCEA: FB CB         	DW		L_Clr_lcd_d2_Prog-1
+    56 00:DCEC: 03 CC         	DW		L_Clr_lcd_d4_Prog-1
+    57 00:DCEE: 07 CC         	DW		L_Clr_lcd_d5_Prog-1
+    58 00:DCF0: F3 CB         	DW		L_Clr_lcd_d1_Prog-1
+    59 00:DCF2: FB CB         	DW		L_Clr_lcd_d2_Prog-1
+    60 00:DCF4: 03 CC         	DW		L_Clr_lcd_d4_Prog-1
+    61 00:DCF6: 07 CC         	DW		L_Clr_lcd_d5_Prog-1
+    62 00:DCF8: 0F CC         	DW		L_Clr_lcd_d7_Prog-1
+    63 00:DCFA: 13 CC         	DW		L_Clr_lcd_d8_Prog-1
     64                        L_SysFlash_Set_Mode_Prog_Time_Sec:
-    65 00:DD0B: 15 14 CC      	JSR		L_Clr_lcd_d8_Prog
-    66 00:DD0E: 15 10 CC      	JSR		L_Clr_lcd_d7_Prog
-    67 00:DD11: 09            	RTS
+    65 00:DCFC: 15 14 CC      	JSR		L_Clr_lcd_d8_Prog
+    66 00:DCFF: 15 10 CC      	JSR		L_Clr_lcd_d7_Prog
+    67 00:DD02: 09            	RTS
     68                        L_SysFlash_Set_Mode_Prog_usually:
-    69 00:DD12: 04            	CLC
-    70 00:DD13: 06            	CLD
-    71 00:DD14: 73 F1         	LDA		R_Mode_Set
-    72 00:DD16: 18            	ROL
-    73 00:DD17: 1B            	TAX
-    74 00:DD18: 63 F8 DC      	LDA		Table_Usually+1,X
-    75 00:DD1B: 0A            	PHA
-    76 00:DD1C: 63 F7 DC      	LDA		Table_Usually,X
-    77 00:DD1F: 0A            	PHA
+    69 00:DD03: 04            	CLC
+    70 00:DD04: 06            	CLD
+    71 00:DD05: 73 F1         	LDA		R_Mode_Set
+    72 00:DD07: 18            	ROL
+    73 00:DD08: 1B            	TAX
+    74 00:DD09: 63 E9 DC      	LDA		Table_Usually+1,X
+    75 00:DD0C: 0A            	PHA
+    76 00:DD0D: 63 E8 DC      	LDA		Table_Usually,X
+    77 00:DD10: 0A            	PHA
     78                        	RTS
-    78 00:DD20: 09            
+    78 00:DD11: 09            
    194                        
    195                        .INCLUDE	Sound\Beep.asm
      1                        ;============================================================
      2                        L_control_Beep_prog:
-     3 00:DD21: 43 94 18      	LDA		R_Voice_Unit;闹铃持续的次数时间
-     4 00:DD24: 13 0D         	BEQ		L_control_Beep_prog_out
-     5 00:DD26: 04            	CLC
-     6 00:DD27: 43 92 18      	LDA		R_Alarm_Clock_Open_Beep_Time
-     7 00:DD2A: 54 01         	ADC		#1
-     8 00:DD2C: 4F 92 18      	STA		R_Alarm_Clock_Open_Beep_Time
-     9 00:DD2F: 56 02         	CMP		#2
-    10 00:DD31: 11 01         	BCS		L_Open_Beep_Prog
+     3 00:DD12: 43 94 18      	LDA		R_Voice_Unit;闹铃持续的次数时间
+     4 00:DD15: 13 0D         	BEQ		L_control_Beep_prog_out
+     5 00:DD17: 04            	CLC
+     6 00:DD18: 43 92 18      	LDA		R_Alarm_Clock_Open_Beep_Time
+     7 00:DD1B: 54 01         	ADC		#1
+     8 00:DD1D: 4F 92 18      	STA		R_Alarm_Clock_Open_Beep_Time
+     9 00:DD20: 56 02         	CMP		#2
+    10 00:DD22: 11 01         	BCS		L_Open_Beep_Prog
     11                        L_control_Beep_prog_out:
-    12 00:DD33: 09            	RTS
+    12 00:DD24: 09            	RTS
     13                        
     14                        
     15                        ; ;---------------------------------------------------------------------
     16                        L_Open_Beep_Prog:
-    17 00:DD34: 53 00         	LDA		#0
-    18 00:DD36: 4F 92 18      	STA		R_Alarm_Clock_Open_Beep_Time
-    19 00:DD39: 37 16 16      	BBR7	P_TMRCTRL,L_Open_Beep_Prog_1
-    20 00:DD3C: 00            	SEC
-    21 00:DD3D: 43 94 18      	LDA		R_Voice_Unit
-    22 00:DD40: 55 01         	SBC		#1
-    23 00:DD42: 4F 94 18      	STA		R_Voice_Unit
+    17 00:DD25: 53 00         	LDA		#0
+    18 00:DD27: 4F 92 18      	STA		R_Alarm_Clock_Open_Beep_Time
+    19 00:DD2A: 37 16 16      	BBR7	P_TMRCTRL,L_Open_Beep_Prog_1
+    20 00:DD2D: 00            	SEC
+    21 00:DD2E: 43 94 18      	LDA		R_Voice_Unit
+    22 00:DD31: 55 01         	SBC		#1
+    23 00:DD33: 4F 94 18      	STA		R_Voice_Unit
     24                        
     25                        L_Close_Beep_Prog:
-    26 00:DD45: 53 00         	LDA		#$00
-    27 00:DD47: 7F 1F         	STA		P_AUD
-    28 00:DD49: 27 16         	RMB7	P_TMRCTRL	;关闭声音输出
-    29 00:DD4B: 20 1D         	RMB0	P_SYSCLK ;Weak
+    26 00:DD36: 53 00         	LDA		#$00
+    27 00:DD38: 7F 1F         	STA		P_AUD
+    28 00:DD3A: 27 16         	RMB7	P_TMRCTRL	;关闭声音输出
+    29 00:DD3C: 20 1D         	RMB0	P_SYSCLK ;Weak
     30                        	PB3_PB3_NOMS
-+   30 00:DD4D: 21 0C          RMB1 PADF0
-+   30 00:DD4F: 23 06          RMB3 PBTYPE
++   30 00:DD3E: 21 0C          RMB1 PADF0
++   30 00:DD40: 23 06          RMB3 PBTYPE
     31                        	; LDA		#0
     32                        	; STA		P_PB
-    33 00:DD51: 09            	RTS
+    33 00:DD42: 09            	RTS
     34                        ;--------------------------------------
     35                        L_Open_Beep_Prog_1:
     36                        	PB3_PWM
-+   36 00:DD52: 29 0C          SMB1 PADF0
-+   36 00:DD54: 2B 06          SMB3 PBTYPE
-    37 00:DD56: 53 80         	LDA		#$80
-    38 00:DD58: 7F 18         	STA		P_DIVC
-    39 00:DD5A: 28 1D         	SMB0	P_SYSCLK ;STRONG
-    40 00:DD5C: 53 FF         	LDA		#$FF
-    41 00:DD5E: 7F 1F         	STA		P_AUD
-    42 00:DD60: 2F 16         	SMB7	P_TMRCTRL	;打开声音输出
-    43 00:DD62: 09            	RTS
++   36 00:DD43: 29 0C          SMB1 PADF0
++   36 00:DD45: 2B 06          SMB3 PBTYPE
+    37 00:DD47: 53 80         	LDA		#$80
+    38 00:DD49: 7F 18         	STA		P_DIVC
+    39 00:DD4B: 28 1D         	SMB0	P_SYSCLK ;STRONG
+    40 00:DD4D: 53 FF         	LDA		#$FF
+    41 00:DD4F: 7F 1F         	STA		P_AUD
+    42 00:DD51: 2F 16         	SMB7	P_TMRCTRL	;打开声音输出
+    43 00:DD53: 09            	RTS
     44                        ;==========================================
     45                        L_Scankey_Short_ST_SP_Press_Prog_Alarm:
     46                        ;====================================================
     47                        L_Scankey_Close_Alarm_Beep:
-    48 00:DD63: 73 A1         	LDA		Sys_Flag_C
-    49 00:DD65: 51 10         	AND		#10h
-    50 00:DD67: 13 1C         	BEQ		L_Scankey_Close_Alarm_Beep_OUT
-    51 00:DD69: 15 45 DD      	JSR		L_Close_Beep_Prog
-    52 00:DD6C: 53 00         	LDA		#0
-    53 00:DD6E: 4F 94 18      	STA		R_Voice_Unit
-    54 00:DD71: 4F 93 18      	STA		R_Close_Beep_Time
-    55 00:DD74: 24 A1         	RMB4	Sys_Flag_C
-    56 00:DD76: 43 96 18      	LDA		R_Snz_Frequency
-    57 00:DD79: 12 07         	BNE		L_Scankey_Close_Alarm_Beep_2
-    58 00:DD7B: 53 00         	LDA		#0
-    59 00:DD7D: 4F 95 18      	STA		R_Snz_Time
-    60 00:DD80: 27 A1         	RMB7	Sys_Flag_C
+    48 00:DD54: 73 A1         	LDA		Sys_Flag_C
+    49 00:DD56: 51 10         	AND		#10h
+    50 00:DD58: 13 1C         	BEQ		L_Scankey_Close_Alarm_Beep_OUT
+    51 00:DD5A: 15 36 DD      	JSR		L_Close_Beep_Prog
+    52 00:DD5D: 53 00         	LDA		#0
+    53 00:DD5F: 4F 94 18      	STA		R_Voice_Unit
+    54 00:DD62: 4F 93 18      	STA		R_Close_Beep_Time
+    55 00:DD65: 24 A1         	RMB4	Sys_Flag_C
+    56 00:DD67: 43 96 18      	LDA		R_Snz_Frequency
+    57 00:DD6A: 12 07         	BNE		L_Scankey_Close_Alarm_Beep_2
+    58 00:DD6C: 53 00         	LDA		#0
+    59 00:DD6E: 4F 95 18      	STA		R_Snz_Time
+    60 00:DD71: 27 A1         	RMB7	Sys_Flag_C
     61                        L_Scankey_Close_Alarm_Beep_2:
     62                        	; JSR		L_Display_Normal_Prog
-    63 00:DD82: 3B 9F 00      	BBS3	Sys_Flag_A,L_Scankey_Close_Alarm_Beep_OUT
+    63 00:DD73: 3B 9F 00      	BBS3	Sys_Flag_A,L_Scankey_Close_Alarm_Beep_OUT
     64                        	; JSR		L_Display_Set_Mode_Prog
     65                        L_Scankey_Close_Alarm_Beep_OUT:
-    66 00:DD85: 09            	RTS
+    66 00:DD76: 09            	RTS
     67                        
     68                        
     69                        
@@ -7282,50 +7277,50 @@ Current file: main.asm
     73                        
     74                        
     75                        L_Control_Beep_prog_Auto_Exit:;多久自动退出响闹,如果没有则按每秒给值
-    76 00:DD86: 73 A1         	LDA		Sys_Flag_C
-    77 00:DD88: 51 10         	AND		#10H
-    78 00:DD8A: 13 F9         	BEQ		L_Scankey_Close_Alarm_Beep_OUT
-    79 00:DD8C: 00            	SEC
-    80 00:DD8D: 43 93 18      	LDA		R_Close_Beep_Time
-    81 00:DD90: 55 01         	SBC		#1
-    82 00:DD92: 4F 93 18      	STA		R_Close_Beep_Time;定时器
-    83 00:DD95: 13 CC         	BEQ		L_Scankey_Short_ST_SP_Press_Prog_Alarm
+    76 00:DD77: 73 A1         	LDA		Sys_Flag_C
+    77 00:DD79: 51 10         	AND		#10H
+    78 00:DD7B: 13 F9         	BEQ		L_Scankey_Close_Alarm_Beep_OUT
+    79 00:DD7D: 00            	SEC
+    80 00:DD7E: 43 93 18      	LDA		R_Close_Beep_Time
+    81 00:DD81: 55 01         	SBC		#1
+    82 00:DD83: 4F 93 18      	STA		R_Close_Beep_Time;定时器
+    83 00:DD86: 13 CC         	BEQ		L_Scankey_Short_ST_SP_Press_Prog_Alarm
     84                        	EN_LCD_IRQ
-+   84 00:DD97: 2E 0E          SMB6 IER
-    85 00:DD99: 53 02         	LDA		#2
-    86 00:DD9B: 4F 94 18      	STA		R_Voice_Unit
-    87 00:DD9E: 3C A2 E4      	BBS4	Sys_Flag_D,L_Scankey_Close_Alarm_Beep_OUT
-    88 00:DDA1: 09                RTS
++   84 00:DD88: 2E 0E          SMB6 IER
+    85 00:DD8A: 53 02         	LDA		#2
+    86 00:DD8C: 4F 94 18      	STA		R_Voice_Unit
+    87 00:DD8F: 3C A2 E4      	BBS4	Sys_Flag_D,L_Scankey_Close_Alarm_Beep_OUT
+    88 00:DD92: 09                RTS
     88                        
    196                        
    197                        .INCLUDE	Delay.asm
      1                        ;============================================================
      2                        L_ScanKey_Delay_Prog:    ;延时功能
-     3 00:DDA2: 53 E0         	LDA		#$E0
-     4 00:DDA4: 7F F2         	STA		P_Temp
+     3 00:DD93: 53 E0         	LDA		#$E0
+     4 00:DD95: 7F F2         	STA		P_Temp
      5                        L_Loop_ScanKey_Delay:
-     6 00:DDA6: 78 F2         	INC		P_Temp
-     7 00:DDA8: 73 F2         	LDA		P_Temp
-     8 00:DDAA: 12 FA         	BNE		L_Loop_ScanKey_Delay
-     9 00:DDAC: 09            	RTS
+     6 00:DD97: 78 F2         	INC		P_Temp
+     7 00:DD99: 73 F2         	LDA		P_Temp
+     8 00:DD9B: 12 FA         	BNE		L_Loop_ScanKey_Delay
+     9 00:DD9D: 09            	RTS
     10                        L_Beep_1s:    ;响一声
-    11 00:DDAD: 3D A1 07      	BBS5	Sys_Flag_C,L_Beep_1s_RTS
+    11 00:DD9E: 3D A1 07      	BBS5	Sys_Flag_C,L_Beep_1s_RTS
     12                        L_Beep_1s_Usually:
-    13 00:DDB0: 53 01         	LDA		#1
-    14 00:DDB2: 4F 94 18      	STA		R_Voice_Unit
+    13 00:DDA1: 53 01         	LDA		#1
+    14 00:DDA3: 4F 94 18      	STA		R_Voice_Unit
     15                        	EN_LCD_IRQ
-+   15 00:DDB5: 2E 0E          SMB6 IER
++   15 00:DDA6: 2E 0E          SMB6 IER
     16                        L_Beep_1s_RTS
-    17 00:DDB7: 09            	RTS
+    17 00:DDA8: 09            	RTS
     18                        
-    19 00:DDB8: 15 AD DD      JSR		L_Beep_1s
+    19 00:DDA9: 15 9E DD      JSR		L_Beep_1s
     19                        
    198                        
    199                        ;--------------------------------------------------------
    200                        ;***********************************************************************
-   201 00:DDBB: FF FF FF FF   	.BLKB	$FFFF-$,$FF
-   201 00:DDBB: FF FF FF FF   
-   201 00:DDBB: FF FF FF FF   
+   201 00:DDAC: FF FF FF FF   	.BLKB	$FFFF-$,$FF
+   201 00:DDAC: FF FF FF FF   
+   201 00:DDAC: FF FF FF FF   
    202                        
    203                        	.ORG	0FFF8H
    204                        

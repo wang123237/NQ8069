@@ -248,6 +248,12 @@ L_Control_DIV_Prog_DIV:
 	EOR		BUF6+3
 	ORA		BUF2+FD
 	STA		BUF2+FD
+    JSR     L_Judge_BUF2_Prog
+    BEQ     L_Control_BUF2_Adjust_Result
+    LDA     #Err_FUll
+    STA     ERR
+L_Control_BUF2_Adjust_Result_To
+
 	JMP		L_Control_BUF2_Adjust_Result
 
 
@@ -277,8 +283,6 @@ L_Adjust_Result_Prog_Loop:
 	BCS		L_Adjust_Result_Move_Right_Prog
 	LDA		ERR
 	BNE		L_Adjust_Result_Prog_Loop1
-    LDA     #Err_FUll
-    STA     ERR
     LDX		BUF6+1						;LDA BUF
 	LDA		RAM, X
 	AND		#0FH
@@ -333,12 +337,3 @@ L_Adjust_Result_Prog_Zero:
 	STA		RAM,X
 L_Adjust_Result_Prog_Zero_RTS:
 	RTS	
-L_Adjust_Result_Prog_Zero_RTS_1:
-    LDA		RAM+4,X
-	ORA		RAM+5,X
-	ORA		RAM+6,X
-	ORA		RAM+7,X
-    BEQ     L_Adjust_Result_Prog_Zero_RTS
-    LDA     #Err_FUll
-    STA     ERR
-    RTS
