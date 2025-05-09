@@ -2,6 +2,7 @@ L_Display_Calculator_Prog:
     LDA     #0
     LDX     #lcd_d8
     JSR     L_Dis_8Bit_DigitDot_Prog
+	JSR		L_Dis_lcd_T8_Prog
     RTS
 ;=======================================================
 
@@ -98,8 +99,8 @@ DISP_NEG_L:
 L_Display_NEG_Prog_RTS:
     RTS
 ;==============================================================
-L_Symbol_Prog:
-    RTS
+; L_Symbol_Prog:
+;     RTS
 ; =====================================================================
 L_Copy_DBUF_TO_D1BUF_FD_Prog:
 	LDA		DBUF+DFD
@@ -162,7 +163,6 @@ L_Display_Number_Prog:
     JSR     L_Clr_0_Prog
     JSR     L_Display_FD_Prog
     JSR     L_Display_NEG_Prog
-	JSR		L_Symbol_Prog		
 	LDA		ERR
 	BNE		L_Err_Prog_Display_TO
 	;----------------------------------

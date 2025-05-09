@@ -74,8 +74,14 @@ L_Display_Calculator_Output:
 
 
 
-    JSR     L_Dis_Calculator_Symbol_Prog
-
-
+    LDA     P_Scankey_value
+    CMP     #20
+    BNE     L_Display_Calculator_Output_RTS
+    JSR		L_Dis_Calculator_Symbol_Prog_Equal
+    LDA     Calculator_Symbol_State
+    CMP     #State_Involution
+    BEQ     L_Display_Calculator_Output_RTS
+    LDA     #State_Null
+    STA     Calculator_Symbol_State
 L_Display_Calculator_Output_RTS:
     RTS

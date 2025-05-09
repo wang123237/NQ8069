@@ -266,6 +266,7 @@ L_Control_BUF2_Adjust_Result:
 L_Adjust_Result_Prog:
 	LDX		BUF6
 	JSR		L_Adjust_FD_INC_Prog
+
 L_Adjust_Result_Prog_Loop:
 	LDX		BUF6
 	LDA		RAM,X
@@ -273,9 +274,11 @@ L_Adjust_Result_Prog_Loop:
 	CLD
 	SEC
 	SBC		#MAX_DIG+1
-	BCS		L_Adjust_Result_Move_Right_Prog_1
+	BCS		L_Adjust_Result_Move_Right_Prog
 	LDA		ERR
 	BNE		L_Adjust_Result_Prog_Loop1
+    LDA     #Err_FUll
+    STA     ERR
     LDX		BUF6+1						;LDA BUF
 	LDA		RAM, X
 	AND		#0FH
@@ -293,9 +296,7 @@ L_Adjust_Result_Prog_Loop1:
 	ORA		RAM+7,X
 	BNE		L_Adjust_Result_Move_Right_Prog
 	BRA		L_Adjust_Result_Prog_Zero
-L_Adjust_Result_Move_Right_Prog_1:
-    LDA     #Err_FUll
-    STA     ERR
+   
 L_Adjust_Result_Move_Right_Prog:
 	LDX		BUF6+1
 	JSR		L_Move_Right_One_DIG_Prog
@@ -330,5 +331,14 @@ L_Adjust_Result_Prog_Zero:
 	LDA		#0
 	LDX		BUF6
 	STA		RAM,X
-L_Adjust_Result_Prog_Zero_RTS
+L_Adjust_Result_Prog_Zero_RTS:
 	RTS	
+L_Adjust_Result_Prog_Zero_RTS_1:
+    LDA		RAM+4,X
+	ORA		RAM+5,X
+	ORA		RAM+6,X
+	ORA		RAM+7,X
+    BEQ     L_Adjust_Result_Prog_Zero_RTS
+    LDA     #Err_FUll
+    STA     ERR
+    RTS

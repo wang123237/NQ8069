@@ -31,10 +31,19 @@ L_Scankey_Mode_Press_Prog_TO_Clock_Mode:
 	JSR		L_Display_Prog
 	RTS
 L_Scankey_Mode_Press_Prog_Calculator:
+	LDA		ERR
+	BNE		L_Scankey_Mode_Press_Prog_Calculator_Err
 	JSR		L_Clear_Calculator_Prog
 	JSR		L_Display_Number_IBUF_Prog
 	RTS
-
+L_Scankey_Mode_Press_Prog_Calculator_Err:
+	SMB7	Sys_Flag_A
+	JSR		L_Clear_Calculator_Prog_ERR
+	LDA		#0	
+	STA		ERR
+	JSR		L_Display_Number_BUF1_Prog
+	
+	RTS
 ;======================================================================
 ;非设置模式下吗,闹钟模式，
 ;短按RESET，在整点报时界面，开启或关闭整点报时，按下触发

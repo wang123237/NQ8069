@@ -66,6 +66,18 @@ L_COPY_BBUF_TO_BUF1_Prog:
 	LDA		BBUF+BFD
 	STA		BUF1+IFD
 	RTS
+L_COPY_BUF1_TO_IBUF_FD_Prog:
+	LDA		BUF1
+	STA		IBUF
+	LDA		BUF1+1
+	STA		IBUF+1
+	LDA		BUF1+2
+	STA		IBUF+2
+	LDA		BUF1+3
+	STA		IBUF+3
+	LDA		BUF1+IFD
+	STA		IBUF+BFD
+	RTS
 ;===========================================
 L_COPY_BUF2_TO_BUF1_FD:
 	LDX		#(BUF2-RAM)
@@ -127,10 +139,11 @@ L_Input_Full_Prog:
 ; ;=========================================
 
 L_Input_Full_Error:
-	LDA		IBUF+IFD;读取输入的小数位
-	LJNZ	RET1
+	; LDA		IBUF+IFD;读取输入的小数位
+	; LJNZ	RET1
 	; LDA     #ERR_IN
     ; STA     ERR
+	JMP		RET1	
     RTS
 
 Input_FD_Inc:						
@@ -324,13 +337,15 @@ L_OutPut_Result_:;不存在按键输入数字的函数
 
 
 L_Clear_Calculator_Prog:
+	JSR		L_Clear_BUF1_FD_Prog
+L_Clear_Calculator_Prog_ERR:
 	JSR		L_Clr_All_8Bit_Prog
 	JSR		L_Clr_Calculator_Symbol_Prog
 	LDA		#0
 	STA		Calculator_State		
 	STA		Calculator_Symbol_State	
 	STA		Calculator_State_Mechine
-	JSR		L_Clear_BUF1_FD_Prog
+	
 	JSR		L_Clear_BUF2_FD_Prog
 	JSR		L_Clear_IBUF_FD_Prog
 	RTS
