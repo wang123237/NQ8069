@@ -273,7 +273,7 @@ L_Adjust_Result_Prog_Loop:
 	CLD
 	SEC
 	SBC		#MAX_DIG+1
-	BCS		L_Adjust_Result_Move_Right_Prog
+	BCS		L_Adjust_Result_Move_Right_Prog_1
 	LDA		ERR
 	BNE		L_Adjust_Result_Prog_Loop1
     LDX		BUF6+1						;LDA BUF
@@ -293,6 +293,9 @@ L_Adjust_Result_Prog_Loop1:
 	ORA		RAM+7,X
 	BNE		L_Adjust_Result_Move_Right_Prog
 	BRA		L_Adjust_Result_Prog_Zero
+L_Adjust_Result_Move_Right_Prog_1:
+    LDA     #Err_FUll
+    STA     ERR
 L_Adjust_Result_Move_Right_Prog:
 	LDX		BUF6+1
 	JSR		L_Move_Right_One_DIG_Prog

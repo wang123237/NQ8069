@@ -129,8 +129,8 @@ L_Input_Full_Prog:
 L_Input_Full_Error:
 	LDA		IBUF+IFD;读取输入的小数位
 	LJNZ	RET1
-	LDA     #ERR_IN
-    STA     ERR
+	; LDA     #ERR_IN
+    ; STA     ERR
     RTS
 
 Input_FD_Inc:						

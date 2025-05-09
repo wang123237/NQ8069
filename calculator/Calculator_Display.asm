@@ -41,7 +41,7 @@ DISP_GET_INX_LOOP:
 L_Display_FD_Prog:
 	JSR		L_Clr_FD_Prog
     LDA     DBUF+DFD
-    AND     #07H
+    AND     #07FH
     CLC
     CLD
     ROL
@@ -153,6 +153,8 @@ L_Save_DBUF_Prog_X:
 	LDA		RAM+3,X
 	STA		DBUF+3
 	RTS
+L_Err_Prog_Display_TO:
+	JMP		L_Err_Prog_Display
 ;=====================================================================
 L_Display_Number_Prog:
 	JSR		L_Copy_DBUF_TO_D1BUF_FD_Prog			
@@ -160,7 +162,9 @@ L_Display_Number_Prog:
     JSR     L_Clr_0_Prog
     JSR     L_Display_FD_Prog
     JSR     L_Display_NEG_Prog
-	JSR		L_Symbol_Prog					
+	JSR		L_Symbol_Prog		
+	LDA		ERR
+	BNE		L_Err_Prog_Display_TO
 	;----------------------------------
 L_Display_Number_Prog_DBUF:;DBUF+3存储的是高位数字
 	LDA		DBUF+3
@@ -208,3 +212,80 @@ L_Display_Number_Prog_DBUF:;DBUF+3存储的是高位数字
 	RTS
 
 
+L_Err_Prog_Display:
+	LDA		ERR
+	CMP		#ERR_DIV0
+	BEQ		L_Err_Prog_Display_DIV0
+	CMP		#Err_FUll
+	BEQ		L_Err_Prog_Display_Full
+	RTS
+
+
+L_Err_Prog_Display_DIV0:
+	LDA		#AAH
+	STA		DBUF+1
+	STA		DBUF+2
+	STA		DBUF+3
+	STA		DBUF
+	JSR		L_Display_Number_Prog_DBUF
+	LDA		#17
+	LDX		#lcd_d8
+	JSR		L_Dis_8Bit_DigitDot_Prog
+	RTS
+L_Err_Prog_Display_Full:
+	LDA		BBUF
+	AND		#F0H
+	ORA		#0AH
+	JSR		L_Display_Number_Prog_DBUF
+	LDA		#17
+	LDX		#lcd_d8
+	JSR		L_Dis_8Bit_DigitDot_Prog
+	RTS	
+
+L_Display_Number_Prog_DBUF3:;DBUF+3存储的是高位数字
+	LDA		DBUF+3
+	AND     #F0H
+	JSR		L_ROR_4Bit_Prog
+    LDX     #lcd_d1
+    JSR     L_Dis_8Bit_DigitDot_Prog
+    LDA		DBUF+3
+	AND     #0FH
+    LDX     #lcd_d2
+    JSR     L_Dis_8Bit_DigitDot_Prog
+	RTS
+L_Display_Number_Prog_DBUF2:
+    LDA		DBUF+2
+	AND     #F0H
+	JSR		L_ROR_4Bit_Prog
+    LDX     #lcd_d3
+    JSR     L_Dis_8Bit_DigitDot_Prog
+    LDA		DBUF+2
+	AND     #0FH
+    LDX     #lcd_d4
+    JSR     L_Dis_8Bit_DigitDot_Prog
+	RTS
+L_Display_Number_Prog_DBUF1:
+    LDA		DBUF+1
+	AND     #F0H
+	JSR		L_ROR_4Bit_Prog
+    LDX     #lcd_d5
+    JSR     L_Dis_8Bit_DigitDot_Prog
+    LDA		DBUF+1
+	AND     #0FH
+    LDX     #lcd_d6
+    JSR     L_Dis_8Bit_DigitDot_Prog
+
+L_Display_Number_Prog_DBUF0:
+    LDA		DBUF
+	AND     #F0H
+	JSR		L_ROR_4Bit_Prog
+    LDX     #lcd_d7
+    JSR     L_Dis_8Bit_DigitDot_Prog
+    LDA		DBUF
+	AND     #0FH
+    LDX     #lcd_d8
+    JSR     L_Dis_8Bit_DigitDot_Prog
+	RTS
+
+
+	
