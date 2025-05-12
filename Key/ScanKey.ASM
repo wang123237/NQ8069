@@ -49,6 +49,9 @@ L_Scankey_Prog_First_TO:
 
 L_Scankey_Prog_Long_Press:
 	JSR		L_Scankey_usually_Prog
+	LDA		R_Mode
+	CMP		#2
+	BNE		L_Scankey_Prog_Long_Press_Clock_Beep
 	LDA		P_Scankey_value_Temporary
 	CMP		P_Scankey_value
 	BEQ		L_Scankey_Prog_Long_Press_RTS
@@ -57,4 +60,16 @@ L_Scankey_Prog_Long_Press:
 	JSR		L_Clr_All_8Bit_Prog
 	JSR		L_Display_Prog
 L_Scankey_Prog_Long_Press_RTS:
+	RTS
+L_Scankey_Prog_Long_Press_Clock_Beep:
+	LDA		#1
+	STA		R_Voice_Unit
+	LDA		P_Scankey_value_Temporary
+	CMP		P_Scankey_value
+	BEQ		L_Scankey_Prog_Long_Press_RTS
+	JSR		L_Close_Beep_Prog
+	LDA		#0
+	STA		R_Voice_Unit
+	SMB5	Sys_Flag_A
+	RMB6	Sys_Flag_A
 	RTS

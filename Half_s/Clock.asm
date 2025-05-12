@@ -6,6 +6,8 @@ L_Update_Time_Prog:
 
 	BCC		L_End_Update_Time_Prog
 
+	JSR		L_Auto_To_Clock_Mode_Prog
+	
 	JSR		L_Control_Snz_Prog
 	JSR		L_Update_Time_Min_Prog
 	

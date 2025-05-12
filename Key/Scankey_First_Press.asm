@@ -12,14 +12,17 @@ L_Scankey_Mode_Press_Prog:
 	LDA		R_Mode
 	ADC		#1
 	STA		R_Mode
+	CMP		#1
+	BNE		L_Scankey_Mode_Press_Prog_1
+	JSR		L_Clear_Calculator_Prog
 L_Scankey_Mode_Press_Prog_1:	
 	JMP		L_Display_Prog
 L_Scankey_Mode_Press_Prog_Clr:
 	LDA		#0
 	STA		R_Mode
 	BRA		L_Scankey_Mode_Press_Prog_1
-
-L_Scankey_Mode_Press_Prog_TO_Clock_Mode:
+;===========================================
+L_Scankey_Mode_Press_Prog_TO_Clock_Mode:;当按下按键后回到时间界面
 	RMB7	Sys_Flag_A
 	LDA		R_Mode
 	BEQ		L_Scankey_Mode_Press_Prog
@@ -44,10 +47,4 @@ L_Scankey_Mode_Press_Prog_Calculator_Err:
 	JSR		L_Display_Number_BUF1_Prog
 	
 	RTS
-;======================================================================
-;非设置模式下吗,闹钟模式，
-;短按RESET，在整点报时界面，开启或关闭整点报时，按下触发
-;在闹钟界面,按下触发闹铃模式的切换，关闭，普通和贪睡
-;======================================================================
-
 

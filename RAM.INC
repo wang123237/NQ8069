@@ -232,6 +232,9 @@ Calc_First_Output_In	.EQU	3	;第一次按键按下有数字输入
 Calc_First_Output_Involution	.EQU	4
 Calc_First_Output_Involution_IN	.EQU	5
 MAX_Number_Input		.EQU	16
+
+Time_To_Clock_Mode	DS	1
+D_Time_To_Clock_Mode	.EQU	6
 ;---------------------------------------       
 P_Temp			ds	10
 ;显示从写P_Temp+4
@@ -253,7 +256,7 @@ D1BUF		DS		MAX_BYTE+1
 BBUF		DS		MAX_BYTE+1
 
 
-
+; Time_To_Clock_Mode	DS	1
 
 
 
@@ -261,7 +264,7 @@ ERR			DS		1
 R_Mode						DS	1;0是时钟模式，1是闹钟，2是正计时，3是第二时钟，4是倒计时
 
 R_Set_Mode_Exit_Time			DS	1;自动设置退出时间
-D_Set_Mode_Exit_Time			EQU	81
+D_Set_Mode_Exit_Time			EQU	6
 R_Alarm_Clock_Open_Beep_Time	DS	1;32Hz转化为16hz
 R_Close_Beep_Time				DS	1;闹铃关闭时间，闹铃响多久
 R_Voice_Unit					DS	1;闹铃响的次数，一秒响几次

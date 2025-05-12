@@ -8,12 +8,10 @@ L_Loop_ScanKey_Delay:
 	BNE		L_Loop_ScanKey_Delay
 	RTS
 L_Beep_1s:    ;响一声
-	BBS5	Sys_Flag_C,L_Beep_1s_RTS
+	BBR5	Sys_Flag_C,L_Beep_1s_RTS
 L_Beep_1s_Usually:
 	LDA		#1
 	STA		R_Voice_Unit
 	EN_LCD_IRQ
 L_Beep_1s_RTS
 	RTS
-
-JSR		L_Beep_1s

@@ -20,6 +20,10 @@ L_Scankey_Prog_First_1:
 	RMB1	Sys_Flag_A
 	LDA		#0
 	STA		P_Scankey_value_T_1
+	STA		R_Voice_Unit
+	STA		Time_To_Clock_Mode
+	JSR		L_Close_Beep_Prog
+
 	JSR		L_Scankey_usually_Prog
 	LDA		P_Scankey_value_Temporary
 	STA		P_Scankey_value
@@ -66,7 +70,7 @@ L_Scankey_Set_Press_Prog:
 	SMB5	Sys_Flag_A
 	LDA		R_Mode
 	CMP		#1
-	BEQ		L_Scankey_Prog_First_OUT
+	BEQ		L_control_Beep_Prog_ALL
 	CMP		#4
 	BEQ		L_Scankey_Prog_First_OUT
 	LDA		#0
@@ -83,6 +87,13 @@ L_Scankey_Prog_First_1_OUT:
 	
 L_Scankey_Prog_First_OUT:
 	SMB5	Sys_Flag_A
+	RTS
+
+L_control_Beep_Prog_ALL:;控制声音
+	LDA		Sys_Flag_C
+	AND		#00100000B
+	EOR		#00100000B
+	ORA		Sys_Flag_C
 	RTS
 
 
