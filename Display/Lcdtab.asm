@@ -211,9 +211,9 @@ lcd_col .equ Lcd_dot-lcd_table1
 	lcd_10I			.EQU	lcd_col+3
 	lcd_10H			.EQU	lcd_col+4
 	lcd_10J			.EQU	lcd_col+5
-	lcd_ALM			.EQU	lcd_col+6
+	lcd_SIG			.EQU	lcd_col+6
 	lcd_SNZ			.EQU	lcd_col+7
-	lcd_SIG			.EQU	lcd_col+8
+	lcd_ALM			.EQU	lcd_col+8
 	lcd_AM			.EQU	lcd_col+9
 	lcd_PM			.EQU	lcd_col+10
 	lcd_Involution	.EQU	lcd_col+11

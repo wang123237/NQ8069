@@ -22,8 +22,20 @@ L_Judge_BUF2_Prog:
 	; ORA		BUF2+4
 	; ORA		BUF2+5
 	RTS
-
-
+L_Judge_BUF1_BUF2_IBUF_Prog
+	LDA		BUF1
+	ORA		BUF1+1
+	ORA		BUF1+2
+	ORA		BUF1+3
+	ORA		BUF2
+	ORA		BUF2+1
+	ORA		BUF2+2
+	ORA		BUF2+3
+	ORA		IBUF
+	ORA		IBUF+1
+	ORA		IBUF+2
+	ORA		IBUF+3
+	RTS
 ;=====================================
 L_Adjust_FD_DEC_Prog:;小数点右移FD减少
 	LDA		RAM,X

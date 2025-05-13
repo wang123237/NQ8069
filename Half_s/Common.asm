@@ -22,7 +22,7 @@ L_Set_Mode_Auto_Exit_OUT:
 ;===========================================
 L_Auto_To_Clock_Mode_Prog:
 	LDA		R_Mode
-	; 
+	BEQ		L_Auto_To_Clock_Mode_Prog_Time
 	CMP		#3
 	BNE		L_Auto_To_Clock_Mode_Prog_1
 	RTS
@@ -35,6 +35,12 @@ L_Auto_To_Clock_Mode_Prog_1:
 	LDA		#0
 	STA		Time_To_Clock_Mode
 	STA		R_Mode
+	RMB3	Sys_Flag_A
+	JSR		L_Clr_All_DisRam_Prog
+	JSR		L_Display_Prog
+	RTS
+L_Auto_To_Clock_Mode_Prog_Time:
+	BBR3	Sys_Flag_A,L_Set_Mode_Auto_Exit_OUT
 	RMB3	Sys_Flag_A
 	JSR		L_Clr_All_DisRam_Prog
 	JSR		L_Display_Prog

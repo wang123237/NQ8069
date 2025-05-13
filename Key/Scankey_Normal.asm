@@ -56,6 +56,7 @@ L_Scankey_usually_Prog_Countine_PA5_PA6:;
 	BEQ		L_Scankey_Effictive_Prog
 	LDA		#D_Beep_Test_Press
 	STA		P_Scankey_value_Temporary
+	RMB5	Sys_Flag_A
 	RTS
 
 L_Scankey_usually_Prog_Countine_PA4:

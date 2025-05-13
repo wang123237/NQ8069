@@ -49,7 +49,7 @@ L_Alarm_First_Reset_Press_Prog_Every_Hour_Mode_Close:
 ;------------------------------------------
 L_Alarm_First_Press_Prog_Beep_Test_Press:;声音测试
 	SMB6	Sys_Flag_A;按键持续标志
-	RMB6	Sys_Flag_A
+	RMB5	Sys_Flag_A
 	EN_LCD_IRQ
 	LDA		#2
 	STA		R_Voice_Unit

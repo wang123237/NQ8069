@@ -14,8 +14,10 @@ L_Positive_Timer_First_Press_Prog:
 ;--------------------------------------------------
 L_Positive_Timer_First_Press_Prog_ST_Hour_Press:
 	JSR		L_Clr_All_8Bit_Prog
+	JSR		L_Clr_col_Prog
 	SMB6	Sys_Flag_A
     RMB5    Sys_Flag_A
+
     BBR5    Sys_Flag_D,L_Positive_Timer_First_Press_Prog_ST_Hour_Press_1
 	JSR		L_Display_Positive_Timer_Hr_Prog_Measurement
 	RTS

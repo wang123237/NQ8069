@@ -23,11 +23,13 @@ L_Scankey_Prog_Ineffective:
 	LDA		P_Scankey_value_Temporary
 	BNE		L_END_LCD_IRQ_WorkProg;如果为0则执行空键程序
 	JSR		L_Judgement_Scankey_Prog
+	JSR		L_ScanKey_Delay_Prog
+
 	RMB5	Sys_Flag_A;清空无效标志位
 	LDA		#10001011B
 	AND		Sys_Flag_A
 	STA		Sys_Flag_A
-	JSR		L_ScanKey_Delay_Prog
+	
 	EN_PA_IRQ
 	RTS
 
@@ -50,8 +52,8 @@ L_Scankey_Prog_First_TO:
 L_Scankey_Prog_Long_Press:
 	JSR		L_Scankey_usually_Prog
 	LDA		R_Mode
-	CMP		#2
 	BNE		L_Scankey_Prog_Long_Press_Clock_Beep
+L_Scankey_Prog_Long_Press_1:
 	LDA		P_Scankey_value_Temporary
 	CMP		P_Scankey_value
 	BEQ		L_Scankey_Prog_Long_Press_RTS
@@ -62,14 +64,28 @@ L_Scankey_Prog_Long_Press:
 L_Scankey_Prog_Long_Press_RTS:
 	RTS
 L_Scankey_Prog_Long_Press_Clock_Beep:
-	LDA		#1
-	STA		R_Voice_Unit
+	CMP		#4
+	BEQ		L_Scankey_Prog_Long_Press_1
+	CMP		#2
+	BNE		L_Scankey_Prog_Long_Press_Clock_Beep_1
 	LDA		P_Scankey_value_Temporary
 	CMP		P_Scankey_value
-	BEQ		L_Scankey_Prog_Long_Press_RTS
+	BEQ		L_Scankey_Prog_Long_Press_Clock_Beep_RTS
 	JSR		L_Close_Beep_Prog
 	LDA		#0
 	STA		R_Voice_Unit
+	
+L_Scankey_Prog_Long_Press_Clock_Beep_1:	
 	SMB5	Sys_Flag_A
 	RMB6	Sys_Flag_A
+L_Scankey_Prog_Long_Press_Clock_Beep_RTS:
 	RTS
+L_Control_Beep_Test_Prog:
+	BBR6	Sys_Flag_A,L_Scankey_Prog_Long_Press_Clock_Beep_RTS
+	LDA		R_Mode
+	CMP		#2
+	BNE		L_Scankey_Prog_Long_Press_Clock_Beep_RTS
+	LDA		#2
+	STA		R_Voice_Unit
+	EN_LCD_IRQ
+	RTS	

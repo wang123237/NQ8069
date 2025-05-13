@@ -1,6 +1,7 @@
 ;=========================
 L_Update_Time_Prog:
 	; JSR		L_Update_Time_Ms_Prog
+	JSR		L_Control_Beep_Test_Prog
 	JSR		L_Update_Time_Sec_Prog
 
 

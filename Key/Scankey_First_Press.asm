@@ -36,6 +36,8 @@ L_Scankey_Mode_Press_Prog_TO_Clock_Mode:;当按下按键后回到时间界面
 L_Scankey_Mode_Press_Prog_Calculator:
 	LDA		ERR
 	BNE		L_Scankey_Mode_Press_Prog_Calculator_Err
+	JSR		L_Judge_BUF1_BUF2_IBUF_Prog
+	BEQ		L_Scankey_Mode_Press_Prog
 	JSR		L_Clear_Calculator_Prog
 	JSR		L_Display_Number_IBUF_Prog
 	RTS

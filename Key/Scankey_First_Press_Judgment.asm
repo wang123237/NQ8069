@@ -2,9 +2,9 @@ L_Scankey_Prog_First:
 	LDA		P_Scankey_value_T_1;清空无效标志位
 	CMP		#1
 	BCS		L_Scankey_Prog_First_1
-	JSR		L_Scankey_usually_Prog
-	LDA		P_Scankey_value_Temporary
-	STA		P_Scankey_value
+	; JSR		L_Scankey_usually_Prog
+	; LDA		P_Scankey_value_Temporary
+	; STA		P_Scankey_value
 	INC		P_Scankey_value_T_1
 L_Scankey_Prog_First_RTS:
 	RTS
@@ -90,12 +90,13 @@ L_Scankey_Prog_First_OUT:
 	RTS
 
 L_control_Beep_Prog_ALL:;控制声音
-	LDA		Sys_Flag_C
-	AND		#00100000B
-	EOR		#00100000B
-	ORA		Sys_Flag_C
+	BBS5	Sys_Flag_B,L_control_Beep_Prog_ALL_1
+	SMB5	Sys_Flag_B
+	JSR		L_Beep_1s
 	RTS
-
+L_control_Beep_Prog_ALL_1:
+	RMB5	Sys_Flag_B
+	RTS
 
 Table_Mode:
 	DW		L_Clock_First_Press_Prog-1
