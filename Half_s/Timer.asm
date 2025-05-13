@@ -20,6 +20,8 @@ L_Update_Timer_Hr_Prog:
 L_Positive_Timer:
     JSR     L_Update_Timer_Sec_Prog
     BCC     L_Timer_Prog_OUT
+    
+    JSR     L_Control_Timer_Beep_Prog
     JSR     L_Update_Timer_Min_Prog
     BCC     L_Timer_Prog_OUT
     JSR     L_Update_Timer_Hr_Prog
@@ -76,7 +78,18 @@ L_Control_Positive_Timer_Prog_RTS:
     STA     R_Timer_Ms
 	JSR		L_Display_Postive_Timer_Normal_Prog
 	RTS
-    
+
+
+
+L_Control_Timer_Beep_Prog:
+    LDA     R_Timer_Min
+    JSR     L_A_HexDToHex
+    AND     #0FH
+    CMP     #9
+    BNE     L_Control_Timer_Beep_Prog_RTS
+    JSR     L_Beep_1s_Usually
+L_Control_Timer_Beep_Prog_RTS:
+    RTS
 
 Table_Timer_Ms:
     .DB     0

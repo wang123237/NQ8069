@@ -24,7 +24,6 @@ L_Clr_Time_Week_Prog:
 ;===============================
 L_Display_lcd_Prog_Normal_Hr:;显示闹钟时钟小时的lcd_5，lcd6
     JSR		L_12_24_Prog
-L_Display_lcd_Prog_Normal_Timer:;显示定时器小时的显示函数
     JSR		L_A_HexToHexD
 	PHA
 	AND		#$0F
@@ -120,4 +119,15 @@ L_Clr_All_8Bit_Prog:
 	JSR		L_Clr_lcd_T6_Prog
 	JSR		L_Clr_lcd_T7_Prog
 	JSR		L_Clr_lcd_T8_Prog
+	RTS
+L_Display_lcd_Prog_Normal_Timer:;显示定时器小时的显示函数
+    JSR		L_A_HexToHexD
+	PHA
+	AND		#$0F
+    LDX     #lcd_d2
+    JSR		L_Dis_8Bit_DigitDot_Prog
+	LDX		#lcd_d1
+	PLA
+	JSR		L_ROR_4Bit_Prog
+	JSR		L_Dis_8Bit_DigitDot_Prog
 	RTS
