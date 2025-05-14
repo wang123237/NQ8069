@@ -1,11 +1,18 @@
 L_SysFlash_Prog:
 	JSR		L_SysFlash_Set_Mode_Prog
 	JSR		L_SysFlash_Prog_Positive_Timer
-; 	JSR		L_SysFlash_Alm_Symbol_Prog
-; 	JSR		L_SysFlash_Snz_Symbol_Prog
+	JSR		L_SysFlash_Alm_Symbol_Prog
+	JSR		L_SysFlash_Snz_Symbol_Prog
+L_SysFlash_Prog_RTS:
 	RTS
 
-
+L_SysFlash_Alm_Symbol_Prog:
+	BBR4	Sys_Flag_C,L_SysFlash_Prog_RTS
+	JSR		L_Clr_lcd_Alm_Prog
+L_SysFlash_Snz_Symbol_Prog:
+	BBR7	Sys_Flag_C,L_SysFlash_Prog_RTS
+	JSR		L_Clr_lcd_Snz_Prog
+	RTS
 
 L_SysFlash_Prog_Positive_Timer:
 	BBR0	Sys_Flag_D,L_SysFlash_Prog_Positive_Timer_RTS
@@ -18,6 +25,7 @@ L_SysFlash_Prog_Positive_Timer_RTS:
 	
 L_SysFlash_Set_Mode_Prog:
 	BBR3	Sys_Flag_A,L_SysFlash_Prog_Positive_Timer_RTS
+	JSR		L_CLR_AM_PM_Prog
 	LDA		R_Mode
 	CLC
 	CLD
@@ -75,4 +83,13 @@ L_SysFlash_Set_Mode_Prog_usually:
 	PHA		
 	LDA		Table_Usually,X
 	PHA
+	RTS
+
+L_CLR_AM_PM_Prog:
+	LDA		R_Mode_Set
+	CMP		#4
+	BCS		L_CLR_AM_PM_Prog_RTS
+	JSR		L_Clr_lcd_AM_Prog
+	JSR		L_Clr_lcd_PM_Prog
+L_CLR_AM_PM_Prog_RTS:
 	RTS

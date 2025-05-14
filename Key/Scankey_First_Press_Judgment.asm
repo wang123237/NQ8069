@@ -21,7 +21,7 @@ L_Scankey_Prog_First_1:
 	LDA		#0
 	STA		P_Scankey_value_T_1
 	STA		R_Voice_Unit
-	STA		Time_To_Clock_Mode
+	
 	JSR		L_Close_Beep_Prog
 
 	JSR		L_Scankey_usually_Prog
@@ -34,6 +34,7 @@ L_Scankey_Prog_First_1:
 	STA		R_Voice_Unit
 	STA		R_Set_Mode_Exit_Time
 	STA		R_Alarm_Clock_Open_Beep_Time
+	STA		Time_To_Clock_Mode
 	STA		R_Scankey_Time
 
 	SMB5	Sys_Flag_A
@@ -73,11 +74,16 @@ L_Scankey_Set_Press_Prog:
 	BEQ		L_control_Beep_Prog_ALL
 	CMP		#4
 	BEQ		L_Scankey_Prog_First_OUT
+	JSR		L_Control_SNZ_Close_Prog
 	LDA		#0
 	STA		R_Mode_Set
 	SMB3	Sys_Flag_A
 	JSR		L_Display_Set_Mode_Prog
+	LDA		R_Mode
+	BEQ		L_Clr_Time_Week_Prog_TO
 	RTS
+L_Clr_Time_Week_Prog_TO:
+	JMP		L_Clr_Time_Week_Prog
 
 L_Scankey_Prog_First_1_OUT:
 	LDA		#0

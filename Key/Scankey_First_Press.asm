@@ -20,6 +20,8 @@ L_Scankey_Mode_Press_Prog_1:
 L_Scankey_Mode_Press_Prog_Clr:
 	LDA		#0
 	STA		R_Mode
+	JSR		L_Clear_Calculator_Prog
+	RMB5	Sys_Flag_D
 	BRA		L_Scankey_Mode_Press_Prog_1
 ;===========================================
 L_Scankey_Mode_Press_Prog_TO_Clock_Mode:;当按下按键后回到时间界面
@@ -30,6 +32,8 @@ L_Scankey_Mode_Press_Prog_TO_Clock_Mode:;当按下按键后回到时间界面
 	BEQ		L_Scankey_Mode_Press_Prog_Calculator
 	LDA		#0
 	STA		R_Mode
+	JSR		L_Clear_Calculator_Prog
+	RMB5	Sys_Flag_D
 	JSR		L_Clr_All_DisRam_Prog
 	JSR		L_Display_Prog
 	RTS

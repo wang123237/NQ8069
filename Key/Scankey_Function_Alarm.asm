@@ -1,9 +1,15 @@
 ;清除贪睡功能
 L_Control_SNZ_Close_Prog:
-    RMB7	Sys_Flag_C
+	LDA		R_Mode
+	CMP		#1
+	BEQ		L_Control_SNZ_Close_Prog_RTS
+    CMP		#3
+	BCS		L_Control_SNZ_Close_Prog_RTS
+	RMB7	Sys_Flag_C
 	LDA		#0
 	STA		R_Snz_Time
 	STA		R_Snz_Frequency;进入闹钟时间的设置会清除贪睡
+L_Control_SNZ_Close_Prog_RTS:
     RTS
 ;======================================================================
 ;非设置模式下吗,闹钟模式，

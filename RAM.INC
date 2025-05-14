@@ -147,7 +147,7 @@ R_Timer_Sec_Measurement			EQU	BUF4+2
 R_Timer_Ms_Measurement			EQU	BUF4+3
 
 
-D_Beep_Open_Last_Time_Alarm		EQU	11
+D_Beep_Open_Last_Time_Alarm		EQU	21
 
 R_Alarm_Clock_Min				DS	1;闹钟的分钟;	10
 R_Alarm_Clock_Hr 				DS	1;闹钟的小时;	11
@@ -277,4 +277,7 @@ Calculator_Symbol_State			DS	1
 Calculator_State_Mechine		DS	1
 ; Calculator_Symbol_State_Equal	DS	1
 ; Loop_Count						DS	1
+
+
+R_Involution					DS	1
 .ENDS

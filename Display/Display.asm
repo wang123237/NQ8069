@@ -7,8 +7,8 @@ L_Display_Normal_Prog:
 	BBS6	Sys_Flag_A,L_Display_Normal_Prog_RTS
 ; 	LDA		R_Close_All_Dis
 ; 	BNE		L_Display_Alarm_Normal_Prog;当全显时不做要求
-; 	JSR		L_Dis_Alm_Snz_Symbol_Prog
-; 	BBS3	Sys_Flag_A,L_Display_Set_Mode_Prog_TO
+	JSR		L_Dis_Alm_Snz_Symbol_Noraml_Prog
+	JSR		L_DIS_SNZ_Normal_Prog
 	CLD
 	LDA		R_Mode
 	CLC

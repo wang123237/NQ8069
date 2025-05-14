@@ -62,15 +62,12 @@ L_Calculator_State_Symbol_First_Press_Prog:
     CMP     #D_NUM_Equal_Press
     BEQ     L_Calculator_State_Symbol_No_Number;按下等于号自己与自己乘法或除法
     LDA     Calculator_Symbol_State
-    CMP     #State_Mul
-    BEQ     Calculator_State_Involution_Judgement;判断原先的符号状态是否是乘法
+    STA     P_Temp+6
     JSR     Calculator_Input_Symbol_Prog
-    RTS
+   ;判断是不是再次按下了乘法键如果是则判断为乘方模式
 
-Calculator_State_Involution_Judgement:;判断是不是再次按下了乘法键如果是则判断为乘方模式
-    JSR     Calculator_Input_Symbol_Prog
     LDA     Calculator_Symbol_State
-    CMP     #State_Mul
+    CMP     P_Temp+6
     BNE     Calculator_State_Involution_Judgement_RTS;判断是否再次按下乘号
     LDA     #State_Involution
     STA     Calculator_Symbol_State

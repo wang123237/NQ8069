@@ -19,3 +19,39 @@ L_Change_12_24_Prog_PM_AM_1:
     STA     Time_Addr,X
     RTS
 ;============================================
+;12小时到24小时
+;============================================
+L_24_Hour_12_Hour_Prog:
+    LDA     Time_Addr,X
+    BEQ     L_12_Hour_24_Hour_Prog_0_Hour
+    CMP     #12
+    BEQ     L_12_Hour_24_Hour_Prog_RTS
+    BCC     L_12_Hour_24_Hour_Prog_RTS
+    SBC     #12
+    RTS
+L_12_Hour_24_Hour_Prog_0_Hour:
+    LDA     #12
+L_12_Hour_24_Hour_Prog_RTS:
+    RTS
+;==============================================
+;12小时到24小时
+;==============================================
+L_12_Hour_24_Hour_Prog:
+    STA     P_Temp+1
+    LDX     P_Temp+7
+    LDA     Time_Addr,X
+    CMP     #12
+    BCS     L_24_Hour_12_Hour_Prog_PM
+    LDA     P_Temp+1
+    CMP     #12
+    BNE     L_24_Hour_12_Hour_Prog_AM_RTS
+    LDA     #0
+L_24_Hour_12_Hour_Prog_AM_RTS:
+    RTS
+L_24_Hour_12_Hour_Prog_PM:
+    LDA     P_Temp+1
+    CMP     #12
+    BNE     L_24_Hour_12_Hour_Prog_AM_RTS
+    CLC
+    ADC     #12
+    RTS

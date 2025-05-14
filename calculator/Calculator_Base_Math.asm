@@ -248,12 +248,7 @@ L_Control_DIV_Prog_DIV:
 	EOR		BUF6+3
 	ORA		BUF2+FD
 	STA		BUF2+FD
-    JSR     L_Judge_BUF2_Prog
-    BEQ     L_Control_BUF2_Adjust_Result
-    LDA     #Err_FUll
-    STA     ERR
-L_Control_BUF2_Adjust_Result_To
-
+    
 	JMP		L_Control_BUF2_Adjust_Result
 
 

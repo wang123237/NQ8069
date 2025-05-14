@@ -199,75 +199,19 @@ L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT_Conutine_1:
 ;
 L_Scankey_Input_Set_Mode_Hr_Time:
     STX     P_Temp+7
+    STA     P_Temp+4    
     JSR     L_Scankey_Input_Press
-    STA     P_Temp+4
-    BBS2    Sys_Flag_C,L_Scankey_Input_Set_Mode_Usally_Time_Date_Low_BIT_RTS
+    BBS2    Sys_Flag_C,L_Scankey_Input_Set_Mode_Hr_Time_RTS
+    STA     P_Temp+5
     LDA     Time_Addr,X
+    JSR     L_24_Hour_12_Hour_Prog
+    JSR     L_A_HexToHexD
     STA     P_Temp+3
-    BBS0    R_Mode_Set,L_Scankey_Input_Set_Mode_High_Bit
-    JMP     L_Scankey_Input_Set_Mode_Low_Bit
-L_Scankey_Input_Set_Mode_High_Bit:    
-    LDA     P_Temp+3
-    JSR     L_12_24_Prog
-    JSR     L_A_HexToHexD
-    STA     P_Temp+5
-
-    LDA     P_Temp+4
-    CMP     #2
-    BCS     L_Scankey_Input_Set_Mode_High_Bit_RTS
-    JSR     L_ROL_4Bit_Prog
-    STA     P_Temp+6
-    CMP     #0
-    BEQ     L_Scankey_Input_Set_Mode_High_Bit_0_Press
-    CMP     #10H
-    BEQ     L_Scankey_Input_Set_Mode_High_Bit_1_Press
-
-L_Scankey_Input_Set_Mode_High_Bit_RTS:
-    RTS
-L_Scankey_Input_Set_Mode_High_Bit_1_Press:
-    LDA     P_Temp+5
-    AND     #0FH
-    CMP     #3
-    BCC     L_Scankey_Input_Set_Mode_High_Bit_1_Press_1
-    LDA     P_Temp+6
-    BRA     L_Scankey_Input_Set_Mode_High_Bit_usually
-
-L_Scankey_Input_Set_Mode_High_Bit_1_Press_1:
-    ORA     P_Temp+6
-    BRA     L_Scankey_Input_Set_Mode_High_Bit_usually
-L_Scankey_Input_Set_Mode_High_Bit_0_Press:
-    LDA     P_Temp+5
-    AND     #0FH
-L_Scankey_Input_Set_Mode_High_Bit_usually:
-    JSR     L_A_HexDToHex
-    STA     P_Temp+5
-    JSR     L_12_To_24_Prog
-    LDX     P_Temp+7
-    STA     Time_Addr,X
-    JSR     L_Scankey_Set_Mode_Mode_First_Press_Prog
+    BBS0    R_Mode_Set,L_Scankey_Input_Set_Mode_High_Bit_12_Hour_TO
+    JMP     L_Scankey_Input_Set_Mode_Low_Bit_12_Hour
+L_Scankey_Input_Set_Mode_Hr_Time_RTS:
 
     RTS
 
-L_Scankey_Input_Set_Mode_Low_Bit:
-    LDA     P_Temp+3
-    JSR     L_12_24_Prog
-    JSR     L_A_HexToHexD
-    STA     P_Temp+6
-    AND     #F0H
-    BEQ     L_Scankey_Input_Set_Mode_Low_Bit_0_Prog
-    LDA     P_Temp+4
-    CMP     #3
-    BCC     L_Scankey_Input_Set_Mode_Low_Bit_0_Prog
-    RTS
-
-L_Scankey_Input_Set_Mode_Low_Bit_0_Prog:
-    LDA     P_Temp+4
-    BEQ     L_Scankey_Input_Set_Mode_Low_Bit_0_Prog_RTS
-    JSR     L_A_HexDToHex
-    STA     P_Temp+5
-    JSR     L_12_To_24_Prog
-    LDX     P_Temp+7
-    STA     Time_Addr,X
-    JSR     L_Scankey_Set_Mode_Mode_First_Press_Prog
-L_Scankey_Input_Set_Mode_Low_Bit_0_Prog_RTS:
-    RTS
+L_Scankey_Input_Set_Mode_High_Bit_12_Hour_TO:
+    JMP     L_Scankey_Input_Set_Mode_High_Bit_12_Hour
