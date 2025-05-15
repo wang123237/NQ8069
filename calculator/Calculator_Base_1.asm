@@ -41,6 +41,14 @@ L_COPY_BUF1_TO_BUF2_FD:
 	LDA		BUF1+FD
 	STA		BUF2+FD
 	RTS
+L_Clear_BBUF_Prog:
+	LDA		#0
+	STA		BBUF
+	STA		BBUF+1
+	STA		BBUF+2
+	STA		BBUF+3
+	STA		BBUF+BFD
+	RTS
 L_Copy_BUF1_TO_BBUF_Prog:
 	LDA		BUF1
 	STA		BBUF
@@ -91,6 +99,14 @@ L_Clear_IBUF_FD_Prog:
 	LDA		#0
 	STA		RAM+IFD,X
 	RTS
+L_Clear_BUF_Prog_1:
+	LDA		#0
+	STA		RAM, X
+	STA		RAM+1, X
+	STA		RAM+2, X
+	STA		RAM+3, X
+	RTS
+
 L_Clear_BUF1_FD_Prog:
 	LDX		#(BUF1-RAM)
 	JSR		L_Clear_BUF_Prog
@@ -110,6 +126,7 @@ Calculator_Input:
     BCC     Calculator_Input_Number_Prog_TO
     CMP     #D_NUM_Equal_Press
     BCC     Calculator_Input_Symbol_Prog_TO
+	BEQ		Calculator_Input_Symbol_Prog_TO
     RTS
 
 Calculator_Input_Number_Prog_TO:
@@ -267,9 +284,8 @@ Calculator_Input_Symbol_Prog:
 	BEQ		Input_DIV
 	RTS
 Input_Equal:
-	; LDA		#State_Equal
-	; STA		Calculator_Symbol_State_Equal
-	; BRA		Input_Symbol_Equal
+	LDA		#State_Equal
+	STA		Calculator_Symbol_State
 	JSR		L_Dis_Calculator_Symbol_Prog_Equal
 	RTS
 Input_Add:
@@ -308,7 +324,7 @@ RET:
 L_Calculator_Calc_Prog:
 	CLC
 	CLD
-	LDA		Calculator_Symbol_State
+	LDA		OP
 	ROL
 	TAX
 	LDA		Table_Calc+1,X
@@ -322,7 +338,7 @@ Table_Calc:
 	DW		L_Control_SUB_Prog-1
 	DW		L_Control_Mul_Prog-1
 	DW		L_Control_DIV_Prog-1	
-	DW		L_Control_Mul_Prog-1	
+	; DW		L_Control_Mul_Prog-1	
 
 
 
@@ -345,6 +361,7 @@ L_Clear_Calculator_Prog_ERR:
 	STA		Calculator_State		
 	STA		Calculator_Symbol_State	
 	STA		Calculator_State_Mechine
+	STA		OP
 	
 	JSR		L_Clear_BUF2_FD_Prog
 	JSR		L_Clear_IBUF_FD_Prog

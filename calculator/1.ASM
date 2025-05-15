@@ -24,15 +24,16 @@ Table_Calculator_State:
     DW      L_Calculator_State_Equal_Press_Prog-1
     DW      L_Calculator_State_Involution-1
     DW      L_Calculator_State_Involution_Number_Input_Prog-1
-    DW      L_Calculator_State_Involution_Symbol-1;在乘方模式下输入符号键
 ;======================================================================
 L_Calculator_Init_Prog:
     JSR     Calculator_Input
     LDA     P_Scankey_value
-    CMP     #MAX_Number_Input 
+    CMP     #MAX_Number_Input
+    
     BCC     L_Calculator_Init_Prog_RTS
     CMP     #D_NUM_Equal_Press
     BEQ     L_Calculator_Init_Prog_RTS          ;数字输入和等号输入退出
+
     LDA     #Calculator_State_Symbol_First_Press;一旦符号键按下，将IBUF的内容传送到，BUF1中
     STA     Calculator_State                    ;并改变计算器当前状态
     LDA     #Calc_First_Output
@@ -54,7 +55,7 @@ L_Calculator_State_Symbol_First_Press_Prog:
     BEQ     L_Calculator_State_Symbol_No_Number;按下等于号自己与自己乘法或除法
     LDA     Calculator_Symbol_State
     STA     P_Temp+6
-    JSR     Calculator_Input
+    JSR     Calculator_Input_Symbol_Prog
    ;判断是不是再次按下了乘法键如果是则判断为乘方模式
     LDA     Calculator_Symbol_State
     STA     OP                      
@@ -130,27 +131,27 @@ L_Calculator_State_Equal_Press_Prog_Number_Press:;当按下等号在按下数字
 L_Calculator_State_Involution:
     LDA     ERR
     BNE     L_Calculator_State_Involution_RTS;当出现错误时
-
     LDA     P_Scankey_value
     CMP     #D_NUM_Equal_Press
     BEQ     L_Calculator_State_Involution_Equal_Press;当按下等号后
     CMP     #MAX_Number_Input
     BCC     L_Calculator_State_Involution_Input_Number
-    LDA     #Calculator_State_Involution_Input_Symbol;此时按下加减乘除键
+    LDA     #Calculator_State_Symbol_First_Press;此时按下加减乘除键
     STA     Calculator_State;此时BUF1,BUF2已将运算值存储
-    ; JSR     L_COPY_BUF1_TO_IBUF_FD_Prog
+    JSR     L_COPY_BUF1_TO_IBUF_FD_Prog
     JSR     L_Clear_BBUF_Prog
-    ; JSR     L_Clear_BUF1_FD_Prog
-    JSR     L_Clear_IBUF_FD_Prog
+    JSR     L_Clear_BUF2_FD_Prog
     LDA     #0
     STA     R_Involution
+    JSR     Calculator_Input
+    LDA     #Calculator_State_Symbol_First_Press
+    STA     Calculator_State
     JSR     Calculator_Input
 L_Calculator_State_Involution_RTS:
     RTS
 L_Calculator_State_Involution_Equal_Press:;无数字自乘
     LDA     #Calc_First_Output_Involution
     STA     Calculator_State_Mechine
-    JSR     Calculator_Input
     RTS
 
 L_Calculator_State_Involution_Input_Number:
@@ -183,7 +184,6 @@ L_Calculator_State_Involution_Number_Input_Prog:
     JSR     Calculator_Input
     JSR     L_Clear_BBUF_Prog
     JSR     L_Clear_BUF2_FD_Prog
-    JSR     L_Clear_IBUF_FD_Prog
 L_Calculator_State_Involution_Number_Input_Prog_RTS:
     RTS
 L_Calculator_State_Involution_Number_Input_Prog_Equal_Press:
@@ -194,28 +194,3 @@ L_Calculator_State_Involution_Number_Input_Prog_Equal_Press:
     LDA     #State_Equal
     STA     Calculator_Symbol_State
     RTS    
-;========================================
-L_Calculator_State_Involution_Symbol:
-    JSR     Calculator_Input
-    LDA     P_Scankey_value
-    CMP     #D_NUM_Equal_Press
-    BEQ     L_Calculator_State_Involution_Symbol_Equal
-    CMP     #MAX_Number_Input
-    BCC     L_Calculator_State_Involution_Symbol_Number
-    LDA     Calculator_Symbol_State
-    STA     OP
-    ; JSR     L_COPY_BUF1_TO_BUF2_FD
-    RTS
-L_Calculator_State_Involution_Symbol_Equal:
-    LDA     #0
-    STA     OP
-    LDA     #Calculator_State_Equal_Press
-    STA     Calculator_State
-    JSR     L_Clr_Calculator_Symbol_Prog
-    RTS
-L_Calculator_State_Involution_Symbol_Number:
-    LDA     #Calculator_State_Input;设置
-    STA     Calculator_State
-    LDA     Calculator_Symbol_State
-    STA     OP
-    RTS

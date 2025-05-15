@@ -158,7 +158,7 @@ D_Snz_Time						EQU	5
 D_Snz_Frequency					EQU	6
 
 
-
+R_Mode_Set					DS	1;设置模式
 
 
 
@@ -166,26 +166,24 @@ D_Snz_Frequency					EQU	6
 ;==================================================
 ;===================================================
 Calculator_Str_Addr	EQU		$
-
-
-
-
-; Sys_Flag_Cala		DS		1
+;这个加1是存储小数点位置的，bit7是存储数据的正负，其余是存储有效移位次数
 MAX_DIG		.EQU	8
-Dig			.EQU	MAX_DIG
 MAX_BYTE	.EQU	MAX_DIG / 2
 
 FD			.EQU	MAX_DIG
-BUF1		DS		MAX_DIG+1
-;这个加1是存储小数点位置的，bit7是存储数据的正负，其余是存储有效移位次数
-BUF2		DS		MAX_DIG+1;
-BUF3		DS		MAX_DIG
-BUF4		DS		MAX_DIG
-BUF5		DS		MAX_DIG
-BUF6		DS		4
-IBUF		DS		MAX_DIG+1
+BUF1		.DS		MAX_DIG+1
+BUF2		.DS		MAX_DIG+1
+BUF3		.DS		MAX_DIG
+BUF4		.DS		MAX_DIG
+BUF5		.DS		MAX_DIG
+BUF6		.DS		4
+
+
+;==========================================
+IBUF		 DS		MAX_BYTE+1
 ACC			.EQU	P_Temp
 IFD			.EQU	MAX_BYTE
+;=======================================
 ; ERR_NULL	.EQU	0
 ERR_DIV0	.EQU	1
 Err_FUll	.EQU	2
@@ -195,7 +193,8 @@ Err_FUll	.EQU	2
 ; ERR_MU		.EQU	6
 ; ERR_PCT		.EQU	7
 ; ERR_IN		.EQU	8
-R_Mode_Set					DS	1;设置模式
+;=======================================
+
 
 DINX		.EQU	P_Temp+6
 
@@ -212,8 +211,10 @@ Calculator_State_Input				.EQU	2;计算器按下加减乘除后按下数字的�
 Calculator_State_Equal_Press		.EQU	3;计算器按下等于号的状态
 Calculator_State_Involution			.EQU	4;计算器乘方模式
 Calculator_State_Involution_Input	.EQU	5;计算器乘方模式按键输入
+Calculator_State_Involution_Input_Symbol	.EQU	6
 ; Calculator_State_Symbol_Press_Again	.EQU	5;计算器非第一次按下加减乘除符号键
 ; Calculator_Symbol_State	DS	1
+;=========================================
 State_Null			.EQU	0
 State_Add			.EQU	1
 State_SUB			.EQU	2
@@ -222,7 +223,7 @@ State_DIV			.EQU	4
 State_Involution	.EQU	5
 
 
-State_Equal			.EQU	1
+State_Equal			.EQU	6
 
 
 Calc_Init				.EQU	0	;初始化，无意义
@@ -255,7 +256,7 @@ DBUF		DS		MAX_BYTE+1
 D1BUF		DS		MAX_BYTE+1
 BBUF		DS		MAX_BYTE+1
 
-
+Calculator_Symbol_State_1	DS	1
 ; Time_To_Clock_Mode	DS	1
 
 
@@ -277,7 +278,7 @@ Calculator_Symbol_State			DS	1
 Calculator_State_Mechine		DS	1
 ; Calculator_Symbol_State_Equal	DS	1
 ; Loop_Count						DS	1
-
+OP								DS	1;运算
 
 R_Involution					DS	1
 .ENDS

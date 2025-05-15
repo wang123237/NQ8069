@@ -7,7 +7,9 @@ L_Init_SystemRam_Prog:     ;初始化系统RAM的程序数据
 	LDA		#1
 	STA		R_Time_Day
 	STA		R_Time_Month
+	STA		R_Mode
 	JSR		L_Auto_Counter_Week
+
 	RTS
 ;======================================================
 L_Dis_All_DisRam_Prog:
