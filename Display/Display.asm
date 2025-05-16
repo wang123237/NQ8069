@@ -78,9 +78,9 @@ L_Display_Postive_Timer_Normal_Prog:
 	LDA		R_Timer_Sec
 	BNE		L_Display_Alarm_Normal_Prog_OUT
 	JSR		L_Display_Positive_Timer_Min_Prog
-	LDA		R_Timer_Min
-	BNE		L_Display_Alarm_Normal_Prog_OUT
-	JSR		L_Display_Positive_Timer_Hr_Prog
+	; LDA		R_Timer_Min
+	; BNE		L_Display_Alarm_Normal_Prog_OUT
+	; JSR		L_Display_Positive_Timer_Hr_Prog
     RTS
 
 

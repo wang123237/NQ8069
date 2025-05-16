@@ -42,7 +42,7 @@ L_Alarm_First_Press_Prog_Alm_Press:;控制闹钟贪睡的开启关闭
 L_Alarm_First_Reset_Press_Prog_Alarm_Prog_Clr:
 	LDA		#0
 	STA		R_Alarm_Mode
-	JMP		L_Clr_Alm_Snz_Symbol_Prog
+	JMP		L_Dis_Alm_Snz_Symbol_Prog
 ;======================================================
 L_Alarm_First_Press_Prog_Sig_Press:;控制整点报时的开启和关闭
 

@@ -1,32 +1,36 @@
-;显示闹钟标志，贪睡标志的清除
-L_Clr_Alm_Snz_Symbol_Prog:
-    JSR     L_Clr_lcd_Alm_Prog
-L_Clr_Alm_Snz_Symbol_Prog_1:
-    JMP     L_Clr_lcd_Snz_Prog
 RTS_1:
     RTS
-
 L_DIS_SNZ_Normal_Prog:
-    BBR7    Sys_Flag_C,RTS_1
-    JSR     L_Dis_lcd_Snz_Prog
-    JSR     L_Dis_lcd_Alm_Prog
+    BBS7    Sys_Flag_C,L_Dis_Alm_Snz_Symbol_Prog_Normal
     RTS
 L_Dis_Alm_Snz_Symbol_Noraml_Prog:
-    BBR4    Sys_Flag_C,RTS_1;闹铃没有响是，不做显示
+    BBS4    Sys_Flag_C,L_Dis_Alm_Snz_Symbol_Prog_Normal
+    RTS
 L_Dis_Alm_Snz_Symbol_Prog:
+    LDA     R_Mode
+    CMP     #1
+    BEQ     RTS_1
+L_Dis_Alm_Snz_Symbol_Prog_Normal:    
     LDA     R_Alarm_Mode
-    BEQ     L_Clr_Alm_Snz_Symbol_Prog
+    BEQ     RTS_1_1
     JSR     L_Dis_lcd_Alm_Prog
     LDA     R_Alarm_Mode
-    CMP     #2   
-    BNE     L_Clr_Alm_Snz_Symbol_Prog_1
-    JMP     L_Dis_lcd_Snz_Prog
-    JSR     F_DispSymbol
-;========================================
+    CMP     #2
+    BNE     RTS_1_2
+    JSR     L_Dis_lcd_Snz_Prog
+    RTS
+RTS_1_1:
+    JSR     L_Clr_lcd_Alm_Prog
+RTS_1_2
+    JSR     L_Clr_lcd_Snz_Prog
+    RTS
 L_Dis_sig_Prog:
-    BBS1    Sys_Flag_C,L_Dis_lcd_Sig_Prog
-    JMP     L_Clr_lcd_Sig_Prog
-
+    LDA     R_Mode
+    CMP     #1
+    BEQ     RTS_1
+    BBR1    Sys_Flag_C,RTS_1
+    JSR     L_Dis_lcd_Sig_Prog
+    RTS
 L_Dis_col_Prog:
     LDA     R_Mode
     CMP     #1

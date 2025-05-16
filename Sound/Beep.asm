@@ -59,9 +59,11 @@ L_Scankey_Close_Alarm_Beep:
 	STA		R_Snz_Time
 	RMB7	Sys_Flag_C
 L_Scankey_Close_Alarm_Beep_2:
-	; JSR		L_Display_Normal_Prog
-	BBS3	Sys_Flag_A,L_Scankey_Close_Alarm_Beep_OUT
-	; JSR		L_Display_Set_Mode_Prog
+	LDA		R_Mode
+	CMP		#1
+	BEQ		L_Scankey_Close_Alarm_Beep_OUT
+	JSR		L_Clr_All_DisRam_Prog
+	JSR		L_Display_Prog
 L_Scankey_Close_Alarm_Beep_OUT:	
 	RTS
 
