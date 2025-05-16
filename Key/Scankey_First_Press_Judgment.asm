@@ -81,9 +81,18 @@ L_Scankey_Set_Press_Prog:
 	JSR		L_Display_Set_Mode_Prog
 	LDA		R_Mode
 	BEQ		L_Clr_Time_Week_Prog_TO
+	CMP		#2
+	BEQ		L_Scankey_Set_Press_Prog_Alarm_Mode
 	RTS
 L_Clr_Time_Week_Prog_TO:
 	JMP		L_Clr_Time_Week_Prog
+
+L_Scankey_Set_Press_Prog_Alarm_Mode:
+	LDA		#0
+	STA		R_Alarm_Mode
+	JSR		L_Dis_Alm_Snz_Symbol_Prog
+	RTS
+
 
 L_Scankey_Prog_First_1_OUT:
 	LDA		#0
