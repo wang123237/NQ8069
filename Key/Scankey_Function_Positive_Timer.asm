@@ -33,6 +33,7 @@ L_Positive_Timer_First_ST_SP_Press_Prog_OUT:
 	RTS
 L_Positive_Timer_First_SP_Press_Prog:
 	RMB0	Sys_Flag_D
+	RMB6	Sys_Flag_D
 	BBS5	Sys_Flag_D,L_Positive_Timer_First_SP_Press_Prog_OUT
 	JMP		L_Display_Prog
 L_Positive_Timer_First_SP_Press_Prog_OUT:
@@ -48,6 +49,8 @@ L_Positive_Timer_First_RESET_Press_Prog:
 	STA		R_Timer_Min
 	STA		R_Timer_Hr
 	STA		R_Timer_Ms
+	STA		R_Timer_X_1
+	STA		Sys_Flag_D
 L_Positive_Timer_Midway_Measurement_1:
 	JMP		L_Display_Prog
 L_Positive_Timer_Midway_Measurement:

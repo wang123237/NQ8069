@@ -83,6 +83,7 @@ L_Calculator_State_Symbol_No_Number:;当没有数字键按下并按下等号时�
     STA     Calculator_State
     LDA     Calculator_Symbol_State
     STA     OP
+    JSR     Calculator_Input
     RTS
 ;=====================================================================
 L_Calculator_State_Input_Prog:
@@ -205,6 +206,8 @@ L_Calculator_State_Involution_Symbol:
     LDA     Calculator_Symbol_State
     STA     OP
     ; JSR     L_COPY_BUF1_TO_BUF2_FD
+    LDA     #Calculator_State_Symbol_First_Press;一旦符号键按下，将IBUF的内容传送到，BUF1中
+    STA     Calculator_State   
     RTS
 L_Calculator_State_Involution_Symbol_Equal:
     LDA     #0

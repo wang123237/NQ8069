@@ -362,6 +362,7 @@ L_Clear_Calculator_Prog_ERR:
 	STA		Calculator_Symbol_State	
 	STA		Calculator_State_Mechine
 	STA		OP
+	STA		R_Involution
 	
 	JSR		L_Clear_BUF2_FD_Prog
 	JSR		L_Clear_IBUF_FD_Prog

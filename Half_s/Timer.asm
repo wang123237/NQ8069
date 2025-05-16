@@ -30,6 +30,8 @@ L_Positive_Timer:
     STA     R_Timer_Hr
     STA     R_Timer_Min
     STA     R_Timer_Sec;记满重启计时
+    STA     R_Timer_Ms
+    STA     R_Timer_X
 L_Timer_Prog_OUT:
     RTS    
 
@@ -72,12 +74,23 @@ L_Control_Positive_Timer_Prog:
 	RTS
 L_Control_Positive_Timer_Prog_RTS:
 	LDA		R_Timer_X_1
+    CMP     R_Timer_X
+    BCS     L_Control_Positive_Timer_Prog_RTS_1
 	STA		R_Timer_X
     TAX     
     LDA     Table_Timer_Ms,X
     STA     R_Timer_Ms
 	JSR		L_Display_Postive_Timer_Normal_Prog
 	RTS
+L_Control_Positive_Timer_Prog_RTS_1:
+    STA     R_Timer_X
+    TAX     
+    LDA     Table_Timer_Ms,X
+    STA     R_Timer_Ms
+    JSR     L_Positive_Timer
+    JSR     L_Display_Postive_Timer_Prog
+    RTS
+
 
 
 

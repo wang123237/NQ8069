@@ -86,6 +86,8 @@ L_SysFlash_Set_Mode_Prog_usually:
 	RTS
 
 L_CLR_AM_PM_Prog:
+	LDA		R_Mode
+	BEQ		L_CLR_AM_PM_Prog_Time
 	LDA		R_Mode_Set
 	CMP		#4
 	BCS		L_CLR_AM_PM_Prog_RTS
@@ -93,3 +95,11 @@ L_CLR_AM_PM_Prog:
 	JSR		L_Clr_lcd_PM_Prog
 L_CLR_AM_PM_Prog_RTS:
 	RTS
+L_CLR_AM_PM_Prog_Time:
+	LDA		R_Mode_Set
+	BEQ		L_CLR_AM_PM_Prog_RTS
+	CMP		#4
+	BCS		L_CLR_AM_PM_Prog_RTS
+	JSR		L_Clr_lcd_AM_Prog
+	JSR		L_Clr_lcd_PM_Prog
+	RTS	

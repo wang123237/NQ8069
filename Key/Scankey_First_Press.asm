@@ -30,6 +30,7 @@ L_Scankey_Mode_Press_Prog_TO_Clock_Mode:;当按下按键后回到时间界面
 	BEQ		L_Scankey_Mode_Press_Prog
 	CMP		#1
 	BEQ		L_Scankey_Mode_Press_Prog_Calculator
+L_Scankey_Mode_Press_Prog_TO_Clock_Mode_1:	
 	LDA		#0
 	STA		R_Mode
 	JSR		L_Clear_Calculator_Prog
@@ -38,10 +39,12 @@ L_Scankey_Mode_Press_Prog_TO_Clock_Mode:;当按下按键后回到时间界面
 	JSR		L_Display_Prog
 	RTS
 L_Scankey_Mode_Press_Prog_Calculator:
+	
 	LDA		ERR
 	BNE		L_Scankey_Mode_Press_Prog_Calculator_Err
 	JSR		L_Judge_BUF1_BUF2_IBUF_Prog
-	BEQ		L_Scankey_Mode_Press_Prog
+	BEQ		L_Scankey_Mode_Press_Prog_TO_Clock_Mode_1
+	SMB7	Sys_Flag_A
 	JSR		L_Clear_Calculator_Prog
 	JSR		L_Display_Number_IBUF_Prog
 	RTS

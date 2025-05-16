@@ -78,17 +78,29 @@ L_Scankey_Set_Mode_Set_Press_First_Press_Prog:
     LDA     #0
     STA     R_Mode_Set
     LDA     R_Mode
+    BEQ     L_Scankey_Set_Mode_Set_Press_First_Press_Prog_Time
     CMP     #2
     BNE     L_Scankey_Set_Mode_Set_Press_First_Press_Prog_1
     LDA     #1
     STA     R_Alarm_Mode
-L_Scankey_Set_Mode_Set_Press_First_Press_Prog_1
+L_Scankey_Set_Mode_Set_Press_First_Press_Prog_1    
     JSR     L_Clr_All_DisRam_Prog
     JSR     L_Display_Prog
 
     RTS
-
-
+L_Scankey_Set_Mode_Set_Press_First_Press_Prog_Time:
+    JSR     L_Check_LeapYear_Prog
+    JSR     L_Check_MaxDay_Prog
+    CMP     R_Time_Day
+    BCS     L_Scankey_Set_Mode_Set_Press_First_Press_Prog_Time_1
+    JSR     L_Update_Time_Month_Prog
+    LDA     #1
+    STA     R_Time_Day
+L_Scankey_Set_Mode_Set_Press_First_Press_Prog_Time_1:
+    JSR     L_Auto_Counter_Week
+    JSR     L_Clr_All_DisRam_Prog
+    JSR     L_Display_Prog
+    RTS
 
 
 
@@ -169,7 +181,9 @@ L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine:
     JSR     L_Scankey_Set_Mode_Mode_First_Press_Prog
     RTS
 ;================================================
-;12小时制度的问题
+;12小时制度的问题.
+;P_Temp+4存储最大值,P_Temp+5存储按键读到的值，P_Temp+3读到的被改变的值
+;P_Temp+6存储读到的被改变的值的高四位
 ;================================================
 L_Scankey_Input_Set_Mode_Hr_usually:
     STX     P_Temp+7
@@ -184,11 +198,11 @@ L_Scankey_Input_Set_Mode_Hr_usually:
     BBR0    R_Mode_Set,L_Scankey_Input_Set_Mode_High_Bit_12_Hour
 L_Scankey_Input_Set_Mode_Low_Bit_12_Hour:
     LDA     P_Temp+3
-    AND     #F0H
+    AND     #F0H        ;保存当前时间的高四位
     STA     P_Temp+6
     LDA     P_Temp+4
     AND     #F0H
-    CMP     P_Temp+6;比较储存的值的高四位和最大值得高四位
+    CMP     P_Temp+6;比当前时间高四位和最大允许高四位,此时为0
     BCS     L_Scankey_Input_Set_Mode_Usally_Low_Bit_Conutine_12_Hour
     LDA     P_Temp+4
     AND     #0FH
@@ -205,6 +219,9 @@ L_Scankey_Input_Set_Mode_Usally_Low_Bit_RTS_12_Hour:
 L_Scankey_Input_Set_Mode_Usally_Low_Bit_Conutine_12_Hour:
     LDA     P_Temp+6
     ORA     P_Temp+5
+    BNE     L_Scankey_Input_Set_Mode_Usally_Low_Bit_Conutine_12_Hour_1
+    LDA     #1
+L_Scankey_Input_Set_Mode_Usally_Low_Bit_Conutine_12_Hour_1:
     JSR     L_A_HexDToHex
     JSR     L_12_Hour_24_Hour_Prog
     STA		Time_Addr,X
@@ -230,18 +247,23 @@ L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine_Special_12_Hour:
     LDA     P_Temp+4
     AND     #0FH
     CMP     P_Temp+6;将最大值的低四位和对应内存的低四位相比较，小于或等于跳转，否则清零低四位
-    BEQ     L_Scankey_Input_Set_Mode_Usally_High_Bit_RTS_12_Hour
+    BEQ     L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine_Special_12_Hour_1
     BCS     L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine_12_Hour
     LDA     P_Temp+5
     JSR     L_A_HexDToHex
     JSR     L_12_Hour_24_Hour_Prog
     STA		Time_Addr,X
+L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine_Special_12_Hour_1    
     JSR     L_Scankey_Set_Mode_Mode_First_Press_Prog
     RTS
+
 L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine_12_Hour:
     LDA     P_Temp+3;当小于时，直接将按键读取的值给到对应的内存
     AND     #0FH
-    ORA     P_Temp+5
+    ORA     P_Temp+5  
+    BNE     L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine_12_Hour_1
+    LDA     #1
+L_Scankey_Input_Set_Mode_Usally_High_Bit_Countine_12_Hour_1:
     JSR     L_A_HexDToHex
     JSR     L_12_Hour_24_Hour_Prog
     STA		Time_Addr,X

@@ -111,10 +111,12 @@ L_Control_Set_Mode_Clock_Prog_Hr_1:
 ;---------------------------------------------
 ;=============================================
 L_Control_Set_Mode_Clock_Prog_Day:
-    JSR     L_Check_MaxDay_Prog
-    JSR     L_A_HexToHexD
+    ; JSR     L_Check_MaxDay_Prog
+    ; JSR     L_A_HexToHexD.
+    LDA     #31H
     LDX     #(R_Time_Day-Time_Str_Addr)
     JSR     L_Scankey_Input_Set_Mode_Usally_Time_Date
+    JSR     L_Check_MaxDay_Prog
     RTS
 ;=============================================
 ;---------------------------------------------
@@ -123,7 +125,6 @@ L_Control_Set_Mode_Clock_Prog_Month
     LDX     #(R_Time_Month-Time_Str_Addr)
     LDA     #12H
     JSR     L_Scankey_Input_Set_Mode_Usally_Time_Date
-    ; JSR		L_Auto_Counter_Week
     RTS
 ;=============================================
 ;---------------------------------------------
@@ -132,7 +133,6 @@ L_Control_Set_Mode_Clock_Prog_Year
     LDX     #(R_Time_Year-Time_Str_Addr)
     LDA     #99H
     JSR     L_Scankey_Input_Set_Mode_Usally_Time
-    JSR		L_Auto_Counter_Week
     RTS
 
 ;==========================================

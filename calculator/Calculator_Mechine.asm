@@ -29,8 +29,13 @@ L_Output_Prog_First_Output:;按键第一次按下加减乘除符号键所造成�
 ;===============================================================
 L_Output_Prog_First_Output_:;没有数字按下时按下等号键
     JSR     L_COPY_IBUF_TO_BUF1_FD_Prog
-    
+    LDA     OP
+    CMP     #State_SUB
+    BEQ     L_Output_Prog_First_Output_1
+    CMP     #State_Add
+    BEQ     L_Output_Prog_First_Output_1
     JSR     L_Calculator_Calc_Prog
+L_Output_Prog_First_Output_1:
     JMP     L_Display_Calculator_Output
 ;===============================================================
 L_Output_Prog_First_Output_IN:;有数字按下时的输出

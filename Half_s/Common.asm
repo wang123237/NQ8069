@@ -23,7 +23,7 @@ L_Set_Mode_Auto_Exit_OUT:
 L_Auto_To_Clock_Mode_Prog:
 	LDA		R_Mode
 	BEQ		L_Auto_To_Clock_Mode_Prog_Time
-	CMP		#3
+	CMP		#4
 	BNE		L_Auto_To_Clock_Mode_Prog_1
 	RTS
 L_Auto_To_Clock_Mode_Prog_1:
