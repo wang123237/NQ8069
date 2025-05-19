@@ -197,17 +197,27 @@ L_Calculator_State_Involution_Number_Input_Prog_Equal_Press:
     RTS    
 ;========================================
 L_Calculator_State_Involution_Symbol:
+    LDA     Calculator_Symbol_State
+    STA     P_Temp+6
     JSR     Calculator_Input
     LDA     P_Scankey_value
     CMP     #D_NUM_Equal_Press
     BEQ     L_Calculator_State_Involution_Symbol_Equal
     CMP     #MAX_Number_Input
     BCC     L_Calculator_State_Involution_Symbol_Number
+    LDA     #Calculator_State_Symbol_First_Press;一旦符号键按下，将IBUF的内容传送到，BUF1中
+    STA     Calculator_State
+    
     LDA     Calculator_Symbol_State
     STA     OP
-    ; JSR     L_COPY_BUF1_TO_BUF2_FD
-    LDA     #Calculator_State_Symbol_First_Press;一旦符号键按下，将IBUF的内容传送到，BUF1中
-    STA     Calculator_State   
+    CMP     P_Temp+6
+    BNE     L_Calculator_State_Involution_Symbol_RTS
+    JSR     L_Display_lcd_Involution_Prog
+    JSR     L_Copy_BUF1_TO_BBUF_Prog
+    LDA     #Calculator_State_Involution
+    STA     R_Involution
+    STA     Calculator_State
+L_Calculator_State_Involution_Symbol_RTS:
     RTS
 L_Calculator_State_Involution_Symbol_Equal:
     LDA     #0
