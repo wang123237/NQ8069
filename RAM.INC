@@ -278,6 +278,8 @@ Calculator_Symbol_State			DS	1
 Calculator_State_Mechine		DS	1
 ; Calculator_Symbol_State_Equal	DS	1
 ; Loop_Count						DS	1
+
+R_Dis_Date_Time					DS	1
 OP								DS	1;运算
 
 R_Involution					DS	1

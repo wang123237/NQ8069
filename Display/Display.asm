@@ -109,8 +109,20 @@ L_Dispaly_Time_Prog_Set_Mode:
 	LDA		R_Mode_Set
 	CMP		#5
 	BCC		L_Display_Time_Prog_1
+	LDA		R_Dis_Date_Time
+	BNE		L_Dispaly_Time_Prog_Set_Mode_RTS
+L_Dispaly_Time_Prog_Set_Mode_1:
 	JSR		L_Display_Time_Date_Prog
 	RTS
+L_Dispaly_Time_Prog_Set_Mode_RTS:
+	SEC
+	LDA		R_Dis_Date_Time
+	SBC		#1
+	STA		R_Dis_Date_Time
+	BEQ		L_Dispaly_Time_Prog_Set_Mode_1
+	RTS
+
+
 
 
 L_Display_Prog:

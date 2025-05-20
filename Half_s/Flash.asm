@@ -25,6 +25,8 @@ L_SysFlash_Prog_Positive_Timer_RTS:
 	
 L_SysFlash_Set_Mode_Prog:
 	BBR3	Sys_Flag_A,L_SysFlash_Prog_Positive_Timer_RTS
+	LDA		R_Dis_Date_Time
+	BNE		L_SysFlash_Prog_Positive_Timer_RTS
 	JSR		L_CLR_AM_PM_Prog
 	LDA		R_Mode
 	CLC

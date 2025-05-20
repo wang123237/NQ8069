@@ -141,7 +141,9 @@ L_Scankey_Input_Set_Mode_Usally_Low_Bit:
     LDA     P_Temp+6   
     JSR     L_A_HexDToHex
     STA		Time_Addr,X
+    JSR     L_Control_Set_Mode_Date
     JSR     L_Scankey_Set_Mode_Mode_First_Press_Prog
+
     RTS
 L_Scankey_Input_Set_Mode_Usally_Low_Bit_RTS:
     RTS
@@ -150,6 +152,7 @@ L_Scankey_Input_Set_Mode_Usally_Low_Bit_Conutine:
     ORA     P_Temp+5
     JSR     L_A_HexDToHex
     STA		Time_Addr,X
+    JSR     L_Control_Set_Mode_Date
     JSR     L_Scankey_Set_Mode_Mode_First_Press_Prog
     RTS
 ;======================================================

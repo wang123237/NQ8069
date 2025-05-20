@@ -77,6 +77,7 @@ L_Scankey_Set_Press_Prog:
 	JSR		L_Control_SNZ_Close_Prog
 	LDA		#0
 	STA		R_Mode_Set
+	STA		R_Dis_Date_Time
 	SMB3	Sys_Flag_A
 	JSR		L_Display_Set_Mode_Prog
 	LDA		R_Mode

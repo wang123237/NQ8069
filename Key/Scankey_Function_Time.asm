@@ -20,6 +20,8 @@ L_Scankey_Set_Mode_Prog_Clock:
     BEQ     L_Change_12_Clock_24_Clock_Prog_TO;按下加键，改变24小时——12小时制
     CMP     #D_NUM_Point_Press
     BEQ     L_Change_12_24_Prog_PM_AM_TO
+    LDA     R_Dis_Date_Time
+    BNE     L_Clock_First_Press_Prog_OUT
     LDA     R_Mode_Set
     CLD
     CLC
@@ -133,6 +135,21 @@ L_Control_Set_Mode_Clock_Prog_Year
     LDX     #(R_Time_Year-Time_Str_Addr)
     LDA     #99H
     JSR     L_Scankey_Input_Set_Mode_Usally_Time
+    RTS
+
+
+;==========================================
+;==========================================
+L_Control_Set_Mode_Date:
+    LDA     R_Mode
+    BNE     L_Control_Set_Mode_Date_RTS
+    LDA     R_Mode_Set
+    CMP     #4
+    BNE     L_Control_Set_Mode_Date_RTS
+    LDA     #3
+    STA     R_Dis_Date_Time
+    JSR     L_Display_Set_Mode_Prog
+L_Control_Set_Mode_Date_RTS:
     RTS
 
 ;==========================================
