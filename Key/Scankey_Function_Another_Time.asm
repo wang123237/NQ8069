@@ -52,7 +52,7 @@ L_Control_Set_Mode_Another_Clock_Prog_Min:
 
 L_Control_Set_Mode_Another_Clock_Prog_Hr:
     LDX     #(R_Time_Hr_Another-Time_Str_Addr)
-    BBR2    Sys_Flag_B,L_Control_Set_Mode_Another_Clock_Prog_Hr-1
+    BBR2    Sys_Flag_B,L_Control_Set_Mode_Another_Clock_Prog_Hr_1
     LDA     #23H
     JMP     L_Scankey_Input_Set_Mode_Usally
 L_Control_Set_Mode_Another_Clock_Prog_Hr_1:

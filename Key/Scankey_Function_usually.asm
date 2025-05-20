@@ -51,7 +51,7 @@ L_24_Hour_12_Hour_Prog_AM_RTS:
 L_24_Hour_12_Hour_Prog_PM:
     LDA     P_Temp+1
     CMP     #12
-    BNE     L_24_Hour_12_Hour_Prog_AM_RTS
+    BEQ     L_24_Hour_12_Hour_Prog_AM_RTS
     CLC
     ADC     #12
     RTS

@@ -52,8 +52,12 @@ L_Scankey_Set_Mode_Mode_First_Press_Prog_OUT:
 L_Scankey_Set_Mode_Mode_First_Press_Prog_1:
     LDA     #0
     STA     R_Mode_Set
-    JSR     L_Clr_All_DisRam_Prog
-    JMP     L_Display_Prog
+    LDA     R_Mode
+    BNE     L_Scankey_Set_Mode_Mode_First_Press_Prog_2
+    JSR     L_Clr_All_DisRam_Prog     
+L_Scankey_Set_Mode_Mode_First_Press_Prog_2:
+    JSR     L_Display_Prog
+
 
 L_Control_Key_Voice_Prog:
     BBS5    Sys_Flag_C,L_Control_Key_Voice_Prog_Close
@@ -127,16 +131,18 @@ L_Scankey_Input_Set_Mode_Usally_Low_Bit:
     LDA     P_Temp+4
     AND     #F0H
     CMP     P_Temp+6;比较储存的值的高四位和最大值得高四位
-    BCC     L_Scankey_Input_Set_Mode_Usally_Low_Bit_Conutine
+    BCC     L_Scankey_Input_Set_Mode_Usally_Low_Bit_RTS
+    CMP     P_Temp+6
+    BNE     L_Scankey_Input_Set_Mode_Usally_Low_Bit_Conutine
     LDA     P_Temp+4
     AND     #0FH
-    CMP     P_Temp+5;判断当前内存的低四位和最大值的低四位，当小于时，直接将输入的值给到低四位
-    BCC     L_Scankey_Input_Set_Mode_Usally_Low_Bit_RTS
-    LDA     P_Temp+6
-    ORA     P_Temp+5
+    CMP     P_Temp+5
+    BCS     L_Scankey_Input_Set_Mode_Usally_Low_Bit_Conutine
+    LDA     P_Temp+6   
     JSR     L_A_HexDToHex
     STA		Time_Addr,X
     JSR     L_Scankey_Set_Mode_Mode_First_Press_Prog
+    RTS
 L_Scankey_Input_Set_Mode_Usally_Low_Bit_RTS:
     RTS
 L_Scankey_Input_Set_Mode_Usally_Low_Bit_Conutine:
@@ -200,10 +206,11 @@ L_Scankey_Input_Set_Mode_Low_Bit_12_Hour:
     LDA     P_Temp+3
     AND     #F0H        ;保存当前时间的高四位
     STA     P_Temp+6
-    LDA     P_Temp+4
-    AND     #F0H
-    CMP     P_Temp+6;比当前时间高四位和最大允许高四位,此时为0
-    BCS     L_Scankey_Input_Set_Mode_Usally_Low_Bit_Conutine_12_Hour
+    ; LDA     P_Temp+4
+    ; AND     #F0H
+    BEQ     L_Scankey_Input_Set_Mode_Usally_Low_Bit_Conutine_12_Hour
+    ; CMP     P_Temp+6;比当前时间高四位和最大允许高四位,此时为0
+    ; BCC     L_Scankey_Input_Set_Mode_Usally_Low_Bit_Conutine_12_Hour
     LDA     P_Temp+4
     AND     #0FH
     CMP     P_Temp+5;判断当前内存的低四位和最大值的低四位，当小于时，直接将输入的值给到低四位
