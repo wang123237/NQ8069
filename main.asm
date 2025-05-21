@@ -74,23 +74,58 @@ V_RESET:
 	JSR		L_Init_SystemRam_Prog   ;初始化系统RAM并禁用所有断电保留的RAM
 	JSR		L_Dis_All_DisRam_Prog	;初始化系统RAM并禁用所有断电保留的RAM
 ;***************************************开启中断	
-	; SMB0	DIVC
-	; SMB1	DIVC
-	; RMB2	DIVC
+	RMB0	DIVC
+	SMB1	DIVC
+	SMB5	DIVC
 	TMR1_CLK_512Hz;初始化定时器1为256hz,定时器2为512hz
-	LDA		#174
-	STA		TMR2
+	; LDA		#174
+	; STA		TMR2
 	LCD_ON
 	TMR1_ON;半秒计时
 	EN_TMR1_IRQ              ;定时器和LCD使能
 	EN_PA_IRQ;下降沿触发
 	LDA		#$07		;#$07    系统时钟和中断使能
 	STA		SYSCLK		;Strong
+	JSR		L_Clr_All_DisRam_Prog
 	CLI
 	
 ;***********************************************************************
 ;***********************************************************************
 MainLoop:	
+	; LDA		#D_NUM5_Press
+	; STA		P_Scankey_value
+	; JSR		L_Calculator_Frist_Press_Prog
+	; LDA		#D_NUM5_Press
+	; STA		P_Scankey_value
+	; JSR		L_Calculator_Frist_Press_Prog
+	; LDA		#D_NUM5_Press
+	; STA		P_Scankey_value
+	; JSR		L_Calculator_Frist_Press_Prog
+	; LDA		#D_NUM5_Press
+	; STA		P_Scankey_value
+	; JSR		L_Calculator_Frist_Press_Prog
+	; ; LDA		#D_NUM5_Press
+	; ; STA		P_Scankey_value
+	; ; JSR		L_Calculator_Frist_Press_Prog
+	; ; LDA		#D_NUM5_Press
+	; ; STA		P_Scankey_value
+	; ; JSR		L_Calculator_Frist_Press_Prog
+	; ; LDA		#D_NUM5_Press
+	; ; STA		P_Scankey_value
+	; ; JSR		L_Calculator_Frist_Press_Prog
+	; ; LDA		#D_NUM5_Press
+	; ; STA		P_Scankey_value
+	; ; JSR		L_Calculator_Frist_Press_Prog
+	; LDA		#D_NUM_Divid_Press
+	; STA		P_Scankey_value
+	; JSR		L_Calculator_Frist_Press_Prog
+	; LDA		#D_NUM2_Press
+	; STA		P_Scankey_value
+	; JSR		L_Calculator_Frist_Press_Prog
+	; LDA		#D_NUM_Equal_Press
+	; STA		P_Scankey_value
+	; JSR		L_Calculator_Frist_Press_Prog
+	JSR		L_Update_Timer_Ms_Prog
 	JSR		L_LCD_IRQ_WorkProg
 	JSR		L_Half_Second_Prog
 	LDA		R_Voice_Unit
@@ -124,6 +159,8 @@ L_DivIrq:
 L_Timer2Irq:
 	CLR_TMR2_IRQ_FLAG
 	WDTC_CLR	
+	SMB1	Sys_Flag_D
+	INC		R_Timer_X
 	BRA		L_EndIrq
 	
 L_Timer0Irq:

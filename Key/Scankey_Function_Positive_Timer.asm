@@ -24,16 +24,26 @@ L_Positive_Timer_First_Press_Prog_ST_Hour_Press:
 L_Positive_Timer_First_Press_Prog_ST_Hour_Press_1:
     JSR     L_Display_Positive_Timer_Hr_Prog
     RTS
+
+;========================================================
 L_Positive_Timer_First_ST_SP_Press_Prog:
 	BBS0	Sys_Flag_D,L_Positive_Timer_First_SP_Press_Prog
 	SMB0	Sys_Flag_D
-	EN_LCD_IRQ
 	JSR		L_Display_Prog;消除瞄点问题
+	BBS2	Sys_Flag_D,L_Positive_Timer_First_ST_SP_Press_Prog_OUT
+	LDA		#248
+	STA		TMR2
+	SMB2	Sys_Flag_D
+
 L_Positive_Timer_First_ST_SP_Press_Prog_OUT:
+	TMR2_ON
+	EN_TMR2_IRQ
+
 	RTS
 L_Positive_Timer_First_SP_Press_Prog:
 	RMB0	Sys_Flag_D
-	RMB6	Sys_Flag_D
+	TMR2_OFF
+	DIS_TMR2_IRQ
 	BBS5	Sys_Flag_D,L_Positive_Timer_First_SP_Press_Prog_OUT
 	JMP		L_Display_Prog
 L_Positive_Timer_First_SP_Press_Prog_OUT:
@@ -49,7 +59,7 @@ L_Positive_Timer_First_RESET_Press_Prog:
 	STA		R_Timer_Min
 	STA		R_Timer_Hr
 	STA		R_Timer_Ms
-	STA		R_Timer_X_1
+	STA		R_Timer_X
 	STA		Sys_Flag_D
 L_Positive_Timer_Midway_Measurement_1:
 	JMP		L_Display_Prog

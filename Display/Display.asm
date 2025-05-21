@@ -72,8 +72,8 @@ L_Display_Postive_Timer_Normal_Prog:
 	BBS5	Sys_Flag_D,L_Display_Alarm_Normal_Prog;若有中途测量，不显示
 	BBS6	Sys_Flag_A,L_Display_Alarm_Normal_Prog
 	JSR		L_Display_Timer_Ms_Prog
-	LDA		R_Timer_Ms
-	BNE		L_Display_Alarm_Normal_Prog_OUT
+	; LDA		R_Timer_Ms
+	; BNE		L_Display_Alarm_Normal_Prog_OUT
 	JSR		L_Display_Positive_Timer_Sec_Prog
 	LDA		R_Timer_Sec
 	BNE		L_Display_Alarm_Normal_Prog_OUT

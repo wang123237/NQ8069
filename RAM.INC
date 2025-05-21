@@ -51,7 +51,7 @@ Sys_Flag_C				DS	1	;闹钟模式的系统状态
 ; bit7	=1贪睡标志
 Sys_Flag_D				DS	1	;计时器模式的系统状态
 ; bit0 	=1正计时开启计时
-; bit1	=1是倒计时开启计时
+; bit1	=1,32HZ标志
 ; bit2	=1第一次倒计时
 ; bit3	=
 ; bit4 	=定时器闹铃
@@ -139,7 +139,7 @@ R_Timer_Sec						DS	1;定时器显示时间/正计时时间秒数
 R_Timer_Min						DS	1;定时器显示时间/正计时时间分钟
 R_Timer_Hr						DS	1;定时器显示时间/正计时时间小时
 R_Timer_X						DS	1
-R_Timer_X_1						DS	1
+; R_Timer_X_1						DS	1
 
 R_Timer_Hr_Measurement			EQU	BUF4
 R_Timer_Min_Measurement			EQU	BUF4+1
@@ -155,7 +155,7 @@ R_Alarm_Mode					DS	1;闹钟的模式，0是闹钟关闭，1是闹钟开启，2�
 
 
 D_Snz_Time						EQU	5
-D_Snz_Frequency					EQU	6
+D_Snz_Frequency					EQU	7
 
 
 R_Mode_Set					DS	1;设置模式
@@ -281,6 +281,6 @@ Calculator_State_Mechine		DS	1
 
 R_Dis_Date_Time					DS	1
 OP								DS	1;运算
-
+R_Timer_Ms_CMP					DS	1
 R_Involution					DS	1
 .ENDS
