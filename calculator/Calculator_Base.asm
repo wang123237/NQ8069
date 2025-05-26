@@ -83,6 +83,43 @@ L_Move_Left_One_DIG_Prog:;；向左平移了1个DIG位数
     JSR     L_Move_Left_One_Bit_Prog
     JSR     L_Move_Left_One_Bit_Prog
     RTS
+
+;=====================================
+L_Move_Left_One_Bit_Prog_BUF1:
+    CLC
+	ROL		BUF1
+	ROL		BUF1+1
+	ROL		BUF1+2
+	ROL		BUF1+3
+	ROL		BUF1+4
+	ROL		BUF1+5
+	ROL		BUF1+6
+	ROL		BUF1+7
+    RTS
+;====================================
+L_Move_Left_One_Bit_Prog_BUF2:
+    CLC
+	ROL		BUF2
+	ROL		BUF2+1
+	ROL		BUF2+2
+	ROL		BUF2+3
+	ROL		BUF2+4
+	ROL		BUF2+5
+	ROL		BUF2+6
+	ROL		BUF2+7
+    RTS
+;=====================================
+L_Move_Left_One_Bit_Prog_BUF5:
+    CLC
+	ROL		BUF5
+	ROL		BUF5+1
+	ROL		BUF5+2
+	ROL		BUF5+3
+	ROL		BUF5+4
+	ROL		BUF5+5
+	ROL		BUF5+6
+	ROL		BUF5+7
+    RTS
 ;=====================================
 L_Move_Left_Two_DIG_Prog:;向左平移了2个DIG位数
 	LDA		RAM+6,X
@@ -131,6 +168,18 @@ L_Move_Right_One_DIG_Prog:;；向右平移了1个DIG位数
     JSR     L_Move_Right_One_Bit_Prog
     JSR     L_Move_Right_One_Bit_Prog
     JSR     L_Move_Right_One_Bit_Prog
+    RTS
+;=====================================
+L_Move_Right_One_Bit_Prog_BUF1:
+	CLC
+	ROR		BUF1+7
+	ROR		BUF1+6
+	ROR		BUF1+5
+	ROR		BUF1+4
+	ROR		BUF1+3
+	ROR		BUF1+2
+	ROR		BUF1+1
+	ROR		BUF1
     RTS
 ;=====================================
 L_Clear_BUF_Prog:
@@ -407,8 +456,18 @@ L_Copy_To_BUF5:
 	LDA		RAM+7, X
 	STA		BUF5+7
 	RTS
-
-
+L_Judge_BUF1_Prog_Hex_Dex_Prog:
+	LDA		BUF1
+	BNE		L_Judge_BUF1_Prog_Hex_Dex_Prog_RTS
+	ORA		BUF1+1
+	ORA		BUF1+2
+	ORA		BUF1+3
+	ORA		BUF1+4
+	ORA		BUF1+5
+	ORA		BUF1+6
+	ORA		BUF1+7
+L_Judge_BUF1_Prog_Hex_Dex_Prog_RTS
+	RTS
 ;=====================================
 ;	最大十进制999999999999999999999999
 ;	最大十六进制d3c21bcecceda0ffffff
@@ -428,8 +487,9 @@ L_Hex_To_Dec_Prog:
 L_Hex_To_Dec_Prog_Loop:
 	DEC		BUF6
 	BEQ		L_Hex_To_Dec_Prog_RTS
-	LDX		#(BUF1-RAM)
-	JSR		L_Move_Right_One_Bit_Prog
+	JSR		L_Move_Right_One_Bit_Prog_BUF1
+	; LDX		#(BUF1-RAM)
+	; JSR		L_Move_Right_One_Bit_Prog
 	BCC		L_Hex_To_Dec_Prog_Loop_1;右移出C标志位，如果为1则说明此时需要在BUF2中加上权重，
 ;否则跳转改变权重
 	LDX		#(BUF3-RAM)
@@ -437,6 +497,8 @@ L_Hex_To_Dec_Prog_Loop:
 L_Hex_To_Dec_Prog_Loop_1:
 	LDX		#(BUF3-RAM)
 	JSR		L_BUFX_Add_BUF3_TO_BUF3_Prog
+	; JSR		L_Judge_BUF1_Prog_Hex_Dex_Prog
+	; BEQ		L_Hex_To_Dec_Prog_RTS
 	BRA		L_Hex_To_Dec_Prog_Loop
 L_Hex_To_Dec_Prog_RTS:
 	RTS
@@ -461,8 +523,9 @@ L_Dec_To_Hex_Prog:
 L_Dec_To_Hex_Prog_Loop:
 	DEC		BUF6
 	BEQ		L_Dec_To_Hex_Prog_RTS
-	LDX		#(BUF1-RAM)
-	JSR		L_Move_Right_One_Bit_Prog
+	JSR		L_Move_Right_One_Bit_Prog_BUF1
+	; LDX		#(BUF1-RAM)
+	; JSR		L_Move_Right_One_Bit_Prog
 	BCC		L_Dec_To_Hex_Prog_Loop_Add;右移BUF1，1个BIT判断
 	LDX		#(BUF3-RAM);当C标志位为1时，将当前权重加到BUF2上
 	JSR		L_BUFX_Add_BUF2_TO_BUF2_Prog
@@ -487,6 +550,8 @@ L_Dec_To_Hex_Prog_Loop_1:
 L_Dec_To_Hex_Prog_BUFX_Add_BUF4_To_BUF3:
 	LDX		#(BUF4-RAM)
 	JSR		L_BUFX_Add_BUF3_TO_BUF3_Prog
+	; JSR		L_Judge_BUF1_Prog_Hex_Dex_Prog
+	; BEQ		L_Dec_To_Hex_Prog_RTS
 	BRA		L_Dec_To_Hex_Prog_Loop
 L_Dec_To_Hex_Prog_SAVE:
 	LDX		#(BUF3-RAM)
@@ -494,6 +559,8 @@ L_Dec_To_Hex_Prog_SAVE:
 L_Dec_To_HEX_Prog_BUF3_To_BUF3_Prog:
 	LDX		#(BUF3-RAM)
 	JSR		L_BUFX_Add_BUF3_TO_BUF3_Prog
+	; JSR		L_Judge_BUF1_Prog_Hex_Dex_Prog
+	; BEQ		L_Dec_To_Hex_Prog_RTS
 	BRA		L_Dec_To_Hex_Prog_Loop
 L_Dec_To_Hex_Prog_RTS:
 	RTS

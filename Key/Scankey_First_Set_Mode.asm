@@ -100,6 +100,8 @@ L_Scankey_Set_Mode_Set_Press_First_Press_Prog_Time:
     JSR     L_Update_Time_Month_Prog
     LDA     #1
     STA     R_Time_Day
+    LDA     #0
+    STA     R_Dis_Date_Time
 L_Scankey_Set_Mode_Set_Press_First_Press_Prog_Time_1:
     JSR     L_Auto_Counter_Week
     JSR     L_Clr_All_DisRam_Prog

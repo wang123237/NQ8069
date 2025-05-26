@@ -92,39 +92,19 @@ V_RESET:
 ;***********************************************************************
 ;***********************************************************************
 MainLoop:	
-	; LDA		#D_NUM5_Press
+	; LDA		#D_NUM1_Press
 	; STA		P_Scankey_value
 	; JSR		L_Calculator_Frist_Press_Prog
-	; LDA		#D_NUM5_Press
-	; STA		P_Scankey_value
-	; JSR		L_Calculator_Frist_Press_Prog
-	; LDA		#D_NUM5_Press
-	; STA		P_Scankey_value
-	; JSR		L_Calculator_Frist_Press_Prog
-	; LDA		#D_NUM5_Press
-	; STA		P_Scankey_value
-	; JSR		L_Calculator_Frist_Press_Prog
-	; ; LDA		#D_NUM5_Press
-	; ; STA		P_Scankey_value
-	; ; JSR		L_Calculator_Frist_Press_Prog
-	; ; LDA		#D_NUM5_Press
-	; ; STA		P_Scankey_value
-	; ; JSR		L_Calculator_Frist_Press_Prog
-	; ; LDA		#D_NUM5_Press
-	; ; STA		P_Scankey_value
-	; ; JSR		L_Calculator_Frist_Press_Prog
-	; ; LDA		#D_NUM5_Press
-	; ; STA		P_Scankey_value
-	; ; JSR		L_Calculator_Frist_Press_Prog
 	; LDA		#D_NUM_Divid_Press
 	; STA		P_Scankey_value
 	; JSR		L_Calculator_Frist_Press_Prog
-	; LDA		#D_NUM2_Press
+	; LDA		#D_NUM3_Press
 	; STA		P_Scankey_value
 	; JSR		L_Calculator_Frist_Press_Prog
 	; LDA		#D_NUM_Equal_Press
 	; STA		P_Scankey_value
 	; JSR		L_Calculator_Frist_Press_Prog
+
 	JSR		L_Update_Timer_Ms_Prog
 	JSR		L_LCD_IRQ_WorkProg
 	JSR		L_Half_Second_Prog
@@ -133,6 +113,9 @@ MainLoop:
 
 	SMB4	SYSCLK;280k
 	STA		P_HALT	
+	NOP
+	NOP
+	NOP
 	RMB4	SYSCLK;560k
 	BRA		MainLoop		
 

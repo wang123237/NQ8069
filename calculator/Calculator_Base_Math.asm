@@ -146,14 +146,14 @@ L_DIV_Prog_Loop:;调整除数到与被除数对齐
     AND     #080H
     BNE     L_DIV_Prog_LOOP_1    
     INC     BUF6
-    LDX     #(BUF5-RAM)
-    JSR     L_Move_Left_One_Bit_Prog
+    ; LDX     #(BUF5-RAM)
+    JSR     L_Move_Left_One_Bit_Prog_BUF5
     BRA     L_DIV_Prog_Loop
 L_DIV_Prog_LOOP_1:
     DEC     BUF6
     BEQ     L_DIV_Prog_RTS
-    LDX     #(BUF1-RAM)
-    JSR     L_Move_Left_One_Bit_Prog
+    ; LDX     #(BUF1-RAM)
+    JSR     L_Move_Left_One_Bit_Prog_BUF1
     LDX     #(BUF2-RAM)
     JSR     L_BUFX_SUB_BUF5_Prog
     LDA     BUF6+1
@@ -166,8 +166,8 @@ L_DIV_Prog_LOOP_1:
     STA     BUF6+1
     INC     BUF1
 L_DIV_Prog_LOOP_2:
-    LDX     #(BUF2-RAM)
-    JSR     L_Move_Left_One_Bit_Prog
+    ; LDX     #(BUF2-RAM)
+    JSR     L_Move_Left_One_Bit_Prog_BUF2
     ROL     BUF6+1
     BRA     L_DIV_Prog_LOOP_1
 L_DIV_Prog_RTS:

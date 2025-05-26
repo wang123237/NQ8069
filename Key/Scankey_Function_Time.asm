@@ -146,7 +146,7 @@ L_Control_Set_Mode_Date:
     LDA     R_Mode_Set
     CMP     #4
     BNE     L_Control_Set_Mode_Date_RTS
-    LDA     #3
+    LDA     #4
     STA     R_Dis_Date_Time
     JSR     L_Display_Set_Mode_Prog
 L_Control_Set_Mode_Date_RTS:

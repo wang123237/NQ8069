@@ -119,6 +119,7 @@ L_Dispaly_Time_Prog_Set_Mode_RTS:
 	LDA		R_Dis_Date_Time
 	SBC		#1
 	STA		R_Dis_Date_Time
+	LDA		R_Dis_Date_Time
 	BEQ		L_Dispaly_Time_Prog_Set_Mode_1
 	RTS
 

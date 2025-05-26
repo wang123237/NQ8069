@@ -27,7 +27,7 @@ L_Reset_2s_Prog:;全显
 	JSR		L_Clr_All_DisRam_Prog
 	JSR		L_Display_Prog
 	JSR		L_Beep_1s_Usually
-	JSR		L_Positive_Timer_First_ST_SP_Press_Prog
+	; JSR		L_Positive_Timer_First_ST_SP_Press_Prog
 	RTS
 L_End_Reset_2s_Prog:
 	RTS
