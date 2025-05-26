@@ -56,7 +56,7 @@ Sys_Flag_D				DS	1	;计时器模式的系统状态
 ; bit3	=
 ; bit4 	=定时器闹铃
 ; bit5 	=0无中途测量，1中途测量
-; bit6	=
+; bit6	=第一次进入补偿标志
 ; bit7	=
 R_Reset_Time					DS	1;全显时间,一般为2s
 	
@@ -139,7 +139,7 @@ R_Timer_Sec						DS	1;定时器显示时间/正计时时间秒数
 R_Timer_Min						DS	1;定时器显示时间/正计时时间分钟
 R_Timer_Hr						DS	1;定时器显示时间/正计时时间小时
 R_Timer_X						DS	1
-; R_Timer_X_1						DS	1
+R_Timer_X_1						DS	1
 
 R_Timer_Hr_Measurement			EQU	BUF4
 R_Timer_Min_Measurement			EQU	BUF4+1

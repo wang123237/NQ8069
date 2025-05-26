@@ -58,6 +58,7 @@ L_Update_Timer_Ms_Prog:
     BCC     L_Update_Timer_Ms_Prog_Countine_Prog
     SBC     #32
     STA     R_Timer_X
+    SMB7    Sys_Flag_D
     JSR     L_Update_Timer_Ms_Prog_Countine_Prog
     JSR     L_Positive_Timer
     LDA     R_Mode
@@ -78,6 +79,30 @@ L_Control_Timer_Beep_Prog:
     JSR     L_Beep_1s_Usually
 L_Control_Timer_Beep_Prog_RTS:
     RTS
+;================================================
+L_Control_Positive_Timer_Prog:
+	BBR0	Sys_Flag_D,L_Timer_Prog_OUT;正计时未开始
+	BBS6	Sys_Flag_D,L_Control_Positive_Timer_Prog_RTS
+	SMB6	Sys_Flag_D
+	LDA		R_Timer_X
+	STA		R_Timer_X_1
+	JSR		L_Display_Timer_Ms_Prog
+	RTS
+L_Control_Positive_Timer_Prog_RTS:
+	LDA		R_Timer_X_1
+	STA		R_Timer_X
+    TAX     
+    LDA     Table_Timer_Ms,X
+    STA     R_Timer_Ms
+    BBR7    Sys_Flag_D,L_Control_Positive_Timer_Prog_RTS_1
+    RMB7    Sys_Flag_D
+	JSR		L_Display_Timer_Ms_Prog
+	RTS
+L_Control_Positive_Timer_Prog_RTS_1:
+    JSR     L_Positive_Timer
+    RTS
+
+
 
 Table_Timer_Ms:;(32Hz的表)
     .DB     0

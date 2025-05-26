@@ -11,7 +11,7 @@ L_END_Half_Second_Prog:
 ;=================================================================
 L_1Second_Prog:
     RMB1    Sys_Flag_B;清除1秒标志  
-	; JSR		L_Control_Positive_Timer_Prog
+	JSR		L_Control_Positive_Timer_Prog
 	JSR		L_Control_Beep_prog_Auto_Exit
 	JSR     L_Update_Time_Prog
 	JSR		L_Update_Another_Time_Prog
