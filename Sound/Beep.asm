@@ -42,6 +42,7 @@ L_Open_Beep_Prog_1:
 	RTS
 ;==========================================
 L_Scankey_Short_ST_SP_Press_Prog_Alarm:
+	SMB3	Sys_Flag_C
 ;====================================================
 L_Scankey_Close_Alarm_Beep:
 	LDA		Sys_Flag_C
@@ -52,20 +53,25 @@ L_Scankey_Close_Alarm_Beep:
 	STA		R_Voice_Unit
 	STA		R_Close_Beep_Time
 	RMB4	Sys_Flag_C
+	BBS3	Sys_Flag_C,L_Scankey_Close_Alarm_Beep_Close_Snz
 	LDA		R_Snz_Frequency
 	BNE		L_Scankey_Close_Alarm_Beep_2
+L_Scankey_Close_Alarm_Beep_Close_Snz:
 	LDA		#0
 	STA		R_Snz_Time
+	STA		R_Snz_Frequency
 	RMB7	Sys_Flag_C
 L_Scankey_Close_Alarm_Beep_2:
 	LDA		R_Mode
 	CMP		#1
-	BEQ		L_Scankey_Close_Alarm_Beep_OUT
+	BEQ		L_Scankey_Close_Alarm_Beep_Clr_Alarm_Prog
 	JSR		L_Clr_All_DisRam_Prog
 	JSR		L_Display_Prog
 L_Scankey_Close_Alarm_Beep_OUT:	
 	RTS
-
+L_Scankey_Close_Alarm_Beep_Clr_Alarm_Prog:
+	JSR		L_Clr_lcd_Alm_Prog
+	RTS
 
 
 
@@ -81,7 +87,7 @@ L_Control_Beep_prog_Auto_Exit:;多久自动退出响闹,如果没有则按每秒
 	LDA		R_Close_Beep_Time
 	SBC		#1
 	STA		R_Close_Beep_Time;定时器
-	BEQ		L_Scankey_Short_ST_SP_Press_Prog_Alarm
+	BEQ		L_Scankey_Close_Alarm_Beep
 	EN_LCD_IRQ
 	LDA		#2
 	STA		R_Voice_Unit

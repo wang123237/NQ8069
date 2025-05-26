@@ -1,7 +1,8 @@
 RTS_1:
     RTS
 L_DIS_SNZ_Normal_Prog:
-    BBS7    Sys_Flag_C,L_Dis_Alm_Snz_Symbol_Prog_Normal
+    BBR7    Sys_Flag_C,RTS_1
+    JSR     L_Dis_lcd_Snz_Prog
     RTS
 L_Dis_Alm_Snz_Symbol_Noraml_Prog:
     BBS4    Sys_Flag_C,L_Dis_Alm_Snz_Symbol_Prog_Normal

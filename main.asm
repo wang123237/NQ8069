@@ -86,24 +86,11 @@ V_RESET:
 	EN_PA_IRQ;下降沿触发
 	LDA		#$07		;#$07    系统时钟和中断使能
 	STA		SYSCLK		;Strong
-	JSR		L_Clr_All_DisRam_Prog
 	CLI
 	
 ;***********************************************************************
 ;***********************************************************************
 MainLoop:	
-	; LDA		#D_NUM1_Press
-	; STA		P_Scankey_value
-	; JSR		L_Calculator_Frist_Press_Prog
-	; LDA		#D_NUM_Divid_Press
-	; STA		P_Scankey_value
-	; JSR		L_Calculator_Frist_Press_Prog
-	; LDA		#D_NUM3_Press
-	; STA		P_Scankey_value
-	; JSR		L_Calculator_Frist_Press_Prog
-	; LDA		#D_NUM_Equal_Press
-	; STA		P_Scankey_value
-	; JSR		L_Calculator_Frist_Press_Prog
 
 	JSR		L_Update_Timer_Ms_Prog
 	JSR		L_LCD_IRQ_WorkProg

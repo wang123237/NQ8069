@@ -1,8 +1,3 @@
-; L_Timer_Prog:
-    ; BBS4    Sys_Flag_D,L_Timer_Prog_OUT
-    ; BBR2    Sys_Flag_D,L_Timer_Prog_OUT;是否开始计时,根据标志位判断定时器是否开启
-    ; BBR0	Sys_Flag_D,L_Positive_Timer		;判断正计时,根据标志位判断正计时还是倒计时
-	; BRA     L_Desitive_Timer		;判断倒计时	
 L_Update_Timer_Sec_Prog:
     LDX     #(R_Timer_Sec-Time_Str_Addr)
     JMP     L_Inc_To_60_Prog
@@ -24,8 +19,10 @@ L_Positive_Timer:
     JSR     L_Control_Timer_Beep_Prog
     JSR     L_Update_Timer_Min_Prog
     BCC     L_Timer_Prog_OUT
+
     JSR     L_Update_Timer_Hr_Prog
     BCC     L_Timer_Prog_OUT
+
     LDA     #0
     STA     R_Timer_Hr
     STA     R_Timer_Min
@@ -34,7 +31,7 @@ L_Positive_Timer:
     STA     R_Timer_X
 L_Timer_Prog_OUT:
     RTS    
-
+;============================================
 
 
 
@@ -86,6 +83,9 @@ L_Control_Positive_Timer_Prog:
 	SMB6	Sys_Flag_D
 	LDA		R_Timer_X
 	STA		R_Timer_X_1
+    LDA     R_Mode
+    CMP     #4
+    BNE     L_Control_Timer_Beep_Prog_RTS
 	JSR		L_Display_Timer_Ms_Prog
 	RTS
 L_Control_Positive_Timer_Prog_RTS:
@@ -96,6 +96,9 @@ L_Control_Positive_Timer_Prog_RTS:
     STA     R_Timer_Ms
     BBR7    Sys_Flag_D,L_Control_Positive_Timer_Prog_RTS_1
     RMB7    Sys_Flag_D
+    LDA     R_Mode
+    CMP     #4
+    BNE     L_Control_Timer_Beep_Prog_RTS
 	JSR		L_Display_Timer_Ms_Prog
 	RTS
 L_Control_Positive_Timer_Prog_RTS_1:

@@ -9,7 +9,9 @@ L_SysFlash_Prog_RTS:
 L_SysFlash_Alm_Symbol_Prog:
 	BBR4	Sys_Flag_C,L_SysFlash_Prog_RTS
 	JSR		L_Clr_lcd_Alm_Prog
+	RTS
 L_SysFlash_Snz_Symbol_Prog:
+	BBS4	Sys_Flag_C,L_SysFlash_Prog_RTS
 	BBR7	Sys_Flag_C,L_SysFlash_Prog_RTS
 	JSR		L_Clr_lcd_Snz_Prog
 	RTS
