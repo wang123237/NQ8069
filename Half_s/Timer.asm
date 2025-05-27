@@ -68,8 +68,11 @@ L_Update_Timer_Ms_Prog:
 
 
 L_Control_Timer_Beep_Prog:
+    LDA     R_Mode
+    CMP     #4
+    BNE     L_Control_Timer_Beep_Prog_RTS
     LDA     R_Timer_Min
-    JSR     L_A_HexDToHex
+    JSR     L_A_HexToHexD
     AND     #0FH
     CMP     #9
     BNE     L_Control_Timer_Beep_Prog_RTS

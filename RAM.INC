@@ -155,7 +155,7 @@ R_Alarm_Mode					DS	1;闹钟的模式，0是闹钟关闭，1是闹钟开启，2�
 
 
 D_Snz_Time						EQU	5
-D_Snz_Frequency					EQU	7
+D_Snz_Frequency					EQU	6
 
 
 R_Mode_Set					DS	1;设置模式

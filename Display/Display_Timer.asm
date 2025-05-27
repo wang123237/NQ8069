@@ -12,7 +12,10 @@ L_Display_Positive_Timer_Hr_Prog:
 ;=====================================
 L_Display_Timer_Ms_Prog:
 L_Display_Positive_Timer_Ms_Prog:
+	BBS5	Sys_Flag_D,L_Display_Timer_Ms_Prog_RTS
+	BBS6	Sys_Flag_A,L_Display_Timer_Ms_Prog_RTS
 	LDA		R_Timer_Ms
+	
 	JMP		L_Display_lcd_Prog_Normal_Sec
 
 L_Display_Positive_Timer_ST_Prog:
@@ -21,6 +24,7 @@ L_Display_Positive_Timer_ST_Prog:
     LDA     #15
     JSR     L_Display_lcd_d9_Prog_Normal
     JSR     L_Dis_lcd_9H_Prog
+L_Display_Timer_Ms_Prog_RTS:
 	RTS
 L_Display_Positive_Timer_LR_Prog:
     LDA     #20

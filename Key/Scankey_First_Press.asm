@@ -53,7 +53,7 @@ L_Scankey_Mode_Press_Prog_Calculator_1:
 	RTS
 L_Scankey_Mode_Press_Prog_Calculator_Err:
 	SMB7	Sys_Flag_A
-	JSR		L_Clear_Calculator_Prog_ERR
+	; JSR		L_Clear_Calculator_Prog_ERR
 	LDA		#0	
 	STA		ERR
 	JSR		L_Display_Number_BUF1_Prog

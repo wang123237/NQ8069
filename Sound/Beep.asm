@@ -57,6 +57,7 @@ L_Scankey_Close_Alarm_Beep:
 	LDA		R_Snz_Frequency
 	BNE		L_Scankey_Close_Alarm_Beep_2
 L_Scankey_Close_Alarm_Beep_Close_Snz:
+	RMB3	Sys_Flag_C
 	LDA		#0
 	STA		R_Snz_Time
 	STA		R_Snz_Frequency
@@ -71,6 +72,7 @@ L_Scankey_Close_Alarm_Beep_OUT:
 	RTS
 L_Scankey_Close_Alarm_Beep_Clr_Alarm_Prog:
 	JSR		L_Clr_lcd_Alm_Prog
+	JSR		L_Clr_lcd_Snz_Prog
 	RTS
 
 
