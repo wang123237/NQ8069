@@ -173,7 +173,8 @@ L_Calculator_State_Involution_Number_Input_Prog:
     BEQ     L_Calculator_State_Involution_Number_Input_Prog_Equal_Press
 
     JSR     Calculator_Input
-    JSR     L_Output_Prog_Involution_IN
+    ; JSR     L_Output_Prog_Involution_IN
+    JSR     L_Output_Prog_Involution_IN_Symbol
     LDA     #Calculator_State_Symbol_First_Press;此时按下加减乘除键
     STA     Calculator_State;此时BUF1,BUF2已将运算值存储
     

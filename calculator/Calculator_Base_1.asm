@@ -86,6 +86,19 @@ L_COPY_BUF1_TO_IBUF_FD_Prog:
 	LDA		BUF1+IFD
 	STA		IBUF+BFD
 	RTS
+L_COPY_BBUF_TO_BUF2_Prog:
+	JSR		L_Clear_BUF2_FD_Prog
+	LDA		BBUF
+	STA		BUF2
+	LDA		BBUF+1
+	STA		BUF2+1
+	LDA		BBUF+2
+	STA		BUF2+2
+	LDA		BBUF+3
+	STA		BUF2+3
+	LDA		BBUF+BFD
+	STA		BUF2+FD
+	RTS
 ;===========================================
 L_COPY_BUF2_TO_BUF1_FD:
 	LDX		#(BUF2-RAM)

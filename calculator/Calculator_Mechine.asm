@@ -52,12 +52,20 @@ L_Output_Prog_Involution_:;当没有数字输入时，将BUF1送到BUF2，读取
     JMP     L_Display_Calculator_Output
 ;===============================================================
 L_Output_Prog_Involution_IN:
+
     JSR     L_COPY_IBUF_TO_BUF1_FD_Prog
     JSR     L_COPY_BUF1_TO_BUF2_FD
     JSR     L_COPY_BBUF_TO_BUF1_Prog
     JSR     L_Calculator_Calc_Prog
     JMP     L_Display_Calculator_Output
 ;===============================================================
+L_Output_Prog_Involution_IN_Symbol:
+
+    JSR     L_COPY_IBUF_TO_BUF1_FD_Prog
+    ; JSR     L_COPY_BUF1_TO_BUF2_FD
+    JSR     L_COPY_BBUF_TO_BUF2_Prog
+    JSR     L_Calculator_Calc_Prog
+    JMP     L_Display_Calculator_Output
 ;===============================================================
 ;===============================================================
 ;===============================================================
