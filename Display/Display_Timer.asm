@@ -31,7 +31,7 @@ L_Display_Positive_Timer_LR_Prog:
     JSR     L_Display_lcd_d10_Prog_Normal
     LDA     #18
     JSR     L_Display_lcd_d9_Prog_Normal
-    JSR     L_Dis_lcd_9H_Prog
+    ; JSR     L_Dis_lcd_9H_Prog
 	RTS
 
 

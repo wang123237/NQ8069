@@ -48,6 +48,9 @@ L_Scankey_Mode_Press_Prog_Calculator:
 	BEQ		L_Scankey_Mode_Press_Prog_TO_Clock_Mode_1
 L_Scankey_Mode_Press_Prog_Calculator_1:
 	SMB7	Sys_Flag_A
+	LDA		Calculator_State
+	CMP		#Calculator_State_Involution_Input
+	BEQ		L_Scankey_Mode_Press_Prog_Calculator_2
 	JSR		L_Clear_Calculator_Prog
 	JSR		L_Display_Number_IBUF_Prog
 	RTS
@@ -60,3 +63,7 @@ L_Scankey_Mode_Press_Prog_Calculator_Err:
 	
 	RTS
 
+L_Scankey_Mode_Press_Prog_Calculator_2:
+	JSR		L_Clear_IBUF_FD_Prog
+	JSR		L_Display_Number_IBUF_Prog
+	RTS
