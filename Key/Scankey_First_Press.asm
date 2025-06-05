@@ -50,10 +50,19 @@ L_Scankey_Mode_Press_Prog_Calculator_1:
 	SMB7	Sys_Flag_A
 	LDA		Calculator_State
 	CMP		#Calculator_State_Involution_Input
+	BNE		L_Scankey_Mode_Press_Prog_Calculator_2
+	JSR		L_Judge_IBUF_Prog
 	BEQ		L_Scankey_Mode_Press_Prog_Calculator_2
+	JSR		L_Clear_IBUF_FD_Prog
+	JSR		L_Display_Number_IBUF_Prog
+	RTS
+
+L_Scankey_Mode_Press_Prog_Calculator_2:
 	JSR		L_Clear_Calculator_Prog
 	JSR		L_Display_Number_IBUF_Prog
 	RTS
+
+	
 L_Scankey_Mode_Press_Prog_Calculator_Err:
 	SMB7	Sys_Flag_A
 	; JSR		L_Clear_Calculator_Prog_ERR
@@ -61,9 +70,4 @@ L_Scankey_Mode_Press_Prog_Calculator_Err:
 	STA		ERR
 	JSR		L_Display_Number_BUF1_Prog
 	
-	RTS
-
-L_Scankey_Mode_Press_Prog_Calculator_2:
-	JSR		L_Clear_IBUF_FD_Prog
-	JSR		L_Display_Number_IBUF_Prog
 	RTS

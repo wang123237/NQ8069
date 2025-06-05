@@ -170,10 +170,9 @@ L_Calculator_State_Involution_Number_Input_Prog:
     BCC     L_Calculator_State_Involution_Number_Input_Prog_Input_Number
     CMP     #D_NUM_Equal_Press
     BEQ     L_Calculator_State_Involution_Number_Input_Prog_Equal_Press
-
     JSR     Calculator_Input
     ; JSR     L_Output_Prog_Involution_IN
-    JSR     L_Output_Prog_Involution_IN_Symbol
+    ; JSR     L_Output_Prog_Involution_IN_Symbol
     LDA     #Calculator_State_Symbol_First_Press;此时按下加减乘除键
     STA     Calculator_State;此时BUF1,BUF2已将运算值存储
     
@@ -184,8 +183,8 @@ L_Calculator_State_Involution_Number_Input_Prog:
     JSR     Calculator_Input
     JSR     L_Clear_BBUF_Prog
     JSR     L_Clear_BUF2_FD_Prog
-    JSR     L_Clear_IBUF_FD_Prog
-    JSR     L_COPY_BUF1_TO_IBUF_FD_Prog
+    JSR     L_Clear_BUF1_FD_Prog
+    JSR     L_COPY_IBUF_TO_BUF1_FD_Prog
     JSR     L_COPY_BUF1_TO_BUF2_FD
 L_Calculator_State_Involution_Number_Input_Prog_RTS:
     RTS
