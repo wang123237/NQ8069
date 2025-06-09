@@ -18,10 +18,10 @@ L_Calculator_Scankey_Prog:
     PHA
     RTS
 Table_Calculator_State:
-    DW      L_Calculator_Init_Prog-1
-    DW      L_Calculator_State_Symbol_First_Press_Prog-1
-    DW      L_Calculator_State_Input_Prog-1
-    DW      L_Calculator_State_Equal_Press_Prog-1
+    DW      L_Calculator_Init_Prog-1                        ;初始化状态
+    DW      L_Calculator_State_Symbol_First_Press_Prog-1    ;第一次输入加减乘除符号键
+    DW      L_Calculator_State_Input_Prog-1                 ;按下符号键输入数字哦
+    DW      L_Calculator_State_Equal_Press_Prog-1           ;运算后按下等于号
     DW      L_Calculator_State_Involution-1
     DW      L_Calculator_State_Involution_Number_Input_Prog-1
     DW      L_Calculator_State_Involution_Symbol-1;在乘方模式下输入符号键
@@ -130,38 +130,40 @@ L_Calculator_State_Equal_Press_Prog_Number_Press:;当按下等号在按下数字
 ;=======================================================
 L_Calculator_State_Involution:
     LDA     ERR
-    BNE     L_Calculator_State_Involution_RTS;当出现错误时
-
+    BNE     L_Calculator_State_Equal_Press_Prog_RTS
     LDA     P_Scankey_value
-    CMP     #D_NUM_Equal_Press
-    BEQ     L_Calculator_State_Involution_Equal_Press;当按下等号后
     CMP     #MAX_Number_Input
     BCC     L_Calculator_State_Involution_Input_Number
+    CMP     #D_NUM_Equal_Press
+    BEQ     L_Calculator_State_Involution_Equal_Press;当按下等号后
     LDA     #Calculator_State_Involution_Input_Symbol;此时按下加减乘除键
     STA     Calculator_State;此时BUF1,BUF2已将运算值存储
-    JSR     L_Clear_BBUF_Prog
-    JSR     L_Clear_IBUF_FD_Prog
-    ; JSR     L_COPY_BUF1_TO_IBUF_FD_Prog
     LDA     #0
     STA     R_Involution
     JSR     Calculator_Input
-L_Calculator_State_Involution_RTS:
+    ; JSR     
+L_Calculator_State_Involution_Number_Input_Prog_RTS
     RTS
+;-------------------------------------
+
+
+
 L_Calculator_State_Involution_Equal_Press:;无数字自乘
     LDA     #Calc_First_Output_Involution
     STA     Calculator_State_Mechine
     JSR     Calculator_Input
     RTS
 
+
 L_Calculator_State_Involution_Input_Number:
     JSR     L_Clear_IBUF_FD_Prog
-L_Calculator_State_Involution_Number_Input_Prog_Input_Number:
-    JSR     Calculator_Input
     LDA     #Calculator_State_Involution_Input
     STA     Calculator_State
-    RTS
+ L_Calculator_State_Involution_Number_Input_Prog_Input_Number:
+    JSR     Calculator_Input
+    RTS    
 
-;===============================================
+;=========================================================
 L_Calculator_State_Involution_Number_Input_Prog:
     LDA     ERR
     BNE     L_Calculator_State_Involution_Number_Input_Prog_RTS
