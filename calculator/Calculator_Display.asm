@@ -78,7 +78,7 @@ L_Display_NEG_Prog:
 	LDA		DBUF+DFD
 	AND		#080H
 	LJZ		L_Display_NEG_Prog_RTS
-	JE		DINX, 12, L_Display_NEG_Prog_RTS;相等跳转，不相等继续执行
+	JE		DINX, 8, L_Display_NEG_Prog_MAX;相等跳转，不相等继续执行
 	LDA		DINX
 	CLC
 	ROR
@@ -97,6 +97,25 @@ DISP_NEG_L:
 	ORA		#00BH
 	STA		DBUF,X
 L_Display_NEG_Prog_RTS:
+    RTS
+L_Display_NEG_Prog_MAX:
+	JSR		L_Move_Right_One_DIG_Prog_DBUF
+	LDA		DBUF+3
+	AND		#0FH
+	ORA		#B0H
+	STA		DBUF+3
+	JSR		L_Clr_FD_Prog
+	LDA     DBUF+DFD
+    AND     #07FH
+	DEC
+    CLC
+    CLD
+    ROL
+    TAX
+    LDA     Table_FD+1,X
+    PHA
+    LDA     Table_FD,X
+    PHA
     RTS
 ;==============================================================
 ; L_Symbol_Prog:

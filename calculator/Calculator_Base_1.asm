@@ -380,3 +380,26 @@ L_Clear_Calculator_Prog_ERR:
 	JSR		L_Clear_BUF2_FD_Prog
 	JSR		L_Clear_IBUF_FD_Prog
 	RTS
+
+;==============================================
+L_Move_Right_One_Bit_Prog_DBUF:
+	CLC
+	LDA		DBUF+3
+	ROR
+	STA		DBUF+3
+	LDA		DBUF+2
+	ROR
+	STA		DBUF+2
+	LDA		DBUF+1
+	ROR
+	STA		DBUF+1
+	LDA		DBUF
+	ROR
+	STA		DBUF
+	RTS
+L_Move_Right_One_DIG_Prog_DBUF:
+	JSR		L_Move_Right_One_Bit_Prog_DBUF
+	JSR		L_Move_Right_One_Bit_Prog_DBUF
+	JSR		L_Move_Right_One_Bit_Prog_DBUF
+	JSR		L_Move_Right_One_Bit_Prog_DBUF
+	RTS
