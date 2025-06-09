@@ -53,7 +53,7 @@ L_Update_Timer_Ms_Prog:
     LDA     R_Timer_X
     CMP     #32
     BCC     L_Update_Timer_Ms_Prog_Countine_Prog
-    SBC     #32
+    LDA     #0
     STA     R_Timer_X
     SMB7    Sys_Flag_D
     JSR     L_Update_Timer_Ms_Prog_Countine_Prog
