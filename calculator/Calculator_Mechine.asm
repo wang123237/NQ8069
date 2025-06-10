@@ -25,6 +25,7 @@ L_Output_Prog_First_Output:;按键第一次按下加减乘除符号键所造成�
     JSR     L_COPY_BUF1_TO_BUF2_FD 
     LDA     #Calc_Init
     STA     Calculator_State_Mechine
+    JSR     L_Clear_IBUF_FD_Prog
     RTS
 ;===============================================================
 L_Output_Prog_First_Output_:;没有数字按下时按下等号键
@@ -62,7 +63,6 @@ L_Output_Prog_Involution_IN:
 L_Output_Prog_Involution_IN_Symbol:
 
     JSR     L_COPY_IBUF_TO_BUF1_FD_Prog
-    ; JSR     L_COPY_BUF1_TO_BUF2_FD
     JSR     L_COPY_BBUF_TO_BUF2_Prog
     JSR     L_Calculator_Calc_Prog
     JMP     L_Display_Calculator_Output
@@ -77,6 +77,7 @@ L_Output_Prog_Involution_IN_Symbol:
 ;===============================================================
 
 L_Display_Calculator_Output:
+    JSR     L_Clear_IBUF_FD_Prog
     LDA     #Calc_Init
     STA     Calculator_State_Mechine
     JSR     L_COPY_BUF2_TO_BUF1_FD

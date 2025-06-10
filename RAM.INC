@@ -211,7 +211,9 @@ Calculator_State_Input				.EQU	2;计算器按下加减乘除后按下数字的�
 Calculator_State_Equal_Press		.EQU	3;计算器按下等于号的状态
 Calculator_State_Involution			.EQU	4;计算器乘方模式
 Calculator_State_Involution_Input	.EQU	5;计算器乘方模式按键输入
-Calculator_State_Involution_Input_Symbol	.EQU	6
+; Calculator_State_Involution_Input_Symbol	.EQU	6
+Calculator_State_Involution_Equal_Press		.EQU	7
+Calculator_State_Involution_Equal_Press_Input_Number		.EQU	8
 ; Calculator_State_Symbol_Press_Again	.EQU	5;计算器非第一次按下加减乘除符号键
 ; Calculator_Symbol_State	DS	1
 ;=========================================

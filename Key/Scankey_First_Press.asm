@@ -41,16 +41,13 @@ L_Scankey_Mode_Press_Prog_TO_Clock_Mode_1:
 L_Scankey_Mode_Press_Prog_Calculator:
 	
 	LDA		ERR
-	BNE		L_Scankey_Mode_Press_Prog_Calculator_Err
+	BNE		L_Scankey_Mode_Press_Prog_Calculator_Err;清除错误
 	LDA		Calculator_Symbol_State
 	BNE		L_Scankey_Mode_Press_Prog_Calculator_1
 	JSR		L_Judge_BUF1_BUF2_IBUF_Prog
 	BEQ		L_Scankey_Mode_Press_Prog_TO_Clock_Mode_1
 L_Scankey_Mode_Press_Prog_Calculator_1:
 	SMB7	Sys_Flag_A
-	LDA		Calculator_State
-	CMP		#Calculator_State_Involution_Input
-	BNE		L_Scankey_Mode_Press_Prog_Calculator_2
 	JSR		L_Judge_IBUF_Prog
 	BEQ		L_Scankey_Mode_Press_Prog_Calculator_2
 	JSR		L_Clear_IBUF_FD_Prog
@@ -65,7 +62,6 @@ L_Scankey_Mode_Press_Prog_Calculator_2:
 	
 L_Scankey_Mode_Press_Prog_Calculator_Err:
 	SMB7	Sys_Flag_A
-	; JSR		L_Clear_Calculator_Prog_ERR
 	LDA		#0	
 	STA		ERR
 	JSR		L_Display_Number_BUF1_Prog
